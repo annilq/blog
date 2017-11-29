@@ -69,7 +69,7 @@ tags:数据结构
  >- Stack 、Queue相对于链表来说数据结构简单，并且(再大多数语言中)数组的大小是固定的，不容易扩容，链表可以动态扩容
  >- 从Stack 、Queue起点或中间插入或移除元素成本非常高，因为需要移动元素，而链表不需要移动元素
 
-[queue code](/jscode/queue.js)
+[linkedlist code](/jscode/linkedlist.js)
 
 ### Set
 集合是以[值,值]的形式储存元素，是由一组无序且唯一的项组成的
@@ -81,7 +81,6 @@ tags:数据结构
   - clear(): 清空集合
   - size(): 返回集合中的元素数量
   - values(): 返回一个包含集合中所有值的数组
-
 
   集合操作
   - union 并集
