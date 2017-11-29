@@ -2,8 +2,8 @@ class Queue {
   constructor() {
     this.items = [];
   }
-  enqueue(value) {
-    this.items.push(value);
+  enqueue(element) {
+    this.items.push(element);
   }
   dequeue() {
     return this.items.shift();
@@ -30,19 +30,25 @@ queue.enqueue("b");
 console.log(queue.front());
 queue.dequeue();
 console.log(queue.front());
-// 优先队列
+// ----------------构建优先队列-------------------
+class PriorityElement {
+  constructor(element, priority) {
+    this.element = element;
+    this.priority = priority;
+  }
+}
 class PriorityQueue extends Queue {
   constructor() {
     super();
   }
-  enqueue(value, priority = 0) {
-    let node = this.createNode(value, priority);
+  enqueue(element, priority = 0) {
+    let node = new PriorityElement(element, priority);
     // 判断是否已经插入到queue中
     let inserted = false;
     for (let i = 0; i < this.items.length; i++) {
       // 如果插入的优先级比当前的元素的优先级大则插入他前面
       if (node.priority > this.items[i].priority) {
-        this.items.splice(index, 0, node);
+        this.items.splice(i, 0, node);
         inserted = true;
         break;
       }
@@ -52,16 +58,10 @@ class PriorityQueue extends Queue {
       this.items.push(node);
     }
   }
-  createNode(value, priority) {
-    let node = {};
-    node.value = value;
-    node.priority = priority;
-    return node;
-  }
   print() {
     return this.items
       .map(item => {
-        return item.value;
+        return item.element;
       })
       .toString();
   }
