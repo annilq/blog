@@ -4,7 +4,7 @@ tags: nodejs
 ---
 ### 下面是一个客户端发起请求服务器响应请求的案例
 server.js
-```
+```javascript
 var http = require("http");
 http
   .createServer(function(req, res) {
@@ -68,7 +68,7 @@ Buffer.byteLength('Hello', 'utf8') // 5
 ```
 2. 对象格式化成参数字符串 ,obj就是要格式化的对象,必选参数. [sep]指分隔符 默认& , [eq]指分配符 默认=
 ```
-querystring.stringify(obj, [sep], [eq]) 
+querystring.stringify(obj, [sep], [eq])
 querystring.stringify({ foo: 'bar', baz: ['qux', 'quux'], corge: '' })
 // returns 'foo=bar&baz=qux&baz=quux&corge='
 querystring.stringify({foo: 'bar', baz: 'qux'}, ';', ':')

@@ -12,13 +12,13 @@ tags: generator promise
 5. for-of循环每执行一次都会调用可迭代对象的next()方法并将迭代器返回的结果对象的value值存储在一个变量中，指导返回对象的done值为true
 
 ### 访问默认迭代器
-```
+```javascript
 const arr=[1,2,3];
 const iterator=arr[Symbol.iterator]()
 console.log(iterator.next());
 ```
 ### 设置迭代器
-```
+```javascript
 const iter = {
   items: [],
   *[Symbol.iterator]() {
@@ -35,7 +35,7 @@ for (let item of iter) {
 
 ```
 ### 迭代器处理异步问题
-```
+```javascript
 // 处理同步
 function runsync(gen) {
   let iter = gen();

@@ -3,7 +3,7 @@ date: 2016-10-15 21:44:01
 tags: pub sub
 ---
 忘记是参考哪里了
-```
+```javascript
 function Emitter () {
     this._ctx = this
 }
