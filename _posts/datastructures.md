@@ -41,7 +41,6 @@ tags:数据结构
     this.priority=priority;
   }
   ```
- - 循环队列 应用：击鼓传花游戏
 
 [queue code](/jscode/queue.js)
 ### LinkedList
