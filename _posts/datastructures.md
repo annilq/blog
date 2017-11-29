@@ -1,8 +1,8 @@
-title: 几种常见的数据结构
-date: 2017-11-28 21:38:01
-tags:数据结构
+title: javascript数据结构
+date: 2017-11-29 23:22:40
+tags: 数据结构
 ---
-## 几种常见的数据结构
+### 几种常见的数据结构
 1. Stack栈
 2. Queue队列
 3. LinkedList链表
