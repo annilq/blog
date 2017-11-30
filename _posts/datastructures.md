@@ -119,9 +119,11 @@ HashMap方法
 树是一种分层数据的抽象模型，树中的每个元素都叫做节点，位于树顶部的节点叫根节点，每个节点（根节点除外）都有一个父节点以及零个或者多个子节点
 - insert(key):向树中插入一个值
 - search(key):在树中查找一个值，返回true or false
-- inOrderTraverse():中序遍历树节点
-- preOrderTraverse():先序遍历树节点
-- postOrderTraverse():后序遍历树节点
+- inOrderTraverse():中序遍历树节点,是一种从小到大的顺序访问所有节点
+- preOrderTraverse():先序遍历树节点,是一种优先于后代节点的顺序访问每个节点
+- postOrderTraverse():后序遍历树节点，是先访问节点的后代节点，在访问节点本身
 - min():返回树中最小值
 - max():返回树中最大值
 - remove(key):从树中移除某个值
+
+[BinarySearchTree code](/jscode/BinarySearchTree.js)
