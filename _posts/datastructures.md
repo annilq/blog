@@ -88,6 +88,8 @@ tags: 数据结构
   - difference 差集
   - subset 子集
 
+[Set code](/jscode/set.js)
+
 ### Map,HashMap
 #### Map是以[键,值]的形式储存元素
   Map方法
@@ -99,6 +101,7 @@ tags: 数据结构
   - keys():以数组形式返回字典中所有的元素的键
   - values():以数组形式返回字典中所有的元素的值
 
+[Map code](/jscode/map.js)
 #### HashMap的作用是尽可能快地在数据结构中找到一个值，使用HashMap可以知道该值的具体位置而不需要遍历
 HashMap方法
 - put(key,value)
@@ -111,6 +114,7 @@ HashMap方法
   - 分离链接：用链表来存储某个位置的值
   - 线性探索:当某个位置index已经被占据时候，则尝试index+1的位置，以此类推
 
+[HashMap code](/jscode/hashmap.js)
 ### Tree
 树是一种分层数据的抽象模型，树中的每个元素都叫做节点，位于树顶部的节点叫根节点，每个节点（根节点除外）都有一个父节点以及零个或者多个子节点
 - insert(key):向树中插入一个值

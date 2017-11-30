@@ -50,26 +50,8 @@ class LinkedList {
     }
   }
   remove(element) {
-    if (this.head === null) {
-      return false;
-    } else {
-      if (this.head.element == element) {
-        this.head = this.head.next;
-        return true;
-      } else {
-        let current = this.head, removed = false;
-        while (current.next) {
-          let next = current.next;
-          if (next.element == element) {
-            current.next = next.next;
-            removed = true;
-          } else {
-            current = current.next;
-          }
-        }
-        return removed;
-      }
-    }
+    let position = this.indexOf(element);
+    return this.removeAt(position);
   }
   indexOf(element) {
     if (this.head === null) {
@@ -95,9 +77,40 @@ class LinkedList {
       }
     }
   }
-  removeAt(position) {}
-  isEmpty() {}
-  size() {}
+  removeAt(position) {
+    if (position === 0) {
+      let current = this.head;
+      this.head = current.next;
+      return true;
+    } else {
+      let current, index = 0, removed = false;
+      current = this.head;
+      while (current.next) {
+        let next = current.next;
+        index++;
+        if (index === position) {
+          current.next = next.next;
+          removed = true;
+          break;
+        } else {
+          current = current.next;
+        }
+      }
+      return removed;
+    }
+  }
+  isEmpty() {
+    return !this.head;
+  }
+  size() {
+    let sum = 0, current = null;
+    current = this.head;
+    while (current.next) {
+      sum++;
+      current = current.next;
+    }
+    return sum+1;
+  }
   valueOf() {
     this.toString();
   }
@@ -111,9 +124,12 @@ class LinkedList {
     return result + current.element;
   }
 }
-let linklist = new LinkedList();
-linklist.append("a");
-linklist.append("b");
-console.log(linklist.insert(0, "c"));
-console.log(linklist.indexOf("a"));
-console.log(linklist.toString());
+// let linklist = new LinkedList();
+// console.log(linklist.isEmpty());
+// linklist.append("a");
+// linklist.append("b");
+// console.log(linklist.insert(0, "c"));
+// console.log(linklist.size());
+// // console.log(linklist.removeAt(0));
+// console.log(linklist.toString());
+module.exports=LinkedList
