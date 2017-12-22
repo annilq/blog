@@ -29,4 +29,4 @@ tags: 数据结构与算法
   - 接着，算法对划分的小数组重复之前的两个操作，直到数组已经完全排序
 
 
-[code](https://github.com/annilq/blog/tree/master/jscodesort/sort.js)
+[code](https://github.com/annilq/blog/tree/master/jscode/sort/sort.js)

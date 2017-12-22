@@ -22,7 +22,7 @@ tags: 数据结构与算法
 
 应用：十进制转换二进制
 
-[stack code](https://github.com/annilq/blog/tree/master/jscodedatastructrues/stack.js)
+[stack code](https://github.com/annilq/blog/tree/master/jscode/datastructrues/stack.js)
 
 ### Queue
 队列是遵从先进先出原则的一组有序集合
@@ -42,7 +42,7 @@ tags: 数据结构与算法
   }
   ```
 
-[queue code](https://github.com/annilq/blog/tree/master/jscodedatastructrues/queue.js)
+[queue code](https://github.com/annilq/blog/tree/master/jscode/datastructrues/queue.js)
 ### LinkedList
 链表是有序的元素集合，不同于集合，链表中的元素在内存中不是连续放置的，每个元素由一个存储元素本身的节点和一个指向下一个元素的引用组成
  - append(element): 向链表尾处添加一个元素
@@ -69,7 +69,7 @@ tags: 数据结构与算法
  >- Stack 、Queue相对于链表来说数据结构简单，并且(再大多数语言中)数组的大小是固定的，不容易扩容，链表可以动态扩容
  >- 从Stack 、Queue起点或中间插入或移除元素成本非常高，因为需要移动元素，而链表不需要移动元素
 
-[linkedlist code](https://github.com/annilq/blog/tree/master/jscodedatastructrues/linkedlist.js)
+[linkedlist code](https://github.com/annilq/blog/tree/master/jscode/datastructrues/linkedlist.js)
 
 ### Set
 集合是以[值,值]的形式储存元素，是由一组无序且唯一的项组成的
@@ -88,7 +88,7 @@ tags: 数据结构与算法
   - difference 差集
   - subset 子集
 
-[Set code](https://github.com/annilq/blog/tree/master/jscodedatastructrues/set.js)
+[Set code](https://github.com/annilq/blog/tree/master/jscode/datastructrues/set.js)
 
 ### Map,HashMap
 #### Map是以[键,值]的形式储存元素
@@ -101,7 +101,7 @@ tags: 数据结构与算法
   - keys():以数组形式返回字典中所有的元素的键
   - values():以数组形式返回字典中所有的元素的值
 
-[Map code](https://github.com/annilq/blog/tree/master/jscodedatastructrues/map.js)
+[Map code](https://github.com/annilq/blog/tree/master/jscode/datastructrues/map.js)
 #### HashMap的作用是尽可能快地在数据结构中找到一个值，使用HashMap可以知道该值的具体位置而不需要遍历
 HashMap方法
 - put(key,value)
@@ -114,7 +114,7 @@ HashMap方法
   - 分离链接：用链表来存储某个位置的值
   - 线性探索:当某个位置index已经被占据时候，则尝试index+1的位置，以此类推
 
-[HashMap code](https://github.com/annilq/blog/tree/master/jscodedatastructrues/hashmap.js)
+[HashMap code](https://github.com/annilq/blog/tree/master/jscode/datastructrues/hashmap.js)
 ### Tree
 树是一种分层数据的抽象模型，树中的每个元素都叫做节点，位于树顶部的节点叫根节点，每个节点（根节点除外）都有一个父节点以及零个或者多个子节点
 - insert(key):向树中插入一个值
@@ -126,4 +126,4 @@ HashMap方法
 - max():返回树中最大值
 - remove(key):从树中移除某个值
 
-[BinarySearchTree code](https://github.com/annilq/blog/tree/master/jscodedatastructrues/BinarySearchTree.js)
+[BinarySearchTree code](https://github.com/annilq/blog/tree/master/jscode/datastructrues/BinarySearchTree.js)

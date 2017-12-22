@@ -1,0 +1,20 @@
+{
+  "name": "用作当用户被提示安装应用时出现的文本。",
+  "short_name": "用作当应用安装后出现在用户主屏幕上的文本",
+  "start_url": "./index.html",
+  "theme_color": "#FFDF00",
+  "background_color": "#FFDF00",
+  "display": "standalone",
+  "icons": [
+    {
+      "src": "./images/homescreen.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "./images/homescreen-144.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    }
+  ]
+}
