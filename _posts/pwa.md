@@ -66,4 +66,4 @@ icons 字段决定了当 Web 应用被添加到设备主屏幕时所显示的图
 ### 参考
 1. [Progressive Web Apps (PWA) 中文版](http://sangka-z.com/PWA-Book-CN/)
 2. [PWA 在饿了么的实践经验](https://zhuanlan.zhihu.com/p/25800461)
-3. [cache API](https://davidwalsh.name/cache)
+3. [服务工作线程：简介](https://developers.google.com/web/fundamentals/primers/service-workers/)
