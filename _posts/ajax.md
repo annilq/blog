@@ -1,6 +1,6 @@
 title: 前端端处理多个相同ajax请求问题
 date: 2018-01-31 17:36:01
-tags: ajax promise
+tags: ajax 并发
 ---
 ### 结构
 1. 首先定义一个url的set，一个发起请求的列表
