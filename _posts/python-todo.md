@@ -3,7 +3,7 @@ date: 2018-02-13 15:40:20
 tags: python flask
 ---
 #### 项目说明
-一个由后端由flask 与 mongodb提供restful接口，前端由react创建的todo app项目
+一个后端由flask 与 mongodb提供restful接口，前端由react创建的todo app项目
 1. 前端 [项目地址](https://github.com/annilq/react-todos)
     ```javascript
     git clone https://github.com/annilq/react-todos
