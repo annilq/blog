@@ -21,27 +21,14 @@ tags: ajax 并发
 具体代码如下(如果引入rx.js,处理方法会优雅的多)
 
 ```
-import { Request, Api } from "../util";
-
 class Store {
   constructor() {
     this.urlsets = new Set();
     this.fullfill = {};
   }
 
-  _generatorKey(corpId, formCode) {
-    return corpId + formCode;
-  }
-  // 请求数据
-  requestData(corpId, formCode, key) {
-    return Request.get(Api.formview, {
-      corpId,
-      formCode
-    }).then(data => {
-      // 执行之前缓存的resolve方法，并返回data
-      this.handleFulfill(data, key);
-      return data;
-    });
+  _generatorKey(url) {
+    return url
   }
   // 数据回来后一次调用各个promise 的resolve,并重置当前状态
   handleFulfill(data, key) {
@@ -52,8 +39,8 @@ class Store {
     this.urlsets.delete(key);
   }
   // 获取数据信息
-  getConfigData(corpId, formCode) {
-    let key = this._generatorKey(corpId, formCode);
+  getConfigData(url) {
+    let key = this._generatorKey(url);
     // 如果该请求还没有回来就将resolve方法缓存
     if (this.urlsets.has(key)) {
       return new Promise((resolve, reject) => {
@@ -63,7 +50,11 @@ class Store {
       // 没有当前url则发送请求
       this.urlsets.add(key);
       this.fullfill[key] = [];
-      return this.requestData(corpId, formCode, key);
+      return axios.get(url).then(data => {
+        // 执行之前缓存的resolve方法，并返回data
+        this.handleFulfill(data, key);
+        return data;
+      });
     }
   }
 }

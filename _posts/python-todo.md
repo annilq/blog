@@ -14,7 +14,7 @@ tags: python flask
     1. code说明
         1. 0 成功
         2. -1 错误
-        3. -2 过期 
+        3. -2 过期
 
 #### 创建虚拟环境
 1. 创建虚拟环境flask-server
@@ -48,6 +48,7 @@ pip install -r requirements.txt
 1. mongodb查询的返回值是bson数据结构,不能直接用<code>flask</code>的<code>jsonify</code>直接返回
     1. 需要自定义一个自定义一个方法将数据返回 [参考链接](https://github.com/annilq/python/blob/master/others/flask-server/util.py)
     2. 将查询数据中的<code>_id</code>由<code>ObjectId</code>格式转成<code>str</code>格式返回
+
 #### 参考文档
 1. [pymongo](http://api.mongodb.com/python/current/tutorial.html)
 2. [flask-pymongo](http://flask-pymongo.readthedocs.io/en/latest/#flask_pymongo.PyMongo)
