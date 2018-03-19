@@ -1,4 +1,4 @@
-title: 前端端处理多个相同ajax请求问题
+title: 前端处理多个相同ajax请求问题
 date: 2018-01-31 17:36:01
 tags: ajax 并发
 ---

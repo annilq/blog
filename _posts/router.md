@@ -1,4 +1,4 @@
-title:100行实现JavaScript路由器
+title: 100行实现JavaScript路由器
 date: 2018-03-16 11:44:01
 tags: router
 ---
