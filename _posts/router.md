@@ -134,13 +134,12 @@ Router.navigate('/about');
 
 ### react-router中的路由用法
 
-
 react-router中路由提供两个基础的组件```<Link>,<Route>,<Redirect>```
 1.  ```<Route>```,项目初始化的时候```<Route>```组件时候会有两步操作
     1. 会绑定```popstate```事件，如果有事件发生立即刷新组件
     2. 将组件实例加入到观察列表instances当中，方便有```history state```变化的时候将列表中实例重新渲染
 
-2. ```<Link>```组件被点击的时候，调用``` history.pushState({}, null, path)```更新history,并重新渲染观察列表instances里面的route组件，显示对应的组件
+2. ```<Link>```组件被点击的时候，调用 ```history.pushState({}, null, path)```更新history,并重新渲染观察列表instances里面的route组件，显示对应的组件
 2. ```<Redirect >```组件有两个属性```to,path```,用来跳转
 >调用history.pushState()或者history.replaceState()不会触发popstate事件. popstate事件只会在浏览器某些行为下触发, 比如点击后退、前进按钮(或者在JavaScript中调用history.back()、history.forward()、history.go()方法)
 
