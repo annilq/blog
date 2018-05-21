@@ -1,6 +1,6 @@
 title: 简单的promise实现
 date: 2017-10-11 21:40:01
-tags: promise
+tags: ES6 promise
 ---
 [Learn JavaScript Promises by Building a Promise from Scratch](https://medium.com/gitconnected/understand-javascript-promises-by-building-a-promise-from-scratch-84c0fd855720)
 

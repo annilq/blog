@@ -1,8 +1,8 @@
 title: 简单的事件订阅发布
 date: 2016-10-15 21:44:01
-tags: pub sub
+tags: javascript pattern
 ---
-忘记是参考哪里了
+参考朴灵《深入浅出nodejs》
 ```javascript
 function Emitter () {
     this._ctx = this

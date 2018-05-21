@@ -1,6 +1,6 @@
 title: 100行实现JavaScript路由器
 date: 2018-03-16 11:44:01
-tags: router
+tags: react router
 ---
 原文链接
 [A modern JavaScript router in 100 lines](http://krasimirtsonev.com/blog/article/A-modern-JavaScript-router-in-100-lines-history-api-pushState-hash-url)

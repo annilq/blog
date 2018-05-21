@@ -1,6 +1,6 @@
 title: observer pattern小记
 date: 2017-10-11 21:48:01
-tags: observer pattern
+tags: javascript pattern
 ---
 原文[Learning JavaScript Design Patterns](https://addyosmani.com/resources/essentialjsdesignpatterns/book/#observerpatternjavascript)
 ```javascript
