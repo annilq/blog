@@ -1,4 +1,4 @@
-title: 构建自己的前端组件
+title: build your own react
 date: 2018-05-04 15:48:15
 tags: react
 ---
