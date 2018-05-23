@@ -35,6 +35,9 @@
 2. [RegExp对象](http://javascript.ruanyifeng.com/stdlib/regexp.html)
 3. [一行代码实现一个简单的模板字符串替换](https://github.com/jawil/blog/issues/32)
 
+#### javascript 数据结构
+1. [我接触过的前端数据结构与算法](https://zhuanlan.zhihu.com/p/27659059)
+
 ## CSS
 #### css layout
 1. [30 分钟学会 Flex 布局](https://zhuanlan.zhihu.com/p/25303493)
