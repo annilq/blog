@@ -1,11 +1,10 @@
-title: iOS开发记录
-date: 2016-11-15 19:43:21
-tags: iOS开发记录
+title: UIview的控件及属性
+date: 2018-06-06 14:13:21
+tags: iOS
 ---
 ### UIview
-##### 子类的模版会自动生成两个方法
+##### 子类的模版会自动生下面方法
 1. initWithFrame
-2. drawRect
 初始化直接创建初始化子类并且加入到UIwindow中
 
 ```

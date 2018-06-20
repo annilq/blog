@@ -43,6 +43,9 @@
 1. [30 分钟学会 Flex 布局](https://zhuanlan.zhihu.com/p/25303493)
 2. [A guide to learning CSS grid](https://learncssgrid.com/)
 
+# iOS
+1. [iOS开发-图片查看(ScrollView+UIPageControl)](https://yq.aliyun.com/articles/365859)
+
 # other
 ## git
 1. [如何在 Git 里撤销(几乎)任何操作](http://blog.jobbole.com/87700/)
