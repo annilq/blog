@@ -1,9 +1,9 @@
-title: UIview初始化
+title: ios小计
 date: 2016-11-15 19:43:21
 tags: iOS
 ---
 1. 各个组件默认高度
-    1. ````statusbar```:20
+    1. ```statusbar```:20
     2. ```navigationbar``` :44
     3. ```UISegmentedControl``` :44
     4. ```tabbar``` :49
@@ -24,8 +24,6 @@ tags: iOS
     app.window.rootViewController=Maincon;
     ```
 
-
-
 4. 为UIImageView添加Tap手势
 ```UIImageView *imageView =[[UIImageView alloc]initWithFrame:CGRectMake(100, 100, 200, 200)];
     imageView.image=[UIImageimageNamed:@"filter_laozhaopian_a.png"];
@@ -45,4 +43,23 @@ UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:
 imageView.frame = CGRectMake(0, 0, view.bounds.size.width, view.bounds.size.height);
 [view addSubview:imageView];
 [self.view addSubview:view];
+```
+
+6. 与后台交互后回到主进程
+
+```dispatch_async(dispatch_get_main_queue(), ^{
+
+        });
+```
+7. block的定义与使用
+```void (^printBlock)(NSString *x) = ^(NSString* str){
+            NSLog(@"print:%@", str);
+    };
++(void) getDataFrom:(NSString*)httpurl withParams:(NSDictionary *)params andBlock:(void (^)(NSDictionary *))success{}
+ [AppUtil getDataFrom:urlString withParams:nil andBlock:^(NSDictionary *data) {
+        self.catlists=[data valueForKey:@"result"];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.collectionView reloadData];
+        });
+    }];
 ```

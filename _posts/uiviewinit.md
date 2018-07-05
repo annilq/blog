@@ -1,4 +1,4 @@
-title: UIview的控件及属性
+title: UIview初始化
 date: 2018-06-06 14:13:21
 tags: iOS
 ---
