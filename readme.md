@@ -45,6 +45,7 @@
 
 # iOS
 1. [iOS开发-图片查看(ScrollView+UIPageControl)](https://yq.aliyun.com/articles/365859)
+2. [UIEdgeInsetsMake使用详解)](https://www.jianshu.com/p/0d3dbc30fad5)
 
 # other
 ## git
