@@ -1,4 +1,8 @@
 # front-end
+## typescript
+1. [深入理解 TypeScript](https://jkchao.github.io/typescript-book-chinese/)
+2. [TypeScript 入门教程](https://ts.xcatliu.com/)
+
 ## javascript
 #### react
 1. [React in 160 lines of JavaScript](https://medium.com/@sweetpalma/gooact-react-in-160-lines-of-javascript-44e0742ad60f)
