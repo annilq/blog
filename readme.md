@@ -9,6 +9,8 @@
 2. [React 前端组件化](http://huziketang.mangojuice.top/books/react/lesson4)
 3. [JSX can do that](https://engineering.hexacta.com/jsx-can-do-that-1b2666c23a32)
 4. [Build Yourself a Redux](https://zapier.com/engineering/how-to-build-redux/)
+5. [practical-react-hooks-how-to-refactor-your-app-to-use-hooks](https://blog.logrocket.com/practical-react-hooks-how-to-refactor-your-app-to-use-hooks-b1867e7b0a53/)
+6. [usehooks](https://usehooks.com/)
 
 #### router
 1. [A modern JavaScript router in 100 lines](http://krasimirtsonev.com/blog/article/A-modern-JavaScript-router-in-100-lines-history-api-pushState-hash-url)
