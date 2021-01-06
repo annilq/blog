@@ -11,6 +11,8 @@
 4. [Build Yourself a Redux](https://zapier.com/engineering/how-to-build-redux/)
 7. [useEffect 完整指南](https://overreacted.io/zh-hans/a-complete-guide-to-useeffect/ )
 8. [deep-dive-how-do-react-hooks-really-work](https://www.netlify.com/blog/2019/03/11/deep-dive-how-do-react-hooks-really-work/)
+9. [implement-redux-saga](https://scastiel.dev/posts/2019-08-03-lost-redux-saga-reimplement-them/)
+
 #### router
 1. [A modern JavaScript router in 100 lines](http://krasimirtsonev.com/blog/article/A-modern-JavaScript-router-in-100-lines-history-api-pushState-hash-url)
 
