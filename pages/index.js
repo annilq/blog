@@ -1,24 +1,40 @@
+import Head from 'next/head'
+import Layout from '../components/layout'
+import utilStyles from '../styles/utils.module.css'
+import { getSortedPostsData } from '../lib/posts'
 import Link from 'next/link'
+import Date from '../components/date'
 
-function Home() {
+export async function getStaticProps() {
+  const allPostsData = await getSortedPostsData();
+  return {
+    props: {
+      allPostsData
+    }
+  }
+}
+
+export default function Home({ allPostsData }) {
   return (
-    <ul>
-      <li>
-        <Link href="/post/abc">
-          <a>Go to pages/post/[pid].js</a>
-        </Link>
-      </li>
-      <li>
-        <Link href="/post/abc?foo=bar">
-          <a>Also goes to pages/post/[pid].js</a>
-        </Link>
-      </li>
-      <li>
-        <Link href="/post/abc/a-comment">
-          <a>Go to pages/post/[pid]/[comment].js</a>
-        </Link>
-      </li>
-    </ul>
+    <Layout home>
+      {/* Add this <section> tag below the existing <section> tag */}
+      <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
+        <h2 className={utilStyles.headingLg}>Blog</h2>
+        <ul className={utilStyles.list}>
+          {allPostsData.map(({ id, date, title }) => (
+            <li className={utilStyles.listItem} key={id}>
+              <Link href={`/posts/${id}`}>
+                <a>{title}</a>
+              </Link>
+              <br />
+              <small className={utilStyles.lightText}>
+                <Date dateString={date} />
+              </small>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+    </Layout>
   )
 }
-export default Home
