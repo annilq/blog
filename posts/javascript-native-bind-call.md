@@ -1,6 +1,7 @@
+---
 title: 用javascript 实现内部call,bind方法
 date: 2021-05-31 14:31:01
-tags: 2021
+tags: call,bind
 ---
 
 #### call apply,bind 方法实现
