@@ -34,6 +34,10 @@
 2. [ECMAScript 6 入门 async 函数](http://es6.ruanyifeng.com/#docs/async)
 3. [6 Reasons Why JavaScript’s Async/Await Blows Promises Away](https://hackernoon.com/6-reasons-why-javascripts-async-await-blows-promises-away-tutorial-c7ec10518dd9)
 
+#### javascript bundler
+1. [I wrote my module bundler](https://lihautan.com/i-wrote-my-module-bundler/)
+2. [minipack](https://github.com/ronami/minipack)
+
 #### javascript 设计模式
 1. [Learning JavaScript Design Patterns](https://addyosmani.com/resources/essentialjsdesignpatterns/book/#observerpatternjavascript)
 2. [常用的Javascript设计模式](http://web.jobbole.com/29454/)
