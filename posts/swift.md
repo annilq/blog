@@ -6,9 +6,12 @@ tags: swift
 ### json解析
 1. [How To Parse JSON in Swift Using Codable and JSONSerialization](https://www.advancedswift.com/swift-json-without-swiftyjson/)
 
-4. [JSON to Swift with Decoder and Decodable](https://swiftunboxed.com/stdlib/json-decoder-decodable/)
+2. [JSON to Swift with Decoder and Decodable](https://swiftunboxed.com/stdlib/json-decoder-decodable/)
 
-2. [How to parse JSON using JSONSerialization](https://www.fivestars.blog/articles/swift-decodable/)
+3. [How to parse JSON using JSONSerialization](https://www.fivestars.blog/articles/swift-decodable/)
+
+4. [Encoding and Decoding in Swift](https://www.raywenderlich.com/3418439-encoding-and-decoding-in-swift)
+
 
 ### storyboards 
 1. unwind segue should be located in the controller you wish to unwind TO, not the controller you are returning FROM. 
