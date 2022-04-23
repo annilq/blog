@@ -25,3 +25,51 @@ tags: swift
 
 ### defer
 1. defer 所声明的 block 会在当前代码执行退出后被调用。正因为它提供了一种延时调用的方式，所以一般会被用来做资源释放或者销毁，这在某个函数有多个返回出口的时候特别有用 [参考](https://onevcat.com/2018/11/defer/)
+
+### FileManager and  bundle
+```
+func getDocumentDictory()->URL {
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        return paths[0]
+    }
+let stringPath = Bundle.main.path(forResource: "input", ofType: "txt")
+let urlPath = Bundle.main.url(forResource: "input", withExtension: "txt")
+guard let data = try? Data(contentsOf: url) else{}
+<!-- fileurl -->
+guard strings = try? String(contentsOf: startWordsURL)
+<!-- filePath -->
+let contents = try String(contentsOfFile: filepath)
+```
+
+### 协议拓展
+1. [protocol-oriented-programming](https://www.hackingwithswift.com/sixty/9/5/protocol-oriented-programming)
+2. [uitableview-infinite-scrolling](https://www.raywenderlich.com/5786-uitableview-infinite-scrolling-tutorial)
+
+
+### wkwebview
+
+1. [The Ultimate Guide to WKWebView](https://www.hackingwithswift.com/articles/112/the-ultimate-guide-to-wkwebview)
+2. [Two-way communication between an iOS WKWebView and a web page](https://diamantidis.github.io/2020/02/02/two-way-communication-between-ios-wkwebview-and-web-page)
+```javascript
+ this.id = 1;
+    this.handlers = {};
+
+    window.onMessageReceive = (handle, error, data) => {
+      if (error){
+        this.handlers[handle].resolve(data);
+      }else{
+        this.handlers[handle].reject(data);
+      }
+      delete this.handlers[handle];
+    };
+  }
+
+  sendMessage(data) {
+    return new Promise((resolve, reject) => {
+      const handle = 'm'+ this.id++;
+      this.handlers[handle] = { resolve, reject};
+      window.webkit.messageHandlers.<yourHandler>.postMessage({data: data, id: handle});
+    });
+  }
+//   Call the window.onMessageReceive function with appropriate handler id
+```
