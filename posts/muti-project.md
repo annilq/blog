@@ -15,6 +15,7 @@ tags: gitSubmodule svnExternals monorepo npm
 #### monorepo 
 1. monorepo 方式是将多个项目分为主项目以及各个子项目，代码在同一个仓库管理，各个子项目可以互相依赖
 2. git 仓库会比较大 每次运行时候可能会变慢，还不太熟悉
+#### git 分支管理，通过分支merge实现代码共享
 #### npm 
 1. 适合组件与工具共用，开发时候通过npm link实现实时更新
 
