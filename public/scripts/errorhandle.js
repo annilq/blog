@@ -16,6 +16,6 @@ window.onerror = function (msg, url, line, col, error) {
   return suppressErrorAlert;
 };
 
-if (window.JGapp) {
+if (NativeUtil) {
   NativeUtil.use("close");
 }
