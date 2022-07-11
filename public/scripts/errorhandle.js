@@ -16,6 +16,18 @@ window.onerror = function (msg, url, line, col, error) {
   return suppressErrorAlert;
 };
 
-if (NativeUtil) {
-  NativeUtil.use("close");
+// if (NativeUtil) {
+//   NativeUtil.use("close");
+// }
+
+
+function slowdown() {
+  var seconds = 0.5
+  var start = (new Date()).getTime()
+  var end = start
+  while (end - start < seconds * 1000) {
+    end = (new Date()).getTime()
+  }
 }
+
+setInterval(slowdown,1000)
