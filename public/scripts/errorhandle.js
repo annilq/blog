@@ -22,7 +22,6 @@ window.onerror = function (msg, url, line, col, error) {
 
 
 function slowdown() {
-  console.log("slowdown");
   var seconds = 0.5
   var start = (new Date()).getTime()
   var end = start
@@ -31,4 +30,4 @@ function slowdown() {
   }
 }
 
-setInterval(slowdown,10)
+setInterval(slowdown,1000)
