@@ -3,7 +3,6 @@ title: 简单的promise实现
 date: 2017-10-11 21:40:01
 tags: ES6 promise
 ---
-[Learn JavaScript Promises by Building a Promise from Scratch](https://medium.com/gitconnected/understand-javascript-promises-by-building-a-promise-from-scratch-84c0fd855720)
 
 ```javascript
 class PromiseSimple {
@@ -36,7 +35,36 @@ class PromiseSimple {
   onReject(error) {
     this.handleError(error);
   }
+}
 
+PromiseSimple.resolve = function (value) {
+    return new PromiseSimple((resolve, reject) => {
+      return resolve(value)
+    });
+}
+
+PromiseSimple.reject = function promiseAllIterative(values) {
+    return new PromiseSimple((resolve, reject) => {
+      return reject(value)
+    });
+}
+
+PromiseSimple.all = function promiseAllIterative(values) {
+    return new PromiseSimple((resolve, reject) => {
+       let results = [];
+       let completed = 0;
+       
+       values.forEach((value, index) => {
+            PromiseSimple.resolve(value).then(result => {
+                results[index] = result;
+                completed += 1;
+                
+                if (completed == values.length) {
+                    resolve(results);
+                }
+            }).catch(err => reject(err));
+       });
+    });
 }
  function fakeApiBackend() {
     const user = {
@@ -96,3 +124,6 @@ makeApiCall()
   });
 
 ```
+### 参考
+[Learn JavaScript Promises by Building a Promise from Scratch](https://medium.com/gitconnected/understand-javascript-promises-by-building-a-promise-from-scratch-84c0fd855720)
+[implementing-promise-all](https://medium.com/@copperwall/implementing-promise-all-575a07db509a)
