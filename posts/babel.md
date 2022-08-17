@@ -16,5 +16,6 @@ tags: babeljs
 3. @babel/plugin-transform-runtime  的作用是将 helper 和 polyfill 都改为从一个统一的地方引入，减少代码的重复定义，并且引入的对象和全局变量是完全隔离的
 4. @babel-register 实际上为require加了一个钩子（hook），之后所有被 node 引用的 .es6、.es、.jsx 以及 .js 文件都会先被 Babel 转码
 5. @babel/standalone 在浏览器中直接使用
-参考链接
+
+### 参考链接
 [babel](https://babeljs.io/docs/en/)

@@ -1,7 +1,7 @@
 ---
 title: 前端打印注意事项
 date: 2022-07-19 09:53:01
-tags: umi
+tags: print
 ---
 
 ### 页面分页
@@ -13,3 +13,7 @@ break-before
 page-break-before
 page-break-after
 ```
+
+### 参考链接
+[css-printing](https://flaviocopes.com/css-printing/)
+[css-perfect-print-stylesheet](https://www.jotform.com/blog/css-perfect-print-stylesheet-98272/)
