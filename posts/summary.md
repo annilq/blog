@@ -12,7 +12,7 @@ tags: 工作总结
 5. 移动端webview 导航栈返回逻辑处理
 6. 常用react components以及hooks编写
 7. 移动官网使用nextjs ssg生成html
-7. pc官网使用expressjs+gulp+ejs 开发生成html
+8. pc官网使用expressjs+gulp+ejs 开发生成html
 ### 私人实践项目
 1. 小程序跨平台开发实践
 2. react-native实践
