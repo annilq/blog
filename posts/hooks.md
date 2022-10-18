@@ -1,6 +1,6 @@
 ---
-title: react hooks
-date: 2019-09-18 15:30:01
+title: react hooks 怎样工作的
+date: 2022-10-18 17:30:01
 tags: hooks
 ---
 
@@ -26,6 +26,63 @@ tags: hooks
 > React只会在浏览器绘制后运行effects。这使得你的应用更流畅因为大多数effects并不会阻塞屏幕的更新。Effect的清除同样被延迟了。上一次的effect会在重新渲染后被清除
 
 > 组件内的每一个函数（包括事件处理函数，effects，定时器或者API调用等等）会捕获定义它们的那次渲染中的props和state。
+
+#### react hooks 简单实现
+```javascript
+
+const React = (function () {
+  // 每个组件中有多个hook，所以不能用单个变量维护hook的值，应该使用map或者数组来维护hook
+  // 数组解构方便命名，并且可以根据索引存取值(所以hook不能用在循环和条件语句中使用)
+  let hooks=[], currenthook = 0;
+  return {
+    useState(val) {
+      hooks[currenthook] = hooks[currenthook] || val;
+      const currenthooktemp = currenthook
+      const setValue = (newValue) => {
+        hooks[currenthooktemp] = newValue
+      }
+      return [hooks[currenthook++], setValue]
+    },
+    useEffect(callback, deps) {
+      const hasNodeps = !deps;
+      const _deps = hooks[currenthook]
+      const hasChangedDeps = _deps ? !deps.every((item, i) => item === _deps[i]) : true
+
+      if (hasNodeps || hasChangedDeps) {
+        callback()
+        hooks[currenthook] = deps
+      }
+      currenthook++
+    },
+    render(Component) {
+      const Com = Component()
+      Com.render()
+      currenthook = 0
+      return Com
+    }
+  }
+})()
+
+function Counter() {
+  const [count, setCount] = React.useState(0)
+  const [count1, setCount1] = React.useState(1)
+  React.useEffect(
+    () => {
+      console.log(`reactive count ${count},${count1}`);
+    }, [count, count1])
+  return {
+    onClick: () => { setCount(count + 1); setCount1(count1 + 1) },
+    render: () => {
+      console.log("render:", { count });
+    }
+  }
+}
+
+const counter = React.render(Counter)
+counter.onClick()
+React.render(Counter)
+
+```
 ### 参考
 1. [useEffect 完整指南](https://overreacted.io/zh-hans/a-complete-guide-to-useeffect/ )
 2. [deep-dive-how-do-react-hooks-really-work](https://www.netlify.com/blog/2019/03/11/deep-dive-how-do-react-hooks-really-work/)
