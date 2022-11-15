@@ -109,3 +109,39 @@ export async function getStaticProps({ params }) {
 export default Post
 
 ```
+
+### 支持sass,可自定义配置参数
+
+### layout
+1. app layput
+2. page layout
+
+```javascript
+// pages/index.js
+
+import Layout from '../components/layout'
+import NestedLayout from '../components/nested-layout'
+
+export default function Page() {
+  return {
+    /** Your content */
+  }
+}
+
+Page.getLayout = function getLayout(page) {
+  return (
+    <Layout>
+      <NestedLayout>{page}</NestedLayout>
+    </Layout>
+  )
+}
+```
+```javascript
+// pages/_app.js
+export default function MyApp({ Component, pageProps }) {
+  // Use the layout defined at the page level, if available
+  const getLayout = Component.getLayout || ((page) => page)
+
+  return getLayout(<Component {...pageProps} />)
+}
+```
