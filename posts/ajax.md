@@ -21,7 +21,7 @@ tags: ajax 并发
 
 具体代码如下(如果引入rx.js,处理方法会优雅的多)
 
-```
+```javascript
 class Store {
   constructor() {
     this.urlsets = new Set();

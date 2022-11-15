@@ -17,7 +17,7 @@ tags: 移动端适配
 ### 三，适配所有尺寸设备
 1. 计算设备尺寸与UI设计图的比例，最后设置根节点字体大小百分比实现适配
 
-```
+```javascript
  const $document = document.querySelector('html');
       const windowWidth = $document.clientWidth;
       // (如果跟节点初始值是62.5) 
@@ -26,7 +26,7 @@ tags: 移动端适配
 
 ```
 2. 设置<code>viewport</code>页面缩放比例,此方案可以解决1px 边框问题
-```
+```javascript
 (function () {
     var dpr = window.devicePixelRatio;
     var meta = document.createElement('meta');

@@ -4,7 +4,7 @@ date: 2017-03-27 20:50:01
 tags: js与原生交互
 ---
 公司原来的项目是用cordova命令行创建的，页面UI全是web技术画的，目前项目优化将首页以及列表页面用原生重写了，也弃用了之前的cordova架构，但是由于之前页面也需要到与原生交互，我就自己简单写了个方法用来与原生交互
-```
+```javascript
 var NativeUtil = {
   _Callback: {},
   /**
@@ -81,7 +81,7 @@ var NativeUtil = {
 
 ```
 调用方式
-```
+```javascript
 /*异步调用*/
 NativeUtil.use(
   "choosePhoto",
