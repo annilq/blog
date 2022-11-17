@@ -4,38 +4,9 @@ date: 2022-11-11 17:14:01
 tags: nextjs小记
 ---
 
-### 通常访问一个链接是ssr的，但页面可以通过下面两种方式实现client-side navigations 
-1. 使用link实现客户端渲染
-2. router.push('/about')
+### 页面首次渲染是ssr，通过<code>link, router.push('/about')</code>过渡时候是csr
 
-### Script
-1. 页面加载
-```javascript
-import Script from 'next/script'
-
-export default function Dashboard() {
-  return (
-    <>
-      <Script src="https://example.com/script.js" />
-    </>
-  )
-}
-```
-2. 应用加载
-```javascript
-import Script from 'next/script'
-
-export default function MyApp({ Component, pageProps }) {
-  return (
-    <>
-      <Script src="https://example.com/script.js" />
-      <Component {...pageProps} />
-    </>
-  )
-}
-```
-
-### Static Generation with data 
+### ssg
 ssg是在build阶段，所以各种数据需要提前知道，页面动态数据需要用<code>getStaticProps</code>导出，动态路由需要根据<code>getStaticPaths</code>导出
 #### getStaticProps  
 1. always runs on the server and never on the client
@@ -109,6 +80,9 @@ export async function getStaticProps({ params }) {
 export default Post
 
 ```
+### ssr 数据获取[参考](https://refine.dev/blog/next-js-getinitialprops-and-getserversideprops/)
+1. getInitialProps 遗留api,页面同构客户端执行代码时候 ，如果代码中包含数据库逻辑会报错（客户端没有数据库）
+2. getServerSideProps 页面同构客户端执行代码时候 ，会在客户端生成一个服务端api接口调用（可以包含数据库逻辑），运行把结果返回回来
 
 ### 支持sass,可自定义配置参数
 
@@ -145,3 +119,44 @@ export default function MyApp({ Component, pageProps }) {
   return getLayout(<Component {...pageProps} />)
 }
 ```
+### 动态加载
+1. 
+### 自动静态优化
+1. 没有<code>getInitialProps</code><code>getServerSideProps</code>的页面build时候直接生成.html
+2. 使用了<code>getInitialProps</code>的自定义 App组件则会关闭ssg优化
+
+
+## 内置组件
+### Script
+1. 页面加载
+```javascript
+// pages/index.tsx
+import Script from 'next/script'
+
+export default function Dashboard() {
+  return (
+    <>
+      <Script src="https://example.com/script.js" />
+    </>
+  )
+}
+```
+
+2. 应用加载
+```javascript
+//_app.ts
+import Script from 'next/script'
+
+export default function MyApp({ Component, pageProps }) {
+  return (
+    <>
+      <Script src="https://example.com/script.js" />
+      <Component {...pageProps} />
+    </>
+  )
+}
+```
+
+### Image
+1. 本地图片不支持动态加载，需要在顶部用import加载已达到build时分析
+2. 远程加载需指定宽高
