@@ -201,9 +201,14 @@ myObservable3.subscribe({
     console.log(x);
   }
 });
-
-
 ```
+
+#### 高阶Observable ,通常高阶Observable只有一个上游Observable对象，这个Observable对象产生的数据也是Observable对象
+1. concatAll 
+2. mergeAll
+3. concatMap = map+concatAll
+4. mergeMap = map+mergeAll
+5. switchMap = map+switch
 
 ### RxJS实现中涉及的几个概念：
 1. Observable (可观察对象): 表示一个概念，这个概念是一个可调用的未来值或事件的集合。
