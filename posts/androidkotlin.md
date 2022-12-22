@@ -21,3 +21,8 @@ tags: android kotlin
     ```
 5. 将当前fragment与model 加入到binding中，以便view引用data和fun
 6. 多个fragment可以[共享viewMode](https://developer.android.google.cn/topic/libraries/architecture/viewmodel.html?hl=zh-cn#sharing)
+
+
+#### 真机调试
+1. [android oppo 驱动,Android Studio无法连接OPPO](https://blog.csdn.net/weixin_34119722/article/details/117611420)
+2. bios 来安装模拟器
