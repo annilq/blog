@@ -13,7 +13,8 @@ tags: 工作总结
 6. 常用react components以及hooks编写
 7. 移动官网使用nextjs ssg生成html
 8. pc官网使用expressjs+gulp+ejs 开发生成html
+9. TRTC功能接入微信小程序
 ### 私人实践项目
-1. 小程序跨平台开发实践
+1. 使用跨平台技术开发小程序
 2. react-native实践
 3. iOS开发实践
