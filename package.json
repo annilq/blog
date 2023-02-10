@@ -16,5 +16,8 @@
     "remark": "^13.0.0",
     "remark-html": "^13.0.1",
     "remark-highlight.js": "^6.0.0"
+  },
+  "engines":{
+    "node": ">= 18.0.0"
   }
 }
