@@ -26,3 +26,6 @@ tags: android kotlin
 #### 真机调试
 1. [android oppo 驱动,Android Studio无法连接OPPO](https://blog.csdn.net/weixin_34119722/article/details/117611420)
 2. bios 来安装模拟器
+
+#### Android打包
+[Android Studio中生成APK文件、修改设置版本号](https://blog.csdn.net/xiaohelan/article/details/105514531)
