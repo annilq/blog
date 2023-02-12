@@ -43,7 +43,7 @@ PromiseSimple.resolve = function (value) {
     });
 }
 
-PromiseSimple.reject = function promiseAllIterative(values) {
+PromiseSimple.reject = function (values) {
     return new PromiseSimple((resolve, reject) => {
       return reject(value)
     });
