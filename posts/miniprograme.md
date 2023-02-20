@@ -20,3 +20,8 @@ tags: 小程序,公众号
 #### 问题追踪
 1. fail access denied 可能要申请是动态权限
 2. TRTC设置样式高度
+
+#### 配置问题
+resolveAlias 可以配置导入路径映射
+支持npm包导入问题
+miniprogramRoot 小程序根目录
