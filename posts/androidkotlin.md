@@ -22,6 +22,25 @@ tags: android kotlin
 5. 将当前fragment与model 加入到binding中，以便view引用data和fun
 6. 多个fragment可以[共享viewMode](https://developer.android.google.cn/topic/libraries/architecture/viewmodel.html?hl=zh-cn#sharing)
 
+<!-- 图片转换 -->
+```java
+private void rotateImageData(byte[] imageData) {
+    //将byte数组转成Bitmap
+    Bitmap bitmap = BitmapFactory.decodeByteArray(imageData, 0, imageData.length);
+    //获取旋转角度
+    int rotation = getWindowManager().getDefaultDisplay().getRotation();
+    //创建矩阵对象并进行旋转
+    Matrix matrix = new Matrix();
+    if (rotation == Surface.ROTATION_90) {
+        matrix.postRotate(90);
+    } else if (rotation == Surface.ROTATION_270) {
+        matrix.postRotate(270);
+    }
+    Bitmap rotatedBitmap = Bitmap.createBitmap(bitmap, 0, 0,
+            bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+}
+
+```
 
 #### 真机调试
 1. [android oppo 驱动,Android Studio无法连接OPPO](https://blog.csdn.net/weixin_34119722/article/details/117611420)
