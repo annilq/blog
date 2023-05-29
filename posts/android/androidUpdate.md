@@ -66,4 +66,5 @@ tags: android apk update
 ```
 
 ### 参考
-1. [Android-广播的简明介绍](https://zhuanlan.zhihu.com/p/78665063)
+1. [Downloading File properly in Android](https://medium.com/@aungkyawmyint_26195/downloading-file-properly-in-android-d8cc28d25aca)
+1. [install apk depend on different android version](https://stackoverflow.com/questions/39332842/no-activity-found-to-handle-intent-when-using-fileprovider/39333203#39333203)
