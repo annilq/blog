@@ -108,6 +108,6 @@ module.exports = {
 
 #### 参考链接
 
-[Writing local rules for ESLint](https://dev.to/jacobandrewsky/writing-local-rules-for-eslint-58bl)
-[custom-rules](https://eslint.org/docs/latest/extend/custom-rules)
-[astexplorer](https://astexplorer.net/)
+1. [Writing local rules for ESLint](https://dev.to/jacobandrewsky/writing-local-rules-for-eslint-58bl)
+2. [custom-rules](https://eslint.org/docs/latest/extend/custom-rules)
+3. [astexplorer](https://astexplorer.net/)
