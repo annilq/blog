@@ -1,0 +1,113 @@
+---
+title: eslint
+date: 2023-07-07 14:01:01
+tags: eslint
+---
+### 插件目的
+1. 将项目依赖中的
+```
+import ProCard from '@ant-design/pro-card';
+import ProForm from '@ant-design/pro-form';
+```
+等转换成
+```
+import { ProCard, } from '@ant-design/pro-components';
+import { ProForm, } from '@ant-design/pro-components';
+```
+
+
+```javascript
+const filters = [
+  "ProForm",
+  "ProCard",
+  "ProList",
+  "ProDescriptions",
+  "ProTable",
+];
+
+module.exports = {
+  "replaceantdpro-import": {
+    meta: {
+      fixable: "code",
+      docs: {
+        description: "将antd-pro组件的引用都换成antd-proponents",
+        recommended: false,
+      },
+      schema: [],
+    },
+    create(context) {
+      return {
+        ImportDeclaration(node) {
+          // console.log(node);
+          const sourceCode = context.getSourceCode();
+          const tokens = sourceCode.getTokens(node);
+          const replaceTokenIndex = tokens.findIndex((token) =>
+            filters.includes(token.value)
+          );
+
+          if (replaceTokenIndex > -1) {
+            context.report({
+              node,
+              message: `should import from @ant-design/pro-components`,
+              fix(fixer) {
+                const replaceToken = tokens[replaceTokenIndex];
+                const nextToken = tokens[replaceTokenIndex + 1];
+                const moduleToken = tokens.find(
+                  (token) => token.value.indexOf("@ant-design") > -1
+                );
+                const fromToken = tokens.find(
+                  (token) => token.value === "from"
+                );
+                //   如果有其他导入，则将当前token加入到其他导出中，没有则新建导出
+                const otherImportToken = tokens.find(
+                  (token) => token.value === "{"
+                );
+
+                const operations = [];
+
+                if (otherImportToken) {
+                  // console.log("otherImportToken", otherImportToken);
+                  operations.push(
+                    fixer.insertTextAfter(
+                      otherImportToken,
+                      `${replaceToken.value},`
+                    )
+                  );
+                } else {
+                  // console.log("nootherImportToken", fromToken);
+                  operations.push(
+                    fixer.insertTextBefore(
+                      fromToken,
+                      `{ ${replaceToken.value}}`
+                    )
+                  );
+                }
+                //   默认导出后面跟着","则也要删除
+
+                operations.push(fixer.remove(moduleToken));
+                operations.push(fixer.remove(replaceToken));
+                if (nextToken.value === ",") {
+                  operations.push(fixer.remove(nextToken));
+                }
+                operations.push(
+                  fixer.insertTextAfter(
+                    fromToken,
+                    " '@ant-design/pro-components'"
+                  )
+                );
+                return operations;
+              },
+            });
+          }
+        },
+      };
+    },
+  },
+};
+```
+
+#### 参考链接
+
+[Writing local rules for ESLint](https://dev.to/jacobandrewsky/writing-local-rules-for-eslint-58bl)
+[custom-rules](https://eslint.org/docs/latest/extend/custom-rules)
+[astexplorer](https://astexplorer.net/)
