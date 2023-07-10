@@ -17,20 +17,22 @@ import { ProForm, } from '@ant-design/pro-components';
 
 
 ```javascript
-const filters = [
-  "ProForm",
-  "ProCard",
-  "ProList",
-  "ProDescriptions",
-  "ProTable",
+const filters = ['ProForm', 'ProCard', 'ProList', 'ProDescriptions', 'ProTable'];
+const modules = [
+  '@ant-design/pro-card',
+  '@ant-design/pro-descriptions',
+  '@ant-design/pro-form',
+  '@ant-design/pro-layout',
+  '@ant-design/pro-list',
+  '@ant-design/pro-provider',
+  '@ant-design/pro-table',
 ];
-
 module.exports = {
-  "replaceantdpro-import": {
+  'replaceantdpro-import': {
     meta: {
-      fixable: "code",
+      fixable: 'code',
       docs: {
-        description: "将antd-pro组件的引用都换成antd-proponents",
+        description: '将antd-pro组件的引用都换成antd-proponents',
         recommended: false,
       },
       schema: [],
@@ -39,62 +41,46 @@ module.exports = {
       return {
         ImportDeclaration(node) {
           // console.log(node);
+          const operations = [];
           const sourceCode = context.getSourceCode();
           const tokens = sourceCode.getTokens(node);
-          const replaceTokenIndex = tokens.findIndex((token) =>
-            filters.includes(token.value)
+          const fromToken = tokens.find((token) => token.value === 'from');
+          const replaceTokenIndex = tokens.findIndex((token) => filters.includes(token.value));
+          console.log('tokens', tokens);
+          const moduleToken = tokens.find((token) =>
+            modules.find((module) => token.value.indexOf(module) > -1),
           );
-
-          if (replaceTokenIndex > -1) {
+          console.log('moduleToken', moduleToken);
+          if (moduleToken) {
             context.report({
               node,
               message: `should import from @ant-design/pro-components`,
               fix(fixer) {
-                const replaceToken = tokens[replaceTokenIndex];
-                const nextToken = tokens[replaceTokenIndex + 1];
-                const moduleToken = tokens.find(
-                  (token) => token.value.indexOf("@ant-design") > -1
-                );
-                const fromToken = tokens.find(
-                  (token) => token.value === "from"
-                );
-                //   如果有其他导入，则将当前token加入到其他导出中，没有则新建导出
-                const otherImportToken = tokens.find(
-                  (token) => token.value === "{"
-                );
-
-                const operations = [];
-
-                if (otherImportToken) {
-                  // console.log("otherImportToken", otherImportToken);
-                  operations.push(
-                    fixer.insertTextAfter(
-                      otherImportToken,
-                      `${replaceToken.value},`
-                    )
-                  );
-                } else {
-                  // console.log("nootherImportToken", fromToken);
-                  operations.push(
-                    fixer.insertTextBefore(
-                      fromToken,
-                      `{ ${replaceToken.value}}`
-                    )
-                  );
-                }
-                //   默认导出后面跟着","则也要删除
-
                 operations.push(fixer.remove(moduleToken));
-                operations.push(fixer.remove(replaceToken));
-                if (nextToken.value === ",") {
-                  operations.push(fixer.remove(nextToken));
+                operations.push(fixer.insertTextAfter(fromToken, " '@ant-design/pro-components'"));
+                if (replaceTokenIndex > -1) {
+                  const replaceToken = tokens[replaceTokenIndex];
+                  const nextToken = tokens[replaceTokenIndex + 1];
+
+                  //   如果有其他导入，则将当前token加入到其他导出中，没有则新建导出
+                  const otherImportToken = tokens.find((token) => token.value === '{');
+
+                  if (otherImportToken) {
+                    // console.log("otherImportToken", otherImportToken);
+                    operations.push(
+                      fixer.insertTextAfter(otherImportToken, `${replaceToken.value},`),
+                    );
+                  } else {
+                    // console.log("nootherImportToken", fromToken);
+                    operations.push(fixer.insertTextBefore(fromToken, `{ ${replaceToken.value}}`));
+                  }
+                  //   默认导出后面跟着","则也要删除
+
+                  operations.push(fixer.remove(replaceToken));
+                  if (nextToken.value === ',') {
+                    operations.push(fixer.remove(nextToken));
+                  }
                 }
-                operations.push(
-                  fixer.insertTextAfter(
-                    fromToken,
-                    " '@ant-design/pro-components'"
-                  )
-                );
                 return operations;
               },
             });
@@ -104,6 +90,7 @@ module.exports = {
     },
   },
 };
+
 ```
 
 #### 参考链接
