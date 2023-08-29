@@ -10,6 +10,7 @@ tags: prisma
 2. npx prisma generate 根据generator以及 Prisma models生成Prisma Client
 3. npx prisma db pull 会根据远程数据库表来创建本地 Prisma models
 4. npx prisma db push 会根据本地 Prisma models 数据创建远程表
+(如果本地运行程序时候提示没有建表，可通过npx prisma db push将本地models同步到远程数据库实现建表)
 
 ### 参考
 1. [Start from scratch MongoDB](https://www.prisma.io/docs/getting-started/setup-prisma/start-from-scratch/mongodb-typescript-mongodb)
