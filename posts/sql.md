@@ -206,3 +206,16 @@ WHERE <CONDITION>
 -- 清除表数据(比DELETE快)
 TRUNCATE product
 ```
+### UPDATE
+```sql
+UPDATE product
+-- 多列更新
+SET 列名=value,
+    列名=value,
+    列名=value
+WHERE 条件
+-- 多列更新
+UPDATE product
+SET (列名,列名)=(value,value)
+WHERE 条件
+```
