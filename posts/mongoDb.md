@@ -14,14 +14,14 @@ mkdir -p /data/db
 
 Ensure that user account running mongod has correct permissions for the directory:
 
-```
+```sh
 sudo chmod 0755 /data/db
 sudo chown $USER /data/db
 ```
 
 ### start mongodb service to running on the mac.
 
-```
+```sh
 brew services start mongodb
 ```
 

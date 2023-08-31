@@ -57,17 +57,17 @@ Text("Hello World")
 
 ### async func
 1. 
-```
+```swift
 func loaddata() async{}
 ```
 
 2. 使用task modify
-```
+```swift
 .task{
     await loaddata()
 }
 ```
-```
+```swift
 Button("Place Order") {
     Task {
         await placeOrder()

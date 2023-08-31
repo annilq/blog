@@ -32,7 +32,7 @@ http
 
 ```
 client.js
-```
+```javascript
 var http = require("http");
 var querystring = require("querystring");
 var data = { name: "annilq" };
@@ -64,11 +64,11 @@ req.end(querystring.stringify(data));
 ```
 ### 方法说明
 1. Buffer.byteLength方法返回字符串实际占据的字节长度，默认编码方式为utf8。
-```
+```javascript
 Buffer.byteLength('Hello', 'utf8') // 5
 ```
 2. 对象格式化成参数字符串 ,obj就是要格式化的对象,必选参数. [sep]指分隔符 默认& , [eq]指分配符 默认=
-```
+```javascript
 querystring.stringify(obj, [sep], [eq])
 querystring.stringify({ foo: 'bar', baz: ['qux', 'quux'], corge: '' })
 // returns 'foo=bar&baz=qux&baz=quux&corge='

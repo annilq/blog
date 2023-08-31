@@ -8,14 +8,14 @@ tags: eslint
 
 1. 将项目依赖中的
 
-```
+```javascript
 import ProCard from '@ant-design/pro-card';
 import ProForm from '@ant-design/pro-form';
 ```
 
 等转换成
 
-```
+```javascript
 import { ProCard, } from '@ant-design/pro-components';
 import { ProForm, } from '@ant-design/pro-components';
 ```
