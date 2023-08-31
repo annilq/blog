@@ -7,7 +7,7 @@ tags: Swift SwiftUI
 control+i
 ### 视图组合
 一个自定义的View一定要符合View协议
-```Swift
+```swift
 struct CapsuleText: View {
     var text: String
     // View协议有关联类型body 
@@ -19,7 +19,7 @@ struct CapsuleText: View {
 ```
 ### [custom-modifiers](https://www.hackingwithswift.com/books/ios-swiftui/custom-modifiers)
 1. 自定义的modifiers要符合ViewModifier协议
-```Swift
+```swift
 struct Title: ViewModifier {
     func body(content: Content) -> some View {
         content
@@ -33,12 +33,12 @@ struct Title: ViewModifier {
 
 ```
 2. 自定义modifier的两种使用方式
-```Swift
+```swift
 Text("Hello World")
     .modifier(Title())
 
 ```
-```Swift
+```swift
 extension View {
     func titleStyle() -> some View {
         //直接调用函数本身 self.modifier(Title())
@@ -77,7 +77,7 @@ Button("Place Order") {
 
 ### @Bindind @State
 @State 装饰过的变量var可以通过$var 传到子组件中，子组件通过@Binding装饰 var变量实现双向绑定
-```Swift
+```swift
 import SwiftUI
 
 struct PushButton: View {

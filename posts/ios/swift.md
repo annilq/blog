@@ -27,7 +27,7 @@ tags: Swift
 1. defer 所声明的 block 会在当前代码执行退出后被调用。正因为它提供了一种延时调用的方式，所以一般会被用来做资源释放或者销毁，这在某个函数有多个返回出口的时候特别有用 [参考](https://onevcat.com/2018/11/defer/)
 
 ### FileManager and  bundle
-```
+```swift
 func getDocumentDictory()->URL {
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         return paths[0]
