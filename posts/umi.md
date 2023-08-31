@@ -5,7 +5,7 @@ tags: umi
 ---
 
 ### 首先通过以下创建launch.json来调试umi项目
-```
+```json
 {
   "name": "Launch via npm",
   "type": "node",

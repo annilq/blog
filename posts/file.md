@@ -32,7 +32,7 @@ export async function dataUrlToFile(dataUrl: string, fileName: string): Promise<
 ---
 ### 文件导出方法
 #### 1. a 标签导出
-```jsx
+```html
 <a href={item.url} target="_blink" download={item.name}>{item.name}</a>
 ```
 #### 2. 接口返回数据流导出，需要约定好返回数据类型 
