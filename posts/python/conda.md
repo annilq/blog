@@ -11,10 +11,10 @@ tags: Anaconda
 - **Miniconda**：Miniconda是一个较小的Conda发行版，与Anaconda相比，它的安装包更小，并且只包含了最基本的软件包和工具，如Conda本身及其依赖项。Miniconda的目标是提供一个轻量级的发行版，允许用户根据自己的需求自定义安装所需的软件包和环境。通过安装Miniconda，用户可以在需要时选择并安装所需的软件包，从而构建个性化的Python环境。
 
 综上所述，Conda是一个独立的包管理和环境管理系统，而Anaconda和Miniconda分别是基于Conda构建的发行版。Anaconda提供了预安装的Python和科学计算工具，适合快速搭建数据科学环境；而Miniconda则提供了更小、更灵活的发行版，允许用户根据需要自定义配置Python环境和安装软件包。
-
+#### 特别注意 pip安装包会安装全局，多个项目可能有冲突，conda隔离环境后需要用conda install安装，注意从环境文件创建环境
+#### 如果vscode不能识别env则要手动切换python env
 ### Conda的常用命令
 Conda是一个功能强大的包管理系统和环境管理系统。以下是一些常用的Conda命令：
-
 - **创建环境**：
   - 创建一个新环境：`conda create --name myenv`
   - 指定Python版本创建环境：`conda create --name myenv python=3.8`
@@ -31,6 +31,7 @@ Conda是一个功能强大的包管理系统和环境管理系统。以下是一
   - 指定软件包版本安装：`conda install packagename=1.2.3`
   - 更新软件包：`conda update packagename`
   - 卸载软件包：`conda remove packagename`
+  - 卸载所有软件包：`conda remove --all`
 
 - **查找软件包**：
   - 搜索软件包：`conda search packagename`
