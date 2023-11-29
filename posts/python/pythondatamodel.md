@@ -1,5 +1,5 @@
 ---
-title: python data model builders collections.namedtuple,typing.NamedTuple,dataclasses.dataclass
+title: python data model builders: collections.namedtuple,typing.NamedTuple,dataclasses.dataclass
 date: 2023-10-20 13:51:01
 tags: data model builders
 ---
