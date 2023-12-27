@@ -9,11 +9,6 @@
     "prepare": "husky install"
   },
   "lint-staged": {
-    "*.{js}": [
-      "echo 'git commit trigger husky pre-commit hook' ",
-      "eslint --fix",
-      "git add"
-    ],
     "*.{js,jsx,css,md}": [
       "echo 'git commit trigger husky pre-commit hook' ",
       "prettier --write",
