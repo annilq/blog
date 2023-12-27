@@ -10,7 +10,6 @@ tags: git-hook husky
 
 ```javascript
 npx husky-init && npm install
-
 ```
 
 ```javascript
@@ -55,8 +54,6 @@ module.exports = {
   },
 };
 ```
-
-#### 2. 手动安装
 
 [husky get start](https://typicode.github.io/husky/getting-started.html)
 [use lint-staged with husky](https://drag13.io/posts/create-new-nextjs-app-with-prettier-eslint-tests/index.html)
