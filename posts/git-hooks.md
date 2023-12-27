@@ -1,5 +1,5 @@
 ---
-title: use husky to add git pre-commit hook with husky
+title: add git pre-commit hook with husky
 date: 2023-12-27 10:39:01
 tags: git-hook husky
 ---
@@ -41,6 +41,19 @@ npx lint-staged
 
 ```javascript
 npm init @eslint/config
+```
+
+5. nextjs项目如果部署在vercel上面会自动执行eslint,如果想阻止的话(项目早期没使用lint,会有大量代码通不过,新增的lint-staged可以针对修改部分进行lint)可以设置如下配置
+   next.config.js
+
+```
+module.exports = {
+  eslint: {
+    // Warning: This allows production builds to successfully complete even if
+    // your project has ESLint errors.
+    ignoreDuringBuilds: true,
+  },
+};
 ```
 
 #### 2. 手动安装
