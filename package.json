@@ -8,11 +8,6 @@
     "start": "next start",
     "prepare": "husky install"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
   "lint-staged": {
     "*.{js}": [
       "echo 'git commit trigger husky pre-commit hook' ",
