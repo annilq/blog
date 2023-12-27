@@ -9,6 +9,17 @@
     "prepare": "husky install",
     "lint:fix": "eslint --fix"
   },
+  "lint-staged": {
+    "*.{js,jsx,css}": [
+      "echo 'git commit trigger husky pre-commit hook' ",
+      "prettier --write",
+      "eslint --fix"
+    ],
+    "*.{md}": [
+      "echo 'git commit trigger husky pre-commit hook' ",
+      "prettier --write"
+    ]
+  },
   "dependencies": {
     "date-fns": "^2.16.1",
     "gray-matter": "^4.0.2",
