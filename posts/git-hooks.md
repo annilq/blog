@@ -21,18 +21,17 @@ npm install lint-staged --save-dev
 ```json
 {
   "lint-staged": {
-    "*.{js,jsx,css,md}": [
-      "echo 'git commit trigger husky pre-commit hook' ",
-      "prettier --write",
-      "eslint --cache --fix"
-    ]
+    "*.{js,jsx,css,md}": ["prettier --write", "eslint --cache --fix"]
   }
 }
 ```
 
 3. 配置.husky/pre-commit
 
-```javascript
+```bash
+#!/usr/bin/env sh
+. "$(dirname "$0")/_/husky.sh"
+
 npx lint-staged
 ```
 
@@ -57,3 +56,4 @@ module.exports = {
 
 [husky get start](https://typicode.github.io/husky/getting-started.html)
 [use lint-staged with husky](https://drag13.io/posts/create-new-nextjs-app-with-prettier-eslint-tests/index.html)
+[lint-staged](https://github.com/lint-staged/lint-staged#examples)
