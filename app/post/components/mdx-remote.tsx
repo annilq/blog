@@ -1,5 +1,5 @@
 import { MDXRemote, MDXRemoteProps } from 'next-mdx-remote/rsc'
-// import rehypePrettyCode from "rehype-pretty-code";
+import rehypePrettyCode from "rehype-pretty-code";
 
 const components = {
   a: (props: { children: React.ReactNode }) => (
@@ -63,10 +63,10 @@ export function CustomMDX(props: MDXRemoteProps) {
         parseFrontmatter: true,
         mdxOptions: {
           remarkPlugins: [],
-          // rehypePlugins: [rehypePrettyCode],
+          rehypePlugins: [rehypePrettyCode] as any,
         },
       }}
-      // components={{ ...components, ...(props.components || {}) }}
+      components={{ ...components, ...(props.components || {}) } as any}
     />
   )
 }
