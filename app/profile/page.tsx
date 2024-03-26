@@ -2,16 +2,16 @@ export default function Profile() {
     return (
         <div className={`container mx-auto`}>
             Profile
-            <h1>Hi 👋, I'm annilq</h1>
+            <h1>Hi , I'm annilq</h1>
             <h3>A passionate frontend developer from China</h3>
 
-            - 🌱 I’m currently learning **Next.js Flutter**
+            -  I’m currently learning **Next.js Flutter**
 
-            - 📝 I regularly write articles on [https://blog-annilq.vercel.app/](https://blog-annilq.vercel.app/)
+            -  I regularly write articles on [https://blog-annilq.vercel.app/](https://blog-annilq.vercel.app/)
 
-            - 💬 Ask me about **react Next.js**
+            -  Ask me about **react Next.js**
 
-            - 📫 How to reach me **anniliuq@gmail**
+            -  How to reach me **anniliuq@gmail**
 
             <h3>Connect with me:</h3>
             <p>
