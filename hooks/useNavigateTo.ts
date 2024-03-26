@@ -1,15 +1,15 @@
-import { useNavigate } from "react-router-dom";
+import { useRouter } from "next/navigation";
 
 const useNavigateTo = () => {
-  const navigateTo = useNavigate();
+  const router = useRouter();
 
   const navigateToWithViewTransition = (to: string) => {
     const document = window.document as any;
     if (!document.startViewTransition) {
-      navigateTo(to);
+      router.push(to);
     } else {
       document.startViewTransition(() => {
-        navigateTo(to);
+        router.push(to);
       });
     }
   };

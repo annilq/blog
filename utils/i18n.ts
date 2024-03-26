@@ -2,7 +2,7 @@ import { FallbackLngObjList } from "i18next";
 import { useTranslation } from "react-i18next";
 import i18n, { availableLocales, TLocale } from "@/i18n";
 import locales from "../locales/en.json";
-import type { NestedKeyOf } from "@/types/utils/nestedKeyOf.types";
+import type { NestedKeyOf } from "./nestedKeyOf.types";
 
 export const findNearestLanguageMatch = (codename: string): Locale => {
   // Find existing translations for full codes (e.g. "en-US", "zh-Hant")
