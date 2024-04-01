@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default async function Page({ params }: { params: { id: string } }) {
 
-  const { source, title, date } = await getPostData(params.id)
+  const { source, title, date, contentHtml } = await getPostData(params.id)
 
   return (
     <div className="relative w-full h-auto flex flex-col justify-start items-start">
@@ -19,10 +19,11 @@ export default async function Page({ params }: { params: { id: string } }) {
           <div className="text-gray-400">
             <DateLabel date={date} />
           </div>
-          <CustomMDX
+          {/* <CustomMDX
             // h1 now renders with `large-text` className
             source={source}
-          />
+          /> */}
+          <div dangerouslySetInnerHTML={{ __html: contentHtml }}></div>
         </article>
       </div>
     </div>

@@ -1,6 +1,13 @@
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
+// next mdx 
+import { unified } from 'unified'
+import remarkParse from 'remark-parse'
+import remarkRehype from 'remark-rehype'
+import rehypeSanitize from 'rehype-sanitize'
+import rehypeStringify from 'rehype-stringify'
+import rehypePrettyCode from "rehype-pretty-code";
 
 export interface PostMeta {
   name: string
@@ -9,7 +16,7 @@ export interface PostMeta {
 }
 
 export interface Post extends PostMeta {
-  // contentHtml: string | TrustedHTML
+  contentHtml: string | TrustedHTML
   source: string
 }
 
@@ -27,6 +34,19 @@ function parsemdContent(dir: string, fileName: string) {
   return matterResult
 }
 
+export async function parseContent(mdxString: string): Promise<string> {
+  const file = await unified()
+    .use(remarkParse) // Convert into markdown AST
+    .use(remarkRehype) // Transform to HTML AST
+    .use(rehypeSanitize) // Sanitize HTML input
+    .use(rehypePrettyCode, {
+      // See Options section below.
+    })
+    .use(rehypeStringify) // Convert AST into serialized HTML
+    .process(mdxString)
+
+  return String(file)
+}
 function getPostMeta(dir: string, fileName: string): PostMeta {
   const name = fileName.replace(/\.mdx$/, "");
 
@@ -71,16 +91,34 @@ export function getAllPostsMetaData() {
   return allPostsData.sort((a, b) => new Date(b.date).valueOf() - new Date(a.date).valueOf());
 }
 
+// export async function getPostData(name: string): Promise<Post> {
+
+//   const fileContents = await getPostContent(name)
+//   // Use gray-matter to parse the post metadata section
+//   const matterResult = matter(fileContents);
+
+
+//   // Combine the data with the id and contentHtml
+//   return {
+//     name,
+//     source: fileContents,
+//     title: matterResult.data.title,
+//     date: matterResult.data.date.toISOString(),
+//   };
+// }
 export async function getPostData(name: string): Promise<Post> {
 
   const fileContents = await getPostContent(name)
   // Use gray-matter to parse the post metadata section
   const matterResult = matter(fileContents);
 
+  const contentHtml = await parseContent(matterResult.content);
 
   // Combine the data with the id and contentHtml
   return {
     name,
+    contentHtml,
+    ...matterResult.data,
     source: fileContents,
     title: matterResult.data.title,
     date: matterResult.data.date.toISOString(),

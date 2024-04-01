@@ -36,7 +36,7 @@ export async function getStaticProps() {
 #### getStaticPaths
 1. getStaticPaths 必须和 getStaticProps 一起用
 2. 返回值
-    #### paths:[{params:{a:1,id:1}}]
+    #### ```paths:[{params:{a:1,id:1}}]```
       1. 如果页面名字是 pages/posts/[postId]/[commentId],  params 需包含 postId and commentId.
       2. If the page name uses catch-all routes like pages/[...slug], then params should contain slug (which is an array). If this array is ['hello', 'world'], then Next.js will statically generate the page at /hello/world.
 
