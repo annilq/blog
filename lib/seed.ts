@@ -2,29 +2,48 @@ import prisma from '@/lib/prisma'
 import { getAllPostsData } from './util';
 import { Post, Prisma } from '@prisma/client';
 
-export const seedData = async () => {
+export const seedPosts = async () => {
 
-  const users = await prisma.user.findMany({});
-  const authorId = users[0]?.id
   const matters = getAllPostsData()
   const postsData: Prisma.PostCreateInput[] = matters?.map(matterData => ({
     title: String(matterData.data.title),
     content: matterData.content,
     createdAt: matterData.data.date,
-    categorys: {
-      create: [
-        { name: matterData.data.tags },
-      ]
-    },
-    authorId,
+    // categorys: {
+    //   createMany: { data: [{ name: matterData.data.tags ?? "other" }] },
+    //   skipDuplicates: true,
+    // },
     published: true,
   })) as unknown as Post[]
 
-  const posts = await prisma.post.createMany({
+  const categorysData: Prisma.CategoryCreateInput[] = matters?.map(matterData => ({
+    name: String(matterData.data.tags),
+  }))
+
+  const createdPoustCount = await prisma.post.createMany({
     data: postsData
   });
+
+  const createdCategorysCount = await prisma.category.createMany({
+    data: categorysData,
+    skipDuplicates: true,
+  });
+
+  const createdPosts = await prisma.post.findMany({})
+  const createdCategorys = await prisma.category.findMany({})
+
+  for (const post of createdPosts) {
+    await prisma.post.update({
+      where: { id: post.id },
+      data: {
+        categorys: {
+          connect: createdCategorys.map((createdCategory: { id: any; }) => ({ id: createdCategory.id }))
+        }
+      }
+    });
+  }
 
   return await prisma.post.findMany({})
 }
 
-seedData()
+seedPosts()

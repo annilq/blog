@@ -22,7 +22,7 @@ export interface Post extends PostMeta {
 
 const postsDirectory = path.join(process.cwd(), "public", "posts");
 
-function parsemdContent(dir: string, fileName: string) {
+function parseMDContent(dir: string, fileName: string) {
   // Read markdown file as string
   const fullPath = path.join(dir, fileName);
   const fileContents = fs.readFileSync(fullPath, "utf8");
@@ -36,8 +36,8 @@ function parsemdContent(dir: string, fileName: string) {
 
 export async function parseContent(mdxString: string): Promise<string> {
   const file = await unified()
-    .use(remarkParse) // Convert into markdown AST
-    .use(remarkRehype) // Transform to HTML AST
+    .use(remarkParse as any) // Convert into markdown AST
+    .use(remarkRehype as any) // Transform to HTML AST
     .use(rehypeSanitize) // Sanitize HTML input
     .use(rehypePrettyCode, {
       // See Options section below.
@@ -51,7 +51,7 @@ function getPostMeta(dir: string, fileName: string): PostMeta {
   const name = fileName.replace(/\.mdx$/, "");
 
   // Use gray-matter to parse the post metadata section
-  const matterResult = parsemdContent(dir, fileName)
+  const matterResult = parseMDContent(dir, fileName)
 
   // Combine the data with the id
   return {
@@ -129,7 +129,7 @@ export async function getPostData(name: string): Promise<Post> {
 export function getAllPostsData() {
   // Get file names under /posts
   const fileNames = getPostsFromDir(postsDirectory);
-  const allPostsData = fileNames.map(({ dir, fileName }) => parsemdContent(dir, fileName));
+  const allPostsData = fileNames.map(({ dir, fileName }) => parseMDContent(dir, fileName));
 
   // Sort posts by date
   return allPostsData.sort((a, b) => new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf());
