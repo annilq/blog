@@ -22,8 +22,9 @@ a {
 article a {
   display: block;
 }
+
 article a::after {
-  content:  attr(data-count number, 0) '. ';
+  content: attr(data-count number, 0) '. ';
 }
 
 @layer base {
@@ -72,4 +73,13 @@ article a::after {
 html,
 body {
   font-family: Inter var, ui-sans-serif, system-ui, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+}
+
+body::-webkit-scrollbar {
+  /* background: aquamarine; */
+  width: 1px;
+}
+
+body::-webkit-scrollbar-thumb {
+  background: rgb(126, 166, 240);
 }

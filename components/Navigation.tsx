@@ -49,7 +49,7 @@ const Navigation = () => {
           <ActiveLink
             className={cn(
               "flex flex-row items-center text-foreground")}
-            activeClassName="text-black"
+            activeClassName="drop-shadow	"
             key={navLink.id}
             href={navLink.path}
           >
