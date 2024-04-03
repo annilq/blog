@@ -3,7 +3,7 @@ import Link from "next/link";
 import DateLabel from "./components/Date";
 
 export default async function Post() {
-  // const data = getAllPostsMetaData();
+
   const data = await prisma.post.findMany({});
 
   return (
