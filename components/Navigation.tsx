@@ -16,38 +16,43 @@ const Navigation = () => {
   const t = useTranslate();
   const { sm } = useResponsiveWidth();
 
-  const homeNavLink: NavLinkItem = {
-    id: "header-home",
-    path: "/",
-    title: t("common.home"),
-    icon: <Icon.Home className="w-6 h-auto opacity-70" />,
-  };
 
-  const profileNavLink: NavLinkItem = {
-    id: "header-profile",
-    path: "/profile",
-    title: t("common.profile"),
-    icon: <Icon.User2 className="w-6 h-auto opacity-70" />,
-  };
-
-  const navLinks: NavLinkItem[] = [homeNavLink, profileNavLink]
+  const navLinks: NavLinkItem[] = [
+    {
+      id: "header-home",
+      path: "/",
+      title: t("common.home"),
+      icon: <Icon.Home className="w-6 h-auto opacity-70" />,
+    },
+    {
+      id: "header-post",
+      path: "/post",
+      title: t("common.post"),
+      icon: <Icon.Home className="w-6 h-auto opacity-70" />,
+    },
+    {
+      id: "header-profile",
+      path: "/profile",
+      title: t("common.profile"),
+      icon: <Icon.User2 className="w-6 h-auto opacity-70" />,
+    }]
 
   return (
     <header
       className={cn(
-        "py-4 z-30 hide-scrollbar sticky w-full",
+        "py-4 z-30 hide-scrollbar sticky w-full font-bold text-lg ",
       )}
     >
-      <div className={cn("flex justify-start items-start ", sm ? "space-x-2" : "space-y-2 flex-col")}>
+      <div className={cn("flex justify-start items-start ", sm ? "space-x-4" : "space-y-2 flex-col")}>
         {navLinks.map((navLink) => (
           <ActiveLink
             className={cn(
-              "rounded-2xl flex flex-row items-center text-lg")}
-            activeClassName="bg-white drop-shadow-sm dark:bg-zinc-800 dark:border-zinc-700"
+              "flex flex-row items-center text-foreground")}
+            activeClassName="text-black"
             key={navLink.id}
             href={navLink.path}
           >
-            <span>{navLink.title}</span>
+            {navLink.title}
           </ActiveLink>
         ))}
       </div>

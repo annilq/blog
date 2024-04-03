@@ -1,23 +1,25 @@
 "use client"
 
-import { Button, IconButton, Tooltip } from "@mui/joy";
-import useLocalStorage from "react-use/lib/useLocalStorage";
-import Icon from "@/components/Icon";
 import Navigation from "@/components/Navigation";
 
 import useResponsiveWidth from "@/hooks/useResponsiveWidth";
 
 import MobileHeader from "./MobileHeader";
+import ThemeToggle from "./ThemeToggle";
 
 function Layout(props: { children: React.ReactNode }) {
   const { sm } = useResponsiveWidth();
 
   return (
-    <main className="container max-w-4xl transition-all mx-auto">
+    <main>
       {sm && (
         <div
-          className={"group flex justify-start items-start select-none border-r z-2"}>
-          <Navigation />
+          className={"flex"}>
+          <div
+            className={"flex flex-1 group justify-start items-start font-bold text-lg select-none z-2 py-6"}>
+            <Navigation />
+          </div>
+          <ThemeToggle />
         </div>
       )}
       {!sm && <MobileHeader />}

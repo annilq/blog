@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { Snackbar } from "@mui/joy";
 import useSnackbar from "@/store/useSnackbar";
+import { ThemeProvider } from 'next-themes'
 
 const ClientContext = ({ children }: { children: React.ReactNode }) => {
     const { message, openSnackbar, setOpenSnackbar } = useSnackbar();
@@ -20,19 +21,22 @@ const ClientContext = ({ children }: { children: React.ReactNode }) => {
     }
 
     return (
+
         isMounted ? (
-            <>
-                {children}
-                <Snackbar
-                    anchorOrigin={{ vertical: "top", horizontal: "center" }}
-                    open={openSnackbar}
-                    autoHideDuration={3000}
-                    onClose={() => { setOpenSnackbar(false, ""); }}
-                    className="top-32"
-                >
-                    {message}
-                </Snackbar>
-            </>
+            <ThemeProvider attribute="data-theme">
+                <>
+                    {children}
+                    <Snackbar
+                        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+                        open={openSnackbar}
+                        autoHideDuration={3000}
+                        onClose={() => { setOpenSnackbar(false, ""); }}
+                        className="top-32"
+                    >
+                        {message}
+                    </Snackbar>
+                </>
+            </ThemeProvider>
         ) : <div>isMounting</div>
     );
 };

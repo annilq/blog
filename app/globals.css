@@ -2,9 +2,74 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+  --background: white;
+  --foreground: black;
+  --link: theme("colors.blue.500")
+}
+
+[data-theme='dark'] {
+  --background: black;
+  --foreground: white;
+  --link: theme("colors.white")
+}
+
+a {
+  color: var(--link)
+}
+
+article a {
+  display: block;
+}
+article a::after {
+  content:  attr(data-count number, 0) '. ';
+}
+
+@layer base {
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-bold my-4
   }
+
+  h1 {
+    @apply text-4xl
+  }
+
+  h2 {
+    @apply text-3xl
+  }
+
+  h3 {
+    @apply text-2xl
+  }
+
+  h4 {
+    @apply text-xl
+  }
+
+  p,
+  ol,
+  ul,
+  pre,
+  code {
+    @apply my-4
+  }
+
+  pre {
+    @apply overflow-auto
+  }
+
+  code>span {
+    @apply mx-4
+  }
+}
+
+
+html,
+body {
+  font-family: Inter var, ui-sans-serif, system-ui, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
 }
