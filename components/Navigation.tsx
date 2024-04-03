@@ -3,6 +3,7 @@ import Icon from "./Icon";
 import { cn } from "@/utils/utils";
 import ActiveLink from "./ActiveLink";
 import useResponsiveWidth from "@/hooks/useResponsiveWidth";
+import ThemeToggle from "./ThemeToggle";
 
 interface NavLinkItem {
   id: string;
@@ -40,10 +41,10 @@ const Navigation = () => {
   return (
     <header
       className={cn(
-        "py-4 z-30 hide-scrollbar sticky w-full font-bold text-lg ",
+        "flex py-4 z-30 hide-scrollbar sticky w-full font-bold text-lg ",
       )}
     >
-      <div className={cn("flex justify-start items-start ", sm ? "space-x-4" : "space-y-2 flex-col")}>
+      <div className={cn("flex-1 flex justify-start items-start ", sm ? "space-x-4" : "space-y-2 flex-col")}>
         {navLinks.map((navLink) => (
           <ActiveLink
             className={cn(
@@ -56,6 +57,7 @@ const Navigation = () => {
           </ActiveLink>
         ))}
       </div>
+      {sm && <ThemeToggle />}
     </header >
   );
 };

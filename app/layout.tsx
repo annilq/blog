@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 const RootLayout: React.ComponentType<PropsWithChildren> = ({ children }) => (
   <html lang="zh-cn">
-    <body className="h-full text-foreground bg-background container max-w-4xl transition-all mx-auto px-10">
+    <body className="h-full text-foreground bg-background container max-w-4xl transition-all mx-auto px-2 lg:px-2">
       <ClientContext>
         <Layout>
           {children}

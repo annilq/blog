@@ -23,16 +23,16 @@ const NavigationDrawer = () => {
   };
 
   return (
-    <>
+    <div className="flex gap-2">
       <IconButton onClick={toggleDrawer(true)}>
-        <Icon.Menu className="w-5 h-auto dark:text-gray-400" />
+        <Icon.Menu className="w-5 h-auto" />
       </IconButton>
       <Drawer anchor="left" size="sm" open={open} onClose={toggleDrawer(false)}>
-        <div className="w-full h-full overflow-auto px-4 bg-white dark:bg-zinc-900">
+        <div className="w-full h-full overflow-auto px-4">
           <Navigation />
         </div>
       </Drawer>
-    </>
+    </div>
   );
 };
 

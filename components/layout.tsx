@@ -5,7 +5,7 @@ import Navigation from "@/components/Navigation";
 import useResponsiveWidth from "@/hooks/useResponsiveWidth";
 
 import MobileHeader from "./MobileHeader";
-import ThemeToggle from "./ThemeToggle";
+import { Divider } from "@mui/joy";
 
 function Layout(props: { children: React.ReactNode }) {
   const { sm } = useResponsiveWidth();
@@ -13,17 +13,16 @@ function Layout(props: { children: React.ReactNode }) {
   return (
     <main>
       {sm && (
-        <div
-          className={"flex"}>
+        <>
           <div
-            className={"flex flex-1 group justify-start items-start font-bold text-lg select-none z-2 py-6"}>
+            className={"flex flex-1 group justify-start items-start select-none z-2 py-4"}>
             <Navigation />
           </div>
-          <ThemeToggle />
-        </div>
+          <Divider />
+        </>
       )}
       {!sm && <MobileHeader />}
-      <div className="w-full min-h-full flex flex-col justify-start items-center pb-8">
+      <div className="w-full min-h-full flex flex-col justify-start items-center pb-8 mt-4">
         {props.children}
       </div>
     </main>
