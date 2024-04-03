@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "seed": "npx tsx ./lib/seed.ts"
   },
   "dependencies": {
     "@emotion/react": "^11.11.3",
@@ -16,6 +17,7 @@
     "@mui/icons-material": "^5.15.10",
     "@mui/joy": "^5.0.0-beta.28",
     "@next/mdx": "^14.1.0",
+    "@prisma/client": "^5.12.0",
     "@types/mdx": "^2.0.11",
     "clsx": "^2.1.0",
     "copy-to-clipboard": "^3.3.3",
@@ -27,6 +29,7 @@
     "next": "14.1.0",
     "next-mdx-remote": "^4.4.1",
     "next-themes": "^0.3.0",
+    "prisma": "^5.12.0",
     "react": "^18",
     "react-dom": "^18",
     "react-hot-toast": "^2.4.1",
