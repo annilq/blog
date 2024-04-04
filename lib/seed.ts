@@ -16,8 +16,8 @@ export const seedPosts = async () => {
     published: true,
   })) as unknown as Post[]
 
-  const categorysData: Prisma.CategoryCreateInput[] = matters?.map(matterData => ({
-    name: String(matterData.data.tags),
+  const categorysData: Prisma.CategoryCreateInput[] = matters?.filter(matterData => !!matterData.data.tags).map(matterData => ({
+    name: matterData.data.tags,
   }))
 
   const createdPoustCount = await prisma.post.createMany({
@@ -33,11 +33,16 @@ export const seedPosts = async () => {
   const createdCategorys = await prisma.category.findMany({})
 
   for (const post of createdPosts) {
+
+    const matterData = matters.find(matterData => matterData.data.title === post.title)
+
     await prisma.post.update({
       where: { id: post.id },
       data: {
         categorys: {
-          connect: createdCategorys.map((createdCategory: { id: any; }) => ({ id: createdCategory.id }))
+          // connect: createdCategorys.map((createdCategory: { id: any; }) => ({ id: createdCategory.id }))
+          connect: createdCategorys.filter((createdCategory) => createdCategory.name === matterData?.data.tags).map((createdCategory) => ({ id: createdCategory.id }))
+
         }
       }
     });

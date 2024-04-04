@@ -27,6 +27,9 @@ export default async function Page({ params }: Props) {
   const post = await prisma.post.findFirst({
     where: {
       id: params.id
+    },
+    include:{
+      categorys:true
     }
   })
 
@@ -38,7 +41,7 @@ export default async function Page({ params }: Props) {
         <article>
           <h1 className="text-4xl font-bold my-4">{post?.title}</h1>
           <div className="text-gray-400">
-            <DateLabel date={post?.createdAt!} />
+            {post?.createdAt && <DateLabel date={post?.createdAt!} />}
           </div>
           <div dangerouslySetInnerHTML={{ __html: contentHtml }}></div>
         </article>
