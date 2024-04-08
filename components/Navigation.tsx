@@ -32,9 +32,9 @@ const Navigation = () => {
       icon: <Icon.Home className="w-6 h-auto opacity-70" />,
     },
     {
-      id: "header-profile",
-      path: "/profile",
-      title: t("common.profile"),
+      id: "header-about",
+      path: "/about",
+      title: t("common.about"),
       icon: <Icon.User2 className="w-6 h-auto opacity-70" />,
     }]
 

@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { Snackbar } from "@mui/joy";
 import useSnackbar from "@/store/useSnackbar";
 import { ThemeProvider } from 'next-themes'
+import { CssVarsProvider } from '@mui/joy/styles';
 
 const ClientContext = ({ children }: { children: React.ReactNode }) => {
     const { message, openSnackbar, setOpenSnackbar } = useSnackbar();
@@ -24,18 +25,20 @@ const ClientContext = ({ children }: { children: React.ReactNode }) => {
 
         isMounted ? (
             <ThemeProvider attribute="data-theme">
-                <>
-                    {children}
-                    <Snackbar
-                        anchorOrigin={{ vertical: "top", horizontal: "center" }}
-                        open={openSnackbar}
-                        autoHideDuration={3000}
-                        onClose={() => { setOpenSnackbar(false, ""); }}
-                        className="top-32"
-                    >
-                        {message}
-                    </Snackbar>
-                </>
+                <CssVarsProvider>
+                    <>
+                        {children}
+                        <Snackbar
+                            anchorOrigin={{ vertical: "top", horizontal: "center" }}
+                            open={openSnackbar}
+                            autoHideDuration={3000}
+                            onClose={() => { setOpenSnackbar(false, ""); }}
+                            className="top-32"
+                        >
+                            {message}
+                        </Snackbar>
+                    </>
+                </CssVarsProvider>
             </ThemeProvider>
         ) : <div>isMounting</div>
     );

@@ -1,8 +1,7 @@
 {
   "about": {
-    "about-memos": "关于 Memos",
-    "memos-description": "Memos 是一个基于网页的笔记应用程序，您可以使用它来编写、组织和共享笔记。",
-    "no-server-description": "没有为此服务器配置描述。",
+    "about-this": "关于 本站",
+    "description": "本站 是一个基于网页的笔记应用程序，您可以使用它来编写、组织和共享笔记。",
     "other-projects": "其他的项目",
     "powered-by": "Powered by"
   },
@@ -14,7 +13,6 @@
     "archived": "已归档",
     "avatar": "头像",
     "basic": "基础",
-    "beta": "测试",
     "cancel": "取消",
     "change": "修改",
     "changed": "已更改",
@@ -27,7 +25,6 @@
     "edit": "编辑",
     "email": "邮箱",
     "expand": "展开",
-    "explore": "探索",
     "filter": "过滤器",
     "filter-period": "{{from}} 到 {{to}}",
     "fold": "折叠",

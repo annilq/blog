@@ -22,7 +22,7 @@ function Layout(props: { children: React.ReactNode }) {
         </>
       )}
       {!sm && <MobileHeader />}
-      <div className="w-full min-h-full flex flex-col justify-start items-center pb-8 mt-4">
+      <div className="w-full min-h-full flex flex-col pb-8 mt-4">
         {props.children}
       </div>
     </main>
