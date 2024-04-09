@@ -20,35 +20,48 @@ export const seedPosts = async () => {
     name: matterData.data.tags,
   }))
 
-  const createdPoustCount = await prisma.post.createMany({
-    data: postsData
-  });
-
-  const createdCategorysCount = await prisma.category.createMany({
-    data: categorysData,
-    skipDuplicates: true,
-  });
-
   const createdPosts = await prisma.post.findMany({})
   const createdCategorys = await prisma.category.findMany({})
 
-  for (const post of createdPosts) {
+  const toCreatePost = postsData.filter(post => !createdPosts.find(createdPost => createdPost.title === post.title))
+  const toCreateCategory = categorysData.filter(category => !createdCategorys.find(createdCategory => createdCategory.name === category.name))
+
+  const createdPoustCount = await prisma.post.createMany({
+    data: toCreatePost
+  }).catch(e => {
+    console.log(e);
+  });
+
+  const createdCategorysCount = await prisma.category.createMany({
+    data: toCreateCategory,
+    skipDuplicates: true,
+  }).catch(e => {
+    console.log(e);
+  });
+
+  // console.log(createdPoustCount, createdCategorysCount);
+
+  const allCreatedCategorys = await prisma.category.findMany({})
+
+  for (const post of toCreatePost) {
 
     const matterData = matters.find(matterData => matterData.data.title === post.title)
 
     await prisma.post.update({
-      where: { id: post.id },
+      where: { title: post.title },
       data: {
         categorys: {
-          // connect: createdCategorys.map((createdCategory: { id: any; }) => ({ id: createdCategory.id }))
-          connect: createdCategorys.filter((createdCategory) => createdCategory.name === matterData?.data.tags).map((createdCategory) => ({ id: createdCategory.id }))
+          // connect: allCreatedCategorys.map((createdCategory: { id: any; }) => ({ id: createdCategory.id }))
+          connect: allCreatedCategorys.filter((createdCategory) => createdCategory.name === matterData?.data.tags).map((createdCategory) => ({ id: createdCategory.id }))
 
         }
       }
     });
   }
 
-  return await prisma.post.findMany({})
+  return
 }
 
 seedPosts()
+
+process.exit(0)
