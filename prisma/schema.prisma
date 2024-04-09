@@ -4,16 +4,22 @@ generator client {
   provider = "prisma-client-js"
 }
 
+// datasource db {
+//   provider = "postgresql"
+//   url      = env("DATABASE_URL") // uses connection pooling
+//   // url = env("POSTGRES_PRISMA_URL") // uses connection pooling
+//   // directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+// }
+
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL") // uses connection pooling
-  // url = env("POSTGRES_PRISMA_URL") // uses connection pooling
-  // directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+  url = env("POSTGRES_PRISMA_URL") // uses connection pooling
+  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
 }
 
 model Post {
   id        String     @id @default(cuid())
-  title     String
+  title     String     @unique
   content   String?
   published Boolean    @default(false)
   createdAt DateTime   @default(now()) @map(name: "created_at")
