@@ -4,12 +4,6 @@ generator client {
   provider = "prisma-client-js"
 }
 
-// datasource db {
-//   provider = "postgresql"
-//   url      = env("DATABASE_URL") // uses connection pooling
-//   // url = env("POSTGRES_PRISMA_URL") // uses connection pooling
-//   // directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
-// }
 
 datasource db {
   provider = "postgresql"
@@ -22,7 +16,7 @@ model Post {
   title     String     @unique
   content   String?
   published Boolean    @default(false)
-  createdAt DateTime   @default(now()) @map(name: "created_at")
+  createdAt DateTime   @unique @default(now()) @map(name: "created_at")
   updatedAt DateTime?   @updatedAt @map(name: "updated_at")
   categorys Category[]
 }

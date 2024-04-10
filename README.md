@@ -12,7 +12,9 @@ DATABASE_URL=""
 3. <code>npx prisma db push</code> to migrate database
 
 # todo
-1. blog add highlight remark and tag
-2. read later highlight remark and tag
-3. markdown
-4. json pretty
+1. about this site
+2. read later highlight remark and tag(archrive (instapaper or matter))
+4. update post to notes
+5. home page to memos
+6. setting(about me and toggle theme)
+7. 沉浸阅读

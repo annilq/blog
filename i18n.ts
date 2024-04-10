@@ -9,9 +9,7 @@ export const availableLocales = [
 ] as const;
 
 const fallbacks = {
-  "zh-HK": ["zh-Hant", "en"],
-  "zh-TW": ["zh-Hant", "en"],
-  zh: ["zh-Hans", "en"],
+  "zh-Hans": ["zh-Hant", "zh", "zh-cn"],
 } as FallbackLngObjList;
 
 i18n
@@ -23,7 +21,7 @@ i18n
     },
     fallbackLng: {
       ...fallbacks,
-      ...{ default: ["zh"] },
+      ...{ default: ["zh-Hans"] },
     } as FallbackLng,
   });
 

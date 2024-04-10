@@ -24,7 +24,7 @@ const ClientContext = ({ children }: { children: React.ReactNode }) => {
     return (
 
         isMounted ? (
-            <ThemeProvider attribute="data-theme">
+            <ThemeProvider attribute="data-joy-color-scheme">
                 <CssVarsProvider>
                     <>
                         {children}

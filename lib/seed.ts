@@ -2,6 +2,59 @@ import prisma from '@/lib/prisma'
 import { getAllPostsData } from './util';
 import { Post, Prisma } from '@prisma/client';
 
+
+const createOrUpdatePost = async (posts: Prisma.PostCreateInput[]) => {
+  return await Promise.all(posts.map(async (post) => {
+    return await prisma.post.upsert({
+      where: {
+        createdAt: post.createdAt,
+      } as Prisma.PostWhereUniqueInput,
+      update: post,
+      create: post,
+    }).catch((e) => {
+      console.log(e);
+    })
+  }))
+}
+
+const deletePost = async (posts: Prisma.PostCreateManyInput[]) => {
+  return await prisma.post.deleteMany({
+    where: {
+      id: {
+        in: posts.map(post => post.id!),
+      },
+    },
+  }).catch(e => {
+    console.log(e);
+  });
+}
+
+
+const createOrUpdateCategory = async (categorys: Prisma.CategoryCreateInput[]) => {
+  return await Promise.all(categorys.map(async (category) => {
+    return await prisma.category.upsert({
+      where: {
+        name: category.name,
+      },
+      update: category,
+      create: category,
+    })
+  }))
+}
+
+const deleteCategory = async (categorys: Prisma.CategoryCreateInput[]) => {
+  return await prisma.category.deleteMany({
+    where: {
+      id: {
+        in: categorys.map(category => category.id!),
+      },
+    },
+  }).catch(e => {
+    console.log(e);
+  });
+}
+
+
 export const seedPosts = async () => {
 
   const matters = getAllPostsData()
@@ -9,10 +62,6 @@ export const seedPosts = async () => {
     title: String(matterData.data.title),
     content: matterData.content,
     createdAt: matterData.data.date,
-    // categorys: {
-    //   createMany: { data: [{ name: matterData.data.tags ?? "other" }] },
-    //   skipDuplicates: true,
-    // },
     published: true,
   })) as unknown as Post[]
 
@@ -23,32 +72,28 @@ export const seedPosts = async () => {
   const createdPosts = await prisma.post.findMany({})
   const createdCategorys = await prisma.category.findMany({})
 
-  const toCreatePost = postsData.filter(post => !createdPosts.find(createdPost => createdPost.title === post.title))
-  const toCreateCategory = categorysData.filter(category => !createdCategorys.find(createdCategory => createdCategory.name === category.name))
+  const toDeletePost = createdPosts.filter(post => !postsData.find(createdPost => (new Date(createdPost.createdAt!)).valueOf() === post.createdAt.valueOf()))
+  const toDeletegory = createdCategorys.filter(category => !categorysData.find(createdCategory => createdCategory.name === category.name))
+  console.log(toDeletePost.map(a => a.title));
+  console.log(toDeletegory.map(a => a.name));
 
-  const createdPoustCount = await prisma.post.createMany({
-    data: toCreatePost
-  }).catch(e => {
-    console.log(e);
-  });
+  // if createdAt is not match ,the post will be created
+  // if createdAt is not change ,the post will be updated
+  // if createdAt is not match ,the post will be deleted
 
-  const createdCategorysCount = await prisma.category.createMany({
-    data: toCreateCategory,
-    skipDuplicates: true,
-  }).catch(e => {
-    console.log(e);
-  });
+  await deletePost(toDeletePost);
+  await deleteCategory(toDeletegory);
 
-  // console.log(createdPoustCount, createdCategorysCount);
+  const allPosts = await createOrUpdatePost(postsData)
 
-  const allCreatedCategorys = await prisma.category.findMany({})
+  const allCreatedCategorys = await createOrUpdateCategory(categorysData)
 
-  for (const post of toCreatePost) {
+  for (const post of allPosts) {
 
-    const matterData = matters.find(matterData => matterData.data.title === post.title)
+    const matterData = matters.find(matterData => matterData.data.title === post?.title)
 
     await prisma.post.update({
-      where: { title: post.title },
+      where: { title: post?.title },
       data: {
         categorys: {
           // connect: allCreatedCategorys.map((createdCategory: { id: any; }) => ({ id: createdCategory.id }))
@@ -58,10 +103,7 @@ export const seedPosts = async () => {
       }
     });
   }
-
-  return
+  process.exit(0)
 }
 
 seedPosts()
-
-process.exit(0)
