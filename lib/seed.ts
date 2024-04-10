@@ -89,11 +89,12 @@ export const seedPosts = async () => {
   const allCreatedCategorys = await createOrUpdateCategory(categorysData)
 
   for (const post of allPosts) {
+    // console.log(post);
 
     const matterData = matters.find(matterData => matterData.data.title === post?.title)
 
     await prisma.post.update({
-      where: { title: post?.title },
+      where: { id: post?.id },
       data: {
         categorys: {
           // connect: allCreatedCategorys.map((createdCategory: { id: any; }) => ({ id: createdCategory.id }))
