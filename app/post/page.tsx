@@ -24,6 +24,9 @@ export default async function Post({
         }
       }
     },
+    orderBy: {
+      createdAt: 'desc'
+    },
     include: {
       categorys: true
     }
