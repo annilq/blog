@@ -74,8 +74,8 @@ export const seedPosts = async () => {
 
   const toDeletePost = createdPosts.filter(post => !postsData.find(createdPost => (new Date(createdPost.createdAt!)).valueOf() === post.createdAt.valueOf()))
   const toDeletegory = createdCategorys.filter(category => !categorysData.find(createdCategory => createdCategory.name === category.name))
-  console.log(toDeletePost.map(a => a.title));
-  console.log(toDeletegory.map(a => a.name));
+  // console.log(toDeletePost.map(a => a.title));
+  // console.log(toDeletegory.map(a => a.name));
 
   // if createdAt is not match ,the post will be created
   // if createdAt is not change ,the post will be updated
@@ -99,7 +99,6 @@ export const seedPosts = async () => {
         categorys: {
           // connect: allCreatedCategorys.map((createdCategory: { id: any; }) => ({ id: createdCategory.id }))
           connect: allCreatedCategorys.filter((createdCategory) => createdCategory.name === matterData?.data.tags).map((createdCategory) => ({ id: createdCategory.id }))
-
         }
       }
     });
