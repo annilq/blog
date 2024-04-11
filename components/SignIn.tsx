@@ -1,9 +1,12 @@
 'use client';
 
-import { signIn, signOut } from 'next-auth/react';
+import { signIn, signOut, useSession } from 'next-auth/react';
 
 export default function SignIn() {
-
+  const session = useSession()
+  if (session.data?.user) {
+    return session.data?.user.name
+  }
   return (
     <div className="mt-3 space-y-1">
       <button

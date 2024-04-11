@@ -5,6 +5,7 @@ import { Snackbar } from "@mui/joy";
 import useSnackbar from "@/store/useSnackbar";
 import { ThemeProvider } from 'next-themes'
 import { CssVarsProvider } from '@mui/joy/styles';
+import { SessionProvider } from "next-auth/react"
 
 const ClientContext = ({ children }: { children: React.ReactNode }) => {
     const { message, openSnackbar, setOpenSnackbar } = useSnackbar();
@@ -26,7 +27,7 @@ const ClientContext = ({ children }: { children: React.ReactNode }) => {
         isMounted ? (
             <ThemeProvider attribute="data-joy-color-scheme">
                 <CssVarsProvider>
-                    <>
+                    <SessionProvider>
                         {children}
                         <Snackbar
                             anchorOrigin={{ vertical: "top", horizontal: "center" }}
@@ -37,7 +38,7 @@ const ClientContext = ({ children }: { children: React.ReactNode }) => {
                         >
                             {message}
                         </Snackbar>
-                    </>
+                    </SessionProvider>
                 </CssVarsProvider>
             </ThemeProvider>
         ) : <div>isMounting</div>
