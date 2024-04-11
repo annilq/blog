@@ -1,4 +1,3 @@
-import { useTranslate } from "@/utils/i18n";
 import Icon from "./Icon";
 import { cn } from "@/utils/utils";
 import ActiveLink from "./ActiveLink";
@@ -14,7 +13,6 @@ interface NavLinkItem {
 
 const Navigation = () => {
 
-  const t = useTranslate();
   const { sm } = useResponsiveWidth();
 
 
@@ -22,19 +20,19 @@ const Navigation = () => {
     {
       id: "header-home",
       path: "/",
-      title: t("common.home"),
+      title: "主页",
       icon: <Icon.Home className="w-6 h-auto opacity-70" />,
     },
     {
       id: "header-post",
       path: "/post",
-      title: t("common.post"),
+      title: "文章",
       icon: <Icon.Home className="w-6 h-auto opacity-70" />,
     },
     {
       id: "header-about",
       path: "/about",
-      title: t("common.about"),
+      title: "关于本站",
       icon: <Icon.User2 className="w-6 h-auto opacity-70" />,
     }]
 
