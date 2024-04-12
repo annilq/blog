@@ -1,5 +1,5 @@
 
-import { books, getBookInfoById } from "@/app/api/book/route";
+import { books, getBookInfoById } from "../api/book/util";
 import Book from "./components/book";
 import Layout from "@/components/layout";
 
