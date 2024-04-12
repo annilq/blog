@@ -1,8 +1,7 @@
 'use client'
 
 import { useTheme } from 'next-themes'
-import Cloud from '@mui/icons-material/DarkMode';
-import Sun from '@mui/icons-material/LightMode';
+import Icon from "@/components/Icon";
 
 export default function ThemeToggle() {
 
@@ -25,9 +24,9 @@ export default function ThemeToggle() {
       />
       <label className="cursor-pointer" htmlFor="light-switch">
         {theme === "dark" ? (
-          <Cloud />
+          <Icon.Moon />
         ) : (
-          <Sun />
+          <Icon.Sun />
         )}
         <span className="sr-only">Switch to light / dark version</span>
       </label>

@@ -4,14 +4,14 @@
 
 :root {
 
-  --background: white;
-  --foreground: black;
+  --background: 255,255,255;
+  --foreground: 0,0,0;
   --link: theme("colors.blue.500")
 }
 
 [data-theme='dark'] {
-  --background: black;
-  --foreground: white;
+  --background: 0,0,0;
+  --foreground: 255,255,255;
   --link: theme("colors.white")
 }
 

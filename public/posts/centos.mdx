@@ -8,22 +8,23 @@ date: 2023-11-22 09:13:01
 - 并且python3.10以上需要手动安装openssl，不然pip不能下载依赖包
 
 ### 部署服务器以及目录
-> server:47.87.48.110
-> path: /home/school/yq-monitor/
+- server:47.87.48.110
+- path: /home/school/yq-monitor/
 
 ### 安装好依赖后连接到远程服务器并用nohup启动项目，连接关闭后服务还会在后台运行
 
 1. 首先进入python venv环境
 
-## 记录第三方模块
+### 记录第三方模块
 ```bash
 pip freeze > requirements.txt
 ```
-## 安装txt文件里所记录的所有第三方模块
+
+### 安装txt文件里所记录的所有第三方模块
 ```bash
 pip install -r requirements.txt
 ```
-
+激活环境
 ```bash
 source (venvname)/bin/activate
 ```
@@ -35,7 +36,7 @@ source (venvname)/bin/activate
 nohup python3 main.py > output.log 2>&1 &
 ```
 
-### fastapi启动项目需要指定项目名，比如文件名为main.py,
+#### fastapi启动项目需要指定项目名，比如文件名为main.py,
 ```python
 import uvicorn
 
@@ -46,6 +47,13 @@ if __name__ == "__main__":
     uvicorn.run("main:app", host="0.0.0.0", port=8008,workers=3, reload=True)
 ```
 
+#### 关闭指定端口进程
+```bash
+sudo lsof -i :8008
+```
+```bash
+sudo kill PID_NUMBER
+```
 ### 参考链接
 [How to Install Python 3.10 (or 3.11) on CentOS](https://linuxstans.com/how-to-install-python-centos/)
 [Linux编译安装安Python3.7/3.8出现_ssl模块错误](https://www.cnblogs.com/yuxiuyan/p/13591854.html)

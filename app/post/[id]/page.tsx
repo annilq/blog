@@ -2,6 +2,7 @@ import prisma from '@/lib/prisma'
 import { parseContent } from "@/lib/util";
 import DateLabel from "../components/Date";
 import { Metadata } from "next";
+import Layout from '@/components/layout';
 
 
 type Props = {
@@ -28,24 +29,26 @@ export default async function Page({ params }: Props) {
     where: {
       id: params.id
     },
-    include:{
-      categorys:true
+    include: {
+      categorys: true
     }
   })
 
   const contentHtml = await parseContent(post?.content!)
 
   return (
-    <div className="relative w-full h-auto flex flex-col justify-start items-start">
-      <div className={`group relative flex flex-col justify-start items-start w-full`}>
-        <article>
-          <h1 className="text-4xl font-bold my-4">{post?.title}</h1>
-          <div className="text-gray-400">
-            {post?.createdAt && <DateLabel date={post?.createdAt!} />}
-          </div>
-          <div dangerouslySetInnerHTML={{ __html: contentHtml }}></div>
-        </article>
+    <Layout>
+      <div className="w-full h-auto flex flex-col justify-start items-start">
+        <div className={`group relative flex flex-col justify-start items-start w-full`}>
+          <article>
+            <h1 className="text-4xl font-bold my-4">{post?.title}</h1>
+            <div className="text-gray-400">
+              {post?.createdAt && <DateLabel date={post?.createdAt!} />}
+            </div>
+            <div dangerouslySetInnerHTML={{ __html: contentHtml }}></div>
+          </article>
+        </div>
       </div>
-    </div>
+    </Layout>
   )
 }

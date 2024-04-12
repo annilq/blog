@@ -1,4 +1,3 @@
-import Icon from "./Icon";
 import { cn } from "@/utils/utils";
 import ActiveLink from "./ActiveLink";
 import useResponsiveWidth from "@/hooks/useResponsiveWidth";
@@ -8,7 +7,6 @@ interface NavLinkItem {
   id: string;
   path: string;
   title: string;
-  icon: React.ReactNode;
 }
 
 const Navigation = () => {
@@ -21,20 +19,23 @@ const Navigation = () => {
       id: "header-home",
       path: "/",
       title: "主页",
-      icon: <Icon.Home className="w-6 h-auto opacity-70" />,
     },
     {
       id: "header-post",
       path: "/post",
       title: "文章",
-      icon: <Icon.Home className="w-6 h-auto opacity-70" />,
+    },
+    {
+      id: "header-book",
+      path: "/book",
+      title: "书籍",
     },
     {
       id: "header-about",
       path: "/about",
       title: "关于本站",
-      icon: <Icon.User2 className="w-6 h-auto opacity-70" />,
-    }]
+    }
+  ]
 
   return (
     <header
