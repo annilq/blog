@@ -31,10 +31,10 @@ export async function getBookInfoById(book: BookShort) {
 
   const bookInfoSelector = dom.window.document.querySelector(".readerBookInfo");
 
-  const title = bookInfoSelector.querySelector(".bookInfo_right_header_title_text").textContent;
-  const author = bookInfoSelector.querySelector(".bookInfo_author_container").textContent;
-  const description = bookInfoSelector.querySelector(".bookInfo_intro").textContent;
-  const url = bookInfoSelector.querySelector(".wr_bookCover_img").src;
+  const title = bookInfoSelector?.querySelector(".bookInfo_right_header_title_text")?.textContent!;
+  const author = bookInfoSelector?.querySelector(".bookInfo_author_container")?.textContent!;
+  const description = bookInfoSelector?.querySelector(".bookInfo_intro")?.textContent!;
+  const url = bookInfoSelector?.querySelector(".wr_bookCover_img")?.getAttribute("src")!;
   // console.log(dom.window.document);
   const bookInfo: Book = {
     id: book.id,
