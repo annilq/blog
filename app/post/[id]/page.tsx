@@ -41,7 +41,7 @@ export default async function Page({ params }: Props) {
       <div className="w-full h-auto flex flex-col justify-start items-start">
         <div className={`group relative flex flex-col justify-start items-start w-full`}>
           <article>
-            <h1 className="text-4xl font-bold my-4">{post?.title}</h1>
+            <h1>{post?.title}</h1>
             <div className="text-gray-400">
               {post?.createdAt && <DateLabel date={post?.createdAt!} />}
             </div>

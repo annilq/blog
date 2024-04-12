@@ -16,16 +16,13 @@ function Layout(props: { children: React.ReactNode, containerClassName?: string,
   return (
     <main className="min-h-screen flex flex-col">
       {sm && (
-        <div className={cn("mx-auto px-2 lg:px-2",headerClass)}>
-          <div
-            className={"flexgroup justify-start items-start select-none z-2 py-4"}>
-            <Navigation />
-          </div>
+        <div className={cn("mx-auto px-2 lg:px-2", headerClass)}>
+          <Navigation />
           <Divider />
         </div>
       )}
       {!sm && <MobileHeader />}
-      <div className={cn("w-full mx-auto px-2 lg:px-2 p-4 flex-1 flex flex-col pb-8 mt-4", containerClassName)}>
+      <div className={cn("w-full mx-auto px-2 lg:px-2 p-4 flex-1 flex flex-col pb-8", containerClassName)}>
         {props.children}
       </div>
     </main>

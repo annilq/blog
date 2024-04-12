@@ -1,21 +1,19 @@
+import { auth } from '@/auth';
+import SignIn from '@/components/SignIn';
 import { cn } from "@/utils/utils";
 
 interface Props {
-  avatarUrl?: string;
   className?: string;
 }
 
-const UserAvatar = (props: Props) => {
-  const { avatarUrl, className } = props;
+const UserAvatar = async (props: Props) => {
+  const session = await auth();
+
+  const { className } = props;
   return (
     <div className={cn(`w-8 h-8 overflow-clip rounded-full`, className)}>
-      <img
-        className="w-full h-auto rounded-full shadow min-w-full min-h-full object-cover dark:opacity-80"
-        src={avatarUrl || "/images/profile.png"}
-        decoding="async"
-        loading="lazy"
-        alt=""
-      />
+
+      <SignIn />
     </div>
   );
 };
