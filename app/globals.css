@@ -3,20 +3,19 @@
 @tailwind utilities;
 
 :root {
-
   --background: 255, 255, 255;
   --foreground: 0, 0, 0;
-  --link: theme("colors.blue.500")
+  --link: theme("colors.blue.500");
 }
 
-[data-theme='dark'] {
+[data-joy-color-scheme="dark"] {
   --background: 0, 0, 0;
   --foreground: 255, 255, 255;
-  --link: theme("colors.white")
+  --link: theme("colors.white");
 }
 
 a {
-  color: var(--link)
+  color: var(--link);
 }
 
 article a {
@@ -24,66 +23,70 @@ article a {
 }
 
 article a::after {
-  content: attr(data-count number, 0) '. ';
+  content: attr(data-count number, 0) ". ";
 }
 
 @layer base {
-
   h1,
   h2,
   h3,
   h4 {
-    @apply font-bold my-4
+    @apply font-bold my-4;
   }
 
   h1 {
-    @apply text-3xl
+    @apply text-3xl;
   }
 
   h2 {
-    @apply text-2xl
+    @apply text-2xl;
   }
 
   h3 {
-    @apply text-xl
+    @apply text-xl;
   }
 
   h4 {
-    @apply text-sm
+    @apply text-sm;
   }
 
   p,
   ol,
   ul,
   pre,
+  blockquote,
   code {
-    @apply my-4
+    @apply my-4;
+  }
+
+  ol {
+    @apply px-4;
+  }
+
+  ol > li {
+    @apply list-decimal;
   }
 
   li {
-    @apply my-2
+    @apply my-2;
   }
 
   pre {
-    @apply overflow-auto
+    @apply overflow-auto;
   }
 
-  code>span {
-    @apply mx-4
+  code > span {
+    @apply mx-4;
   }
 }
 
-
 html,
 body {
-  font-family: Inter var, ui-sans-serif, system-ui, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+  font-family: Inter var, ui-sans-serif, system-ui, sans-serif,
+    Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
 }
 
 body::-webkit-scrollbar {
   /* background: aquamarine; */
-  width: 1px;
-}
-
-body::-webkit-scrollbar-thumb {
-  background: rgb(126, 166, 240);
+  display: none;
 }

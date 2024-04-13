@@ -10,15 +10,15 @@ import { cn } from "@/utils/utils";
 
 export const containerClass = "container max-w-4xl"
 
-function Layout(props: { children: React.ReactNode, containerClassName?: string, headerClass?: string }) {
+function Layout(props: { children: React.ReactNode, containerClassName?: string, headerClass?: string, showDivider?: boolean }) {
   const { sm } = useResponsiveWidth();
-  const { headerClass = containerClass, containerClassName = containerClass } = props
+  const { headerClass = containerClass, containerClassName = containerClass, showDivider = true } = props
   return (
     <main className="min-h-screen flex flex-col">
       {sm && (
         <div className={cn("mx-auto px-2 lg:px-2", headerClass)}>
           <Navigation />
-          <Divider />
+          {showDivider && <Divider />}
         </div>
       )}
       {!sm && <MobileHeader />}
