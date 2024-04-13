@@ -1,12 +1,12 @@
 // get book info from https://weread.qq.com/
 
 
-import { Book, books, getBookInfoById } from "./util"
+import { Book, BOOKS, getBookInfoById } from "./util"
 
 export async function GET(request: Request) {
   let bookJson: Book[] = []
   try {
-    bookJson = await Promise.all(books.map(getBookInfoById))
+    bookJson = await Promise.all(BOOKS.map(getBookInfoById))
   } catch (error) {
     return Response.error()
   }
