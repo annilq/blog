@@ -2,8 +2,9 @@
 
 import { Prisma } from "@prisma/client";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import Clear from '@mui/icons-material/Clear';
+
 import { cn } from "@/utils/utils";
+import Icon from "../Icon";
 
 const stringToColour = (str: string) => {
   let hash = 0;
@@ -29,7 +30,7 @@ export const Tag = (props: { tag: Prisma.CategoryCreateInput, canClear?: boolean
 
   return (
     <div
-      className={cn("rounded-xl px-2 text-sm text-white relative", !canClear && "cursor-pointer")}
+      className={cn("rounded-xl px-2 text-sm text-white relative flex", !canClear && "cursor-pointer")}
       style={
         {
           backgroundColor: color
@@ -45,13 +46,8 @@ export const Tag = (props: { tag: Prisma.CategoryCreateInput, canClear?: boolean
     >
       {tag.name}
       {canClear && (
-        <Clear
-          fontSize="small"
-          className="cursor-pointer"
-          sx={{
-            width: 12,
-            height: 12,
-          }}
+        <Icon.X
+          className="cursor-pointer w-3"
           onClick={() => {
             replace(pathname);
           }}

@@ -51,9 +51,9 @@ export default async function Post({
             canClear
           />)}
         <div className={`group relative flex flex-col justify-start items-start w-full`}>
-          <ul className="mt-4 space-y-6">
+          <div className="space-y-4">
             {data?.map(({ id, createdAt, title, categorys = [] }) => (
-              <li key={id}>
+              <div key={id}>
                 <Link href={`/post/${id}`} className="block text-xl font-semibold text-foreground hover:text-link">
                   {title}
                 </Link>
@@ -70,9 +70,9 @@ export default async function Post({
                     />
                   ))}
                 </div>
-              </li>
+              </div>
             ))}
-          </ul>
+          </div>
         </div>
       </div>
     </Layout>
