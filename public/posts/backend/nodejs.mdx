@@ -78,4 +78,4 @@ querystring.stringify({foo: 'bar', baz: 'qux'}, ';', ':')
 需要注意的问题
 1. server req只有在 client req post 数据时候才能监听到"data" 事件
 2. client headers指定了错误的 content-length时候，server的req的end事件不会触发
->[request 'end' event not called if content-length is incorrect](https://github.com/nodejs/node-v0.x-archive/issues/4200)
+> [request 'end' event not called if content-length is incorrect](https://github.com/nodejs/node-v0.x-archive/issues/4200)

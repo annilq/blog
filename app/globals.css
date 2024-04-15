@@ -19,10 +19,6 @@ a {
   color: var(--link)
 }
 
-article a {
-  display: block;
-}
-
 article a::after {
   content: attr(data-count number, 0) '. ';
 }
