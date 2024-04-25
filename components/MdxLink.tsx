@@ -15,7 +15,7 @@ export default function MdxLink(props: any) {
 
   return (
     <a href={href} target="_blank" {...rest} >
-      <span className="flex gap-1">
+      <span className="inline-flex gap-1">
         {children}
         <Icon.Link className="w-3" />
       </span>

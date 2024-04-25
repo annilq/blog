@@ -27,7 +27,7 @@ article a::after {
   h2,
   h3,
   h4 {
-    @apply font-bold my-4;
+    @apply font-bold my-2;
   }
 
   h1 {
@@ -49,10 +49,11 @@ article a::after {
   p,
   ol,
   ul,
+  li,
   pre,
   blockquote,
   code {
-    @apply my-4;
+    @apply my-2;
   }
 
   ol {
@@ -61,10 +62,6 @@ article a::after {
 
   ol > li {
     @apply list-decimal;
-  }
-
-  li {
-    @apply my-2;
   }
 
   pre {
