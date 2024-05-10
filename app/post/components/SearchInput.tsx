@@ -2,10 +2,11 @@
 
 import { Button, Input, List, ListItem, ListItemContent, Modal, ModalClose, ModalDialog, ModalOverflow, Typography } from '@mui/joy';
 import { Post } from '@prisma/client';
-import Fuse, { FuseResult } from 'fuse.js'
+import Fuse, { FuseResult, RangeTuple } from 'fuse.js'
 import { Search, } from 'lucide-react';
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
+import FuseHighlight from './hightlight';
 
 const options = {
   // only filter by content,so we can print match value
@@ -36,19 +37,28 @@ export default function SearchInput({
 
   const fuseRef = useRef<Fuse<Post>>()
   const [open, setOpen] = useState<boolean>(false);
+  const [value, setValue] = useState<string>("");
   const [matchPost, setMatchPost] = useState<FuseResult<Post>[]>([]);
 
   useEffect(
     () => {
       fuseRef.current = new Fuse<Post>(data, options);
+      return () => {
+        setMatchPost([])
+        setValue("")
+      }
     }, [])
 
   useEffect(
     () => {
-      if (!open) {
+      const matchList = fuseRef.current?.search(value)
+      if (matchList) {
+        setMatchPost(matchList)
+      } else {
         setMatchPost([])
       }
-    }, [open])
+
+    }, [value])
 
   return (
     <div className='w-full'>
@@ -86,15 +96,9 @@ export default function SearchInput({
                   outlineOffset: '2px',
                 },
               }}
+              value={value}
               onChange={(e) => {
-                const matchList = fuseRef.current?.search(e.target.value?.trim?.())
-                // const matchList = fuseRef.current?.search(e.target.value) as FuseResult<Post>[]
-                console.log(matchList);
-                if (matchList) {
-                  setMatchPost(matchList)
-                } else {
-                  setMatchPost([])
-                }
+                setValue(e.target.value?.trim?.())
               }}
             />
             <List
@@ -108,7 +112,10 @@ export default function SearchInput({
                       <ListItemContent>
                         <Typography level="title-sm">{item.title}</Typography>
                         <Typography level="body-sm" noWrap>
-                          {matches?.[0].value}
+                          <FuseHighlight
+                            indices={matches?.[0]?.indices}
+                            value={item.content}
+                          />
                         </Typography>
                       </ListItemContent>
                     </ListItem>
