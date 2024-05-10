@@ -3,6 +3,7 @@ import Link from "next/link";
 import DateLabel from "./components/Date";
 import { Tag } from "@/components/Tag";
 import Layout from '@/components/layout';
+import SearchInput from './components/SearchInput';
 
 export default async function Post({
   searchParams,
@@ -45,6 +46,7 @@ export default async function Post({
   return (
     <Layout>
       <div className="w-full h-auto flex flex-col justify-start items-start">
+        {data && <SearchInput data={data} />}
         {category && (
           <Tag
             tag={category}
