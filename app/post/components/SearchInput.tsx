@@ -11,21 +11,21 @@ import FuseHighlight from './hightlight';
 const options = {
   // only filter by content,so we can print match value
   keys: [
-    // {
-    //   name: 'title',
-    //   weight: 0.3
-    // },
+    {
+      name: 'title',
+      weight: 0.3
+    },
     // {
     //   name: 'categorys',
     //   weight: 0.2
     // },
     {
       name: 'content',
-      weight: 0.5
+      weight: 0.7
     }
   ],
   threshold: 0.1,
-  minMatchCharLength: 2,
+  minMatchCharLength: 1,
   includeMatches: true,
 };
 
@@ -98,7 +98,7 @@ export default function SearchInput({
               }}
               value={value}
               onChange={(e) => {
-                setValue(e.target.value?.trim?.())
+                setValue(e.target.value?.trimStart?.())
               }}
             />
             <List
@@ -106,15 +106,23 @@ export default function SearchInput({
             >
               {matchPost?.map(match => {
                 const { item, matches } = match
+
                 return (
                   <Link key={item.id} href={`/post/${item.id}`} className="hover:bg-blue-100 cursor-pointer">
                     <ListItem>
                       <ListItemContent>
-                        <Typography level="title-sm">{item.title}</Typography>
+                        <Typography level="title-sm">
+                          <FuseHighlight
+                            matches={matches}
+                            value={item.title}
+                            name="title"
+                          />
+                        </Typography>
                         <Typography level="body-sm" noWrap>
                           <FuseHighlight
-                            indices={matches?.[0]?.indices}
-                            value={item.content}
+                            matches={matches}
+                            value={item.content!}
+                            name="content"
                           />
                         </Typography>
                       </ListItemContent>

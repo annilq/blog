@@ -1,3 +1,4 @@
+import { FuseResultMatch } from 'fuse.js';
 import React from 'react';
 
 // Recursively builds JSX output adding `<mark>` tags around matches
@@ -15,9 +16,11 @@ const Highlight: any = ({ value = "", indices = [], index = 1 }) => {
 };
 
 // FuseHighlight component
-const FuseHighlight = ({ value, indices }: { value: any, indices: any }) => {
+const FuseHighlight = ({ value, matches, name }: { value: string, matches?: readonly FuseResultMatch[], name: string }) => {
+  
+  const match = matches?.find(m => m.key === name)
 
-  return <Highlight value={value} indices={indices} />;
+  return <Highlight value={value} indices={match?.indices} />;
 };
 
 export default FuseHighlight;
