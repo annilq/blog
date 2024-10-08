@@ -19,8 +19,9 @@ export const BOOKS: BookShort[] = [
   // { id: "d55320c0811e1b998g018315", title: "SQL基础教程" },
   // { id: "fbf32b80715c0184fbff41f", title: "算法图解" },
   // { id: "8bc329705e46708bcb0c164", title: "百年孤独" },
-  // { id: "66832530721e777066806c9", title: "蛤蟆先生去看心理医生" },
+  { id: "66832530721e777066806c9", title: "蛤蟆先生去看心理医生" },
   { id: "5b9328f05dd9fb5b922d1eb", title: "黑客与画家" },
+  { id: "55132b2071a122bc551ee6a", title: "凤凰项目：一个IT运维的传奇故事" },
   { id: "054329b0813ab80dfg016fde", title: "数学的雨伞下" }
 ]
 
