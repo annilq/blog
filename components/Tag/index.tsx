@@ -39,7 +39,7 @@ export const Tag = (props: { tag: Prisma.CategoryCreateInput, canClear?: boolean
         if (canClear) {
           return
         }
-        const params = new URLSearchParams(searchParams);
+        const params = new URLSearchParams(searchParams.toString());
         params.set('query', tag.id!);
         replace(`${pathname}?${params.toString()}`);
       }}
