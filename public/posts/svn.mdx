@@ -28,3 +28,8 @@ svn status | grep '^!' | awk '{print $2}' | xargs svn delete
 ```bash
 svn commit -m "Add new files and remove deleted files"
 ```
+
+5. 放弃当前修改
+```bash
+svn revert -R . 
+```
