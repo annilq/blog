@@ -13,6 +13,8 @@ svn update
 2. 自动添加未版本化的文件
 ```bash
 svn status | grep '^?' | awk '{print $2}' | xargs svn add
+# 排除 node_modules 文件夹
+svn status | grep '^?' | grep -v 'node_modules' | awk '{print $2}' | xargs svn add
 ```
 •	svn status：显示当前目录的状态。
 •	grep '^?'：筛选出标记为 ? 的未版本化文件。
