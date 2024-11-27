@@ -19,11 +19,11 @@ cp -r dir1 dir2
 
 ```bash
 nohup python3 main.py > output.log 2>&1 &
-```
 vicorn.run("main:app", host="0.0.0.0", port=8008,workers=3, reload=True)
 ```
 
 #### 关闭指定端口进程
+
 ```bash
 sudo lsof -i :8008
 ```

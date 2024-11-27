@@ -16,10 +16,10 @@ svn status | grep '^?' | awk '{print $2}' | xargs svn add
 # 排除 node_modules 文件夹
 svn status | grep '^?' | grep -v 'node_modules' | awk '{print $2}' | xargs svn add
 ```
-•	svn status：显示当前目录的状态。
-•	grep '^?'：筛选出标记为 ? 的未版本化文件。
-•	awk '\{print $2\}'：提取出文件路径。
-•	xargs svn add：将这些未版本化的文件逐一传递给 svn add 命令。
+  1. svn status：显示当前目录的状态。
+  2. grep '^?'：筛选出标记为 ? 的未版本化文件。
+  3. awk '\{print $2\}'：提取出文件路径。
+  4. xargs svn add：将这些未版本化的文件逐一传递给 svn add 命令。
 
 3. 处理已删除的文件
 ```bash
