@@ -8,6 +8,7 @@ import remarkRehype from 'remark-rehype'
 import rehypeSanitize from 'rehype-sanitize'
 import rehypeStringify from 'rehype-stringify'
 import rehypePrettyCode from "rehype-pretty-code";
+import remarkGfm from 'remark-gfm'
 
 export interface PostMeta {
   name: string
@@ -37,8 +38,11 @@ function parseMDContent(dir: string, fileName: string) {
 export async function parseContent(mdxString: string): Promise<string> {
   const file = await unified()
     .use(remarkParse as any) // Convert into markdown AST
+    .use(remarkGfm) // 支持 GitHub 风格的 Markdown，包括表格
     .use(remarkRehype as any) // Transform to HTML AST
-    .use(rehypeSanitize) // Sanitize HTML input
+    .use(rehypeSanitize,{
+      // tagNames: ['table', 'thead', 'tbody', 'tr', 'th', 'td', 'div', 'span', 'code', 'pre','ul','li','a'],
+    }) // Sanitize HTML input
     .use(rehypePrettyCode, {
       // See Options section below.
     })
