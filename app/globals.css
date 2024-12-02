@@ -1,7 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import url('https://raw.githubusercontent.com/sindresorhus/github-markdown-css/gh-pages/github-markdown.css');
+@import "./markdown.css";
 
 :root {
   --background: 255, 255, 255;
