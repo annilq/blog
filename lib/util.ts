@@ -10,6 +10,8 @@ import rehypeStringify from 'rehype-stringify'
 import rehypePrettyCode from "rehype-pretty-code";
 import remarkGfm from 'remark-gfm'
 
+const FILE_EXT = "md"
+
 export interface PostMeta {
   name: string
   title: string
@@ -40,7 +42,7 @@ export async function parseContent(mdxString: string): Promise<string> {
     .use(remarkParse as any) // Convert into markdown AST
     .use(remarkGfm) // 支持 GitHub 风格的 Markdown，包括表格
     .use(remarkRehype as any) // Transform to HTML AST
-    .use(rehypeSanitize,{
+    .use(rehypeSanitize, {
       // tagNames: ['table', 'thead', 'tbody', 'tr', 'th', 'td', 'div', 'span', 'code', 'pre','ul','li','a'],
     }) // Sanitize HTML input
     .use(rehypePrettyCode, {
@@ -58,7 +60,7 @@ function getPostsFromDir(dir: string) {
   const files: { dir: string, fileName: string }[] = [];
   const fileNames = fs.readdirSync(dir);
   fileNames?.map((fileName) => {
-    if (fileName.indexOf("mdx") > -1) {
+    if (fileName.indexOf(FILE_EXT) > -1) {
       files.push({ dir, fileName });
     } else {
       const subFiles = getPostsFromDir(path.join(dir, fileName)) || [];
