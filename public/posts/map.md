@@ -7,6 +7,139 @@ tags: javascript
 问题：定位以及地图展示是基于微信的，由于微信与百度地图采用的是不同的坐标体系，所以需要坐标转换
 方案：目前为了兼容老项目，统一将坐标转换成百度坐标
 
+### 1. 设置地图组件
+```typescript
+import { Map } from 'react-bmapgl';
+import { YqMapComponent } from './map';
+// export const center = { lng: 116.402544, lat: 39.928216 }
+const YqMap = (props) => {
+
+  return (
+    <div className='pt-12 relative flex-1'>
+      {/* <div id="l-map" className='h-screen w-screen'></div> */}
+      <Map
+        style={{
+          height: "400px",
+          zIndex: -1
+        }}
+        zoom={15}
+        minZoom={15}
+        enableScrollWheelZoom
+      >
+        <YqMapComponent {...props} />
+      </Map>
+    </div>
+  )
+
+}
+export default YqMap
+```
+
+### 2. web端可以通过ip获取当前模糊定位
+
+```javascript
+    import { useEffect } from 'react';
+import { YqMapSearch } from './search';
+
+export const YqMapComponent = (props) => {
+  const { map, value, onChange } = props
+
+  const setMarker = (point) => {
+    map.clearOverlays()
+    const markerPoint = new window.BMapGL.Point(point.lng, point.lat);
+    const marker = new window.BMapGL.Marker(markerPoint);// 创建标注
+    map?.addOverlay(marker);             // 将标注添加到地图中
+    map?.setCenter(markerPoint)
+  }
+
+  useEffect(() => {
+    if (value) {
+      setMarker(value?.point)
+    } else {
+      var myCity = new BMapGL.LocalCity();
+      myCity.get((result) => {
+        console.log(result);
+        var cityName = result.name;
+        map.setCenter(cityName);
+      });
+    }
+  }, [value])
+
+  return (
+    <div className='absolute top-0 w-full z-50'>
+      <YqMapSearch
+        map={map}
+        value={value}
+        onChange={onChange}
+      />
+    </div>
+  )
+}
+```
+### 3. 通过详细查询来获取具体定位
+```typescript
+import { useParams } from '@umijs/max';
+import { AutoComplete } from 'antd';
+import { useEffect, useRef, useState, } from 'react';
+
+export const YqMapSearch = (props: { map: any, onChange: any, value: { locationName?: string, latitude?: string, longtidute?: string } }) => {
+  const { map, onChange, value: location } = props
+  const [options, setOptions] = useState([])
+  const [value, setValue] = useState()
+  const local = useRef<LocalSearch>()
+  const id = useParams()?.id
+
+  useEffect(() => {
+    var options = {
+      onSearchComplete: function (results) {
+        // console.log(results);
+        // console.log(local.current?.getStatus());
+        // 判断状态是否正确
+        if (local.current?.getStatus() == BMAP_STATUS_SUCCESS) {
+          var s = [];
+          for (var i = 0; i < results.getCurrentNumPois(); i++) {
+            // console.log(results.getPoi(i));
+            s.push({ "label": results.getPoi(i).title + ", " + results.getPoi(i).address, value: results.getPoi(i).uid, position: results.getPoi(i) });
+          }
+          // console.log(s);
+          setOptions(s)
+        }
+      },
+    };
+
+    local.current = new window.BMapGL.LocalSearch(map, options);
+  }, [map])
+
+  const onSelect = (value) => {
+    const option = options.find(option => option?.value === value)
+    setValue(option?.label)
+    onChange(option?.position)
+  }
+
+  useEffect(() => {
+    if (location?.locationName) {
+      setValue(location?.locationName)
+    }
+  }, [location?.locationName])
+
+  return (
+    <div className='flex gap-2 items-center'>
+      <div className='font-bold w-24'>打卡位置:</div>
+      <AutoComplete
+        value={value}
+        options={options}
+        onSelect={onSelect}
+        onChange={(value) => {
+          local.current?.search(value, { forceLocal: true })
+          setValue(value)
+        }}
+        className='w-full'
+        placeholder="请输入位置名称"
+      />
+    </div>
+  )
+}
+```
 ```javascript
 // 使用字符串定义高精度常量，避免精度丢失
 var PI = "3.14159265358979324";
