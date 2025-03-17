@@ -1,6 +1,5 @@
-import { Thought } from "@prisma/client"
 
-const thoughts: Thought[] = [{
+const thoughts: any[] = [{
   createdAt: new Date("2020-09-06"),
   content: `早上带仔仔去童乐王国，中午结束准备回家时，仔仔就开始磨人哭了一会儿说想回家小超市买吃的，等到小区门口快进小区时候，仔仔就要停车去小超市
 “仔仔，你刚刚为什么哭呀”
