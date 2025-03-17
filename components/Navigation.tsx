@@ -31,6 +31,11 @@ const Navigation = () => {
       title: "书籍",
     },
     {
+      id: "header-thoughts",
+      path: "/thoughts",
+      title: "碎碎念",
+    },
+    {
       id: "header-about",
       path: "/about",
       title: "关于本站",

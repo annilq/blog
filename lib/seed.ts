@@ -1,6 +1,7 @@
 import prisma from '@/lib/prisma'
 import { getAllPostsData } from './util';
 import { Post, Prisma } from '@prisma/client';
+import { seedThoughts } from './thought';
 
 
 const createOrUpdatePost = async (posts: Prisma.PostCreateInput[]) => {
@@ -106,4 +107,8 @@ export const seedPosts = async () => {
   process.exit(0)
 }
 
-seedPosts()
+const main = async () => {
+  seedPosts()
+  seedThoughts()
+}
+main()

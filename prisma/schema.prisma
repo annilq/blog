@@ -26,3 +26,10 @@ model Category {
   name String @unique
   Post Post[]
 }
+
+model Thought {
+  id        String    @id @default(cuid())
+  content   String    // 想法内容
+  createdAt DateTime  @default(now()) @map(name: "created_at")
+  updatedAt DateTime? @updatedAt @map(name: "updated_at")
+}

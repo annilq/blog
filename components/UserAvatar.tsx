@@ -1,3 +1,5 @@
+"use client";
+
 import { auth } from '@/auth';
 import SignIn from '@/components/SignIn';
 import { cn } from "@/utils/utils";
