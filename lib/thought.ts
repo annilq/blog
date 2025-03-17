@@ -1,3 +1,4 @@
+import prisma from '@/lib/prisma'
 
 const thoughts: any[] = [{
   createdAt: new Date("2020-09-06"),
