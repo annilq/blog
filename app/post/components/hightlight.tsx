@@ -4,7 +4,7 @@ import React from 'react';
 // Recursively builds JSX output adding `<mark>` tags around matches
 const Highlight: any = ({ value = "", indices = [], index = 1 }) => {
   const pair = indices[indices.length - index];
-  const [start, end] = pair || []
+  const [start, end] = (pair || []) as any
 
   return !pair ? value : (
     <>
