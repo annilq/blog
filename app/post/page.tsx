@@ -8,13 +8,14 @@ import SearchInput from './components/SearchInput';
 export default async function Post({
   searchParams,
 }: {
-  searchParams?: {
+  searchParams: Promise<{
     query?: string;
     page?: string;
-  };
-}) {
+  }>
+}
+) {
 
-  const query = searchParams?.query || '';
+  const query = (await searchParams)?.query || '';
 
   const data = await prisma.post.findMany({
     ...query && {
