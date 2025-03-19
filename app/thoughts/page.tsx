@@ -2,13 +2,17 @@ import { format } from "date-fns"
 
 import Layout from "@/components/layout";
 import { Card } from "@mui/joy";
-import { addThought, deleteThought, getThoughts } from "./actions";
+import { addThought, getThoughts } from "./actions";
 import ThoughtForm from "./ThoughtForm"
-import { Trash2 } from "lucide-react";
 import ThoughtDelBtn from "./ThoughtDelBtn";
+import { auth } from "@/auth"
+import { redirect } from "next/navigation";
 
 export default async function Thoughts() {
-
+  const session = await auth()
+  if (!session?.user) {
+    redirect("/")
+  }
   const thoughts = await getThoughts()
 
   return (

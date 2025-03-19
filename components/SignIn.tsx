@@ -1,20 +1,31 @@
 'use client';
 
+import { Button, Dropdown, Menu, MenuButton, MenuItem } from '@mui/joy';
+import { LogInIcon, LogOutIcon, UserRound } from 'lucide-react';
 import { signIn, signOut, useSession } from 'next-auth/react';
 
 export default function SignIn() {
   const session = useSession()
+
   if (session.data?.user) {
-    return session.data?.user.name
+
+    return (
+      <Dropdown>
+        <MenuButton variant="plain" ><UserRound /></MenuButton>
+        <Menu>
+          <MenuItem onClick={() => signOut()}><LogOutIcon /></MenuItem>
+        </Menu>
+      </Dropdown>
+    )
   }
   return (
-    <div className="mt-3 space-y-1">
-      <button
+    <div className="space-y-1">
+      <Button
         onClick={() => signIn('github')}
-        className="flex w-full px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800"
+        variant="plain"
       >
-        Sign in
-      </button>
+        <LogInIcon />
+      </Button>
     </div>
   );
 }

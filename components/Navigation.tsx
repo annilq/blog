@@ -2,6 +2,7 @@ import { cn } from "@/utils/utils";
 import ActiveLink from "./ActiveLink";
 import useResponsiveWidth from "@/hooks/useResponsiveWidth";
 import ThemeToggle from "./ThemeToggle";
+import SignIn from "./SignIn";
 
 interface NavLinkItem {
   id: string;
@@ -61,7 +62,10 @@ const Navigation = () => {
           </ActiveLink>
         ))}
       </div>
-      {sm && <ThemeToggle />}
+      <div className="flex gap-2 items-center">
+        {sm && <ThemeToggle />}
+        {sm && <SignIn />}
+      </div>
     </header >
   );
 };

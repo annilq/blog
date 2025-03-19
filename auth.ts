@@ -14,5 +14,5 @@ export const {
   pages: {
     signIn: '/sign-in'
   },
-  secret:process.env.GITHUB_CLIENT_SECRET
+  secret: process.env.GITHUB_CLIENT_SECRET
 });
