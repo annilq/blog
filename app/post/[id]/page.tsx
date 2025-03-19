@@ -1,33 +1,19 @@
 import prisma from '@/lib/prisma'
 import { parseContent } from "@/lib/util";
 import DateLabel from "../components/Date";
-import { Metadata } from "next";
 import Layout from '@/components/layout';
 
 
 type Props = {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 };
-
-export async function generateMetadata({
-  params,
-}: Props): Promise<Metadata> {
-
-  const post = await prisma.post.findFirst({
-    where: {
-      id: params.id
-    }
-  })
-  return {
-    title: post?.title,
-  };
-}
 
 export default async function Page({ params }: Props) {
 
+  const id = (await params).id;
   const post = await prisma.post.findFirst({
     where: {
-      id: params.id
+      id
     },
     include: {
       categorys: true
