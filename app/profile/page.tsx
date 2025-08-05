@@ -6,5 +6,7 @@ export default async function Home() {
     <Layout>
       <Portfolio />
     </Layout>
-    );
+  );
 }
+export const runtime = "edge";
+export const revalidate = 60;

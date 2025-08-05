@@ -1,9 +1,9 @@
-import prisma from '@/lib/prisma'
+import prisma from "@/lib/prisma";
 import Link from "next/link";
 import DateLabel from "./components/Date";
 import { Tag } from "@/components/Tag";
-import Layout from '@/components/layout';
-import SearchInput from './components/SearchInput';
+import Layout from "@/components/layout";
+import SearchInput from "./components/SearchInput";
 
 export default async function Post({
   searchParams,
@@ -11,36 +11,34 @@ export default async function Post({
   searchParams: Promise<{
     query?: string;
     page?: string;
-  }>
-}
-) {
-
-  const query = (await searchParams)?.query || '';
+  }>;
+}) {
+  const query = (await searchParams)?.query || "";
 
   const data = await prisma.post.findMany({
-    ...query && {
+    ...(query && {
       where: {
         categorys: {
           some: {
-            id: query
-          }
-        }
-      }
-    },
+            id: query,
+          },
+        },
+      },
+    }),
     orderBy: {
-      createdAt: 'desc'
+      createdAt: "desc",
     },
     include: {
-      categorys: true
-    }
+      categorys: true,
+    },
   });
 
   let category = null;
   if (query) {
     category = await prisma.category.findFirst({
       where: {
-        id: query
-      }
+        id: query,
+      },
     });
   }
 
@@ -48,16 +46,17 @@ export default async function Post({
     <Layout>
       <div className="w-full h-auto flex flex-col justify-start items-start">
         {data && <SearchInput data={data} />}
-        {category && (
-          <Tag
-            tag={category}
-            canClear
-          />)}
-        <div className={`group relative flex flex-col justify-start items-start w-full`}>
+        {category && <Tag tag={category} canClear />}
+        <div
+          className={`group relative flex flex-col justify-start items-start w-full`}
+        >
           <div className="space-y-4">
             {data?.map(({ id, createdAt, title, categorys = [] }) => (
               <div key={id}>
-                <Link href={`/post/${id}`} className="block text-xl font-semibold text-foreground hover:text-link">
+                <Link
+                  href={`/post/${id}`}
+                  className="block text-xl font-semibold text-foreground hover:text-link"
+                >
                   {title}
                 </Link>
                 <div className="flex items-center gap-2">
@@ -66,11 +65,8 @@ export default async function Post({
                       <DateLabel date={createdAt} />
                     </small>
                   )}
-                  {categorys?.map(category => (
-                    <Tag
-                      key={category.id}
-                      tag={category}
-                    />
+                  {categorys?.map((category) => (
+                    <Tag key={category.id} tag={category} />
                   ))}
                 </div>
               </div>
@@ -81,3 +77,5 @@ export default async function Post({
     </Layout>
   );
 }
+export const runtime = "edge";
+export const revalidate = 60;

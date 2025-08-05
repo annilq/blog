@@ -1,31 +1,31 @@
-import prisma from '@/lib/prisma'
+import prisma from "@/lib/prisma";
 import { parseContent } from "@/lib/util";
 import DateLabel from "../components/Date";
-import Layout from '@/components/layout';
-
+import Layout from "@/components/layout";
 
 type Props = {
   params: Promise<{ id: string }>;
 };
 
 export default async function Page({ params }: Props) {
-
   const id = (await params).id;
   const post = await prisma.post.findFirst({
     where: {
-      id
+      id,
     },
     include: {
-      categorys: true
-    }
-  })
+      categorys: true,
+    },
+  });
 
-  const contentHtml = await parseContent(post?.content!)
+  const contentHtml = await parseContent(post?.content!);
 
   return (
     <Layout>
       <div className="w-full h-auto flex flex-col justify-start items-start">
-        <div className={`group relative flex flex-col justify-start items-start w-full`}>
+        <div
+          className={`group relative flex flex-col justify-start items-start w-full`}
+        >
           <article>
             <h1>{post?.title}</h1>
             <div className="text-gray-400">
@@ -36,5 +36,6 @@ export default async function Page({ params }: Props) {
         </div>
       </div>
     </Layout>
-  )
+  );
 }
+export const revalidate = 60;

@@ -23,7 +23,7 @@ export default async function Thoughts() {
               <div className="whitespace-pre-wrap">{thought.content}</div>
               <div className="flex justify-between text-sm text-foreground">
                 <time dateTime={thought.createdAt.toISOString()}>
-                  {format(thought.createdAt, "yyyy-MM-dd hh:mm:ss")}
+                  {format(thought.createdAt, "yyyy-MM-dd HH:mm:ss")}
                 </time>
                 {session?.user && <ThoughtDelBtn id={thought.id} />}
               </div>
@@ -34,3 +34,5 @@ export default async function Thoughts() {
     </Layout>
   );
 }
+export const revalidate = 60;
+export const runtime = "edge";

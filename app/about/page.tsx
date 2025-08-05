@@ -1,4 +1,4 @@
-import About from './about.mdx';
+import About from "./about.mdx";
 
 import Layout from "@/components/layout";
 
@@ -9,3 +9,5 @@ export default async function Home() {
     </Layout>
   );
 }
+export const runtime = "edge";
+export const revalidate = 60;
