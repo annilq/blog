@@ -24,5 +24,5 @@ export default async function Page() {
     </Layout>
   );
 }
-export const runtime = "edge";
+
 export const revalidate = 60;
