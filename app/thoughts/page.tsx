@@ -35,4 +35,4 @@ export default async function Thoughts() {
   );
 }
 export const revalidate = 60;
-export const runtime = "edge";
+// export const runtime = "edge";
