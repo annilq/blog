@@ -22,3 +22,4 @@ const hash = md5(license);
 const licenseKey = `${license}${hash}`;
 console.log(licenseKey);
 ```
+- [ag-grid license](https://www.cnblogs.com/soarowl/p/18172779)
