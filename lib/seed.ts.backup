@@ -1,0 +1,61 @@
+import prisma from '@/lib/prisma'
+import { getAllPostsData } from './util';
+import { Post, Prisma } from '@prisma/client';
+import { seedThoughts } from './thought';
+
+
+const createOrUpdatePost = async (posts: Prisma.PostCreateInput[]) => {
+  return await Promise.all(posts.map(async (post) => {
+    return await prisma.post.upsert({
+      where: {
+        createdAt: post.createdAt,
+      } as Prisma.PostWhereUniqueInput,
+      update: post,
+      create: post,
+    }).catch((e) => {
+      console.log(e);
+    })
+  }))
+}
+
+
+const createOrUpdateCategory = async (categorys: Prisma.CategoryCreateInput[]) => {
+  return await Promise.all(categorys.map(async (category) => {
+    return await prisma.category.upsert({
+      where: {
+        name: category.name,
+      },
+      update: category,
+      create: category,
+    })
+  }))
+}
+
+
+export const seedPosts = async () => {
+
+  const matters = getAllPostsData()
+  const postsData: Prisma.PostCreateInput[] = matters?.map(matterData => ({
+    title: String(matterData.data.title),
+    content: matterData.content,
+    createdAt: matterData.data.date,
+    published: true,
+  })) as unknown as Post[]
+
+  const categorysData: Prisma.CategoryCreateInput[] = matters?.filter(matterData => !!matterData.data.tags).map(matterData => ({
+    name: matterData.data.tags,
+  }))
+
+
+  const allPosts = await createOrUpdatePost(postsData)
+
+  const allCreatedCategorys = await createOrUpdateCategory(categorysData)
+
+  process.exit(0)
+}
+
+const main = async () => {
+  seedPosts()
+  seedThoughts()
+}
+main()

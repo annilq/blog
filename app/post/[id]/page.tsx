@@ -1,5 +1,4 @@
-import prisma from "@/lib/prisma";
-import { parseContent } from "@/lib/util";
+import { getStaticPostById, getAllStaticPosts } from "@/lib/static-posts";
 import DateLabel from "../components/Date";
 import Layout from "@/components/layout";
 
@@ -7,18 +6,30 @@ type Props = {
   params: Promise<{ id: string }>;
 };
 
+// 生成所有post的静态参数
+export async function generateStaticParams() {
+  const posts = await getAllStaticPosts();
+  return posts.map((post) => ({
+    id: post.id,
+  }));
+}
+
 export default async function Page({ params }: Props) {
   const id = (await params).id;
-  const post = await prisma.post.findFirst({
-    where: {
-      id,
-    },
-    include: {
-      categorys: true,
-    },
-  });
+  const post = await getStaticPostById(id);
 
-  const contentHtml = await parseContent(post?.content!);
+  if (!post) {
+    return (
+      <Layout>
+        <div className="w-full h-auto flex flex-col justify-start items-start">
+          <div className="text-center">
+            <h1>文章未找到</h1>
+            <p>抱歉，您要查找的文章不存在。</p>
+          </div>
+        </div>
+      </Layout>
+    );
+  }
 
   return (
     <Layout>
@@ -26,16 +37,19 @@ export default async function Page({ params }: Props) {
         <div
           className={`group relative flex flex-col justify-start items-start w-full`}
         >
-          <article>
-            <h1>{post?.title}</h1>
+          <article className="w-full">
+            <h1>{post.title}</h1>
             <div className="text-gray-400">
-              {post?.createdAt && <DateLabel date={post?.createdAt!} />}
+              <DateLabel date={post.date} />
             </div>
-            <div dangerouslySetInnerHTML={{ __html: contentHtml }}></div>
+            <div dangerouslySetInnerHTML={{ __html: post.contentHtml }}></div>
           </article>
         </div>
       </div>
     </Layout>
   );
 }
-export const revalidate = 60;
+
+// 静态生成配置
+export const dynamic = 'force-static';
+export const revalidate = false;

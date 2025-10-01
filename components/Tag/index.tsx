@@ -1,10 +1,15 @@
 "use client"
 
-import { Prisma } from "@prisma/client";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 import { cn } from "@/utils/utils";
 import Icon from "../Icon";
+
+// 定义标签类型
+export interface TagType {
+  id: string;
+  name: string;
+}
 
 const stringToColour = (str: string) => {
   let hash = 0;
@@ -20,7 +25,7 @@ const stringToColour = (str: string) => {
 }
 
 
-export const Tag = (props: { tag: Prisma.CategoryCreateInput, canClear?: boolean }) => {
+export const Tag = (props: { tag: TagType, canClear?: boolean }) => {
 
   const { tag, canClear = false } = props;
   const color = stringToColour(tag.name);

@@ -1,7 +1,7 @@
 "use client"
 
 import { Button, Input, List, ListItem, ListItemContent, Modal, ModalClose, ModalDialog, ModalOverflow, Typography } from '@mui/joy';
-import { Post } from '@prisma/client';
+import { StaticPost } from '@/lib/static-posts';
 import Fuse, { FuseResult, RangeTuple } from 'fuse.js'
 import { Search, } from 'lucide-react';
 import Link from 'next/link';
@@ -32,22 +32,22 @@ const options = {
 export default function SearchInput({
   data,
 }: {
-  data: Post[];
+  data: StaticPost[];
 }) {
 
-  const fuseRef = useRef<Fuse<Post>>()
+  const fuseRef = useRef<Fuse<StaticPost>>()
   const [open, setOpen] = useState<boolean>(false);
   const [value, setValue] = useState<string>("");
-  const [matchPost, setMatchPost] = useState<FuseResult<Post>[]>([]);
+  const [matchPost, setMatchPost] = useState<FuseResult<StaticPost>[]>([]);
 
   useEffect(
     () => {
-      fuseRef.current = new Fuse<Post>(data, options);
+      fuseRef.current = new Fuse<StaticPost>(data, options);
       return () => {
         setMatchPost([])
         setValue("")
       }
-    }, [])
+    }, [data])
 
   useEffect(
     () => {

@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Your Blog</title>
+    <description>Your blog description</description>
+    <link>https://yourdomain.com</link>
+    <atom:link href="https://yourdomain.com/rss.xml" rel="self" type="application/rss+xml"/>
+    <language>zh-CN</language>
+    <lastBuildDate>Wed, 01 Oct 2025 02:08:52 GMT</lastBuildDate>
+    
+    <item>
+      <title><![CDATA[ag-grid]]></title>
+      <link>https://yourdomain.com/post/frontend-aggrid-md-2025-08-26</link>
+      <guid>https://yourdomain.com/post/frontend-aggrid-md-2025-08-26</guid>
+      <pubDate>Tue, 26 Aug 2025 15:36:01 GMT</pubDate>
+      <description><![CDATA[### 生成ag-grid授权码 license.cjs
+```javascript
+const crypto = require("crypto");
+
+function md5(str) {
+	const hash = crypto.createHash("md5");
+	hash.update(str);
+	return hash.digest("hex");
+}
+
+let expiredD...]]></description>
+    </item>
+    <item>
+      <title><![CDATA[python 开发环境搭建(uv)]]></title>
+      <link>https://yourdomain.com/post/python-setup-md-2025-03-19</link>
+      <guid>https://yourdomain.com/post/python-setup-md-2025-03-19</guid>
+      <pubDate>Wed, 19 Mar 2025 10:07:01 GMT</pubDate>
+      <description><![CDATA[在进行任何项目开发中，环境管理（package,venv,python ,env）都是十分基础并且重要的一部分
+### 新项目
+1. 创建项目
+```bash
+uv init
+```
+2. 创建环境
+```bash
+uv venv
+```
+3. 新增package
+```bash
+uv add fastapi
+```
+
+### [迁移现有fastapi项目](https://docs.astral...]]></description>
+    </item>
+    <item>
+      <title><![CDATA[use langchianjs with Vercel @ai-sdk]]></title>
+      <link>https://yourdomain.com/post/AI-langchainjs-ai-md-2025-03-12</link>
+      <guid>https://yourdomain.com/post/AI-langchainjs-ai-md-2025-03-12</guid>
+      <pubDate>Wed, 12 Mar 2025 11:08:01 GMT</pubDate>
+      <description><![CDATA[
+### why use langchainjs
+
+1. free to switch and custom LLM provider
+2. chain llm instructions
+
+### how to use langchainjs with vercel/ai
+
+1. use _LangChainAdapter_ serve side
+
+```typescript
+import { N...]]></description>
+    </item>
+    <item>
+      <title><![CDATA[2025]]></title>
+      <link>https://yourdomain.com/post/summary-2025-md-2025-01-27</link>
+      <guid>https://yourdomain.com/post/summary-2025-md-2025-01-27</guid>
+      <pubDate>Mon, 27 Jan 2025 11:25:01 GMT</pubDate>
+      <description><![CDATA[
+今天是2024年最后一天班，这些年貌似每年都坚持到最后一天，我知道这不算努力，只是不想提请假扣钱，也没有什么非走不可的理由，这些年虽然在南昌定居，但每到过年的时候还是会偶尔想回老家走走，虽然我知道这只是偶尔会蹦到脑子的想法，对没什么钱和假期的我来说，出趟远门还是比较奢侈
+
+#### 2024年印象比较深的几件事
+- 暑假期间和朋友约着去上海，苏州，杭州转了一下，算是履行了每年出去走一下的约定，但...]]></description>
+    </item>
+    <item>
+      <title><![CDATA[百度地图坐标与微信地图坐标转换]]></title>
+      <link>https://yourdomain.com/post/map-md-2025-01-04</link>
+      <guid>https://yourdomain.com/post/map-md-2025-01-04</guid>
+      <pubDate>Sat, 04 Jan 2025 09:26:01 GMT</pubDate>
+      <description><![CDATA[前提：之前公司的项目有定位打卡功能，用的是百度地图，目前公司想做一套基于小程序的app
+问题：定位以及地图展示是基于微信的，由于微信与百度地图采用的是不同的坐标体系，所以需要坐标转换
+方案：目前为了兼容老项目，统一将坐标转换成百度坐标
+
+### 1. 设置地图组件
+```typescript
+import { Map } from 'react-bmapgl';
+import { YqMapCom...]]></description>
+    </item>
+    <item>
+      <title><![CDATA[利用docker部署fastapi项目]]></title>
+      <link>https://yourdomain.com/post/docker-md-2024-11-29</link>
+      <guid>https://yourdomain.com/post/docker-md-2024-11-29</guid>
+      <pubDate>Fri, 29 Nov 2024 09:46:01 GMT</pubDate>
+      <description><![CDATA[之前在公司使用python开发了一个数据统计的项目不部署在测试服务器，目前服务器到期，希望能够迁移到其他服务器，因为本人不擅长python，而且python搭建环境的方案也是百花齐放，所以决定使用docker部署。
+
+1. 本地安装docker，因为目前工作使用macOS，所以安装docker比较方便，直接安装Docker Desktop即可
+2. 然后根据fastapi官网的deployment...]]></description>
+    </item>
+    <item>
+      <title><![CDATA[本地部署大模型方案以及对比]]></title>
+      <link>https://yourdomain.com/post/AI-ollama-md-2024-11-27</link>
+      <guid>https://yourdomain.com/post/AI-ollama-md-2024-11-27</guid>
+      <pubDate>Wed, 27 Nov 2024 17:06:01 GMT</pubDate>
+      <description><![CDATA[
+### 本地部署大模型常见的方案
+ 1. Ollama
+ 2. LM Studio
+
+### LM Studio 或 Ollama 是什么软件？
+它们提供一个支持多种模型的平台，可以加载、执行、管理、部署和使用各种预训练的 LLM。可以提供RESTful api方便集成在各种UI中，它们更像是模型管理工具或 LLM 执行环境，而不是模型本身
+
+###  LM Studio 与 Ollama 有何...]]></description>
+    </item>
+    <item>
+      <title><![CDATA[本地部署screenshort-to-code]]></title>
+      <link>https://yourdomain.com/post/AI-screenshort-to-code-md-2024-11-26</link>
+      <guid>https://yourdomain.com/post/AI-screenshort-to-code-md-2024-11-26</guid>
+      <pubDate>Tue, 26 Nov 2024 17:06:01 GMT</pubDate>
+      <description><![CDATA[
+最近在网上看到一个将截图转代码的项目[screenshort-to-code](https://github.com/abi/screenshot-to-code)，想本地运行体验一下看看具体效果，但是再下载运行过程中发现，该项目依赖OpenAI Plus API 或者Claude API，由于本人不是会员用户，所以就尝试使用Ollama本地部署大模型的方案
+
+#### 本地安装Ollama
+
+...]]></description>
+    </item>
+    <item>
+      <title><![CDATA[svn 常用命令]]></title>
+      <link>https://yourdomain.com/post/svn-md-2024-10-18</link>
+      <guid>https://yourdomain.com/post/svn-md-2024-10-18</guid>
+      <pubDate>Fri, 18 Oct 2024 16:26:01 GMT</pubDate>
+      <description><![CDATA[最近公司配了个Mac开发，但是找不到合适的免费svn管理工具，只能用命令行来管理源代码，记录一下常用的命令。
+
+1. 更新
+```bash
+svn update
+```
+
+2. 自动添加未版本化的文件
+```bash
+svn status | grep '^?' | awk '{print $2}' | xargs svn add
+# 排除 node_modules 文件夹
+svn status ...]]></description>
+    </item>
+    <item>
+      <title><![CDATA[shell 常用命令]]></title>
+      <link>https://yourdomain.com/post/shell-md-2024-05-11</link>
+      <guid>https://yourdomain.com/post/shell-md-2024-05-11</guid>
+      <pubDate>Sat, 11 May 2024 16:26:01 GMT</pubDate>
+      <description><![CDATA[
+查看当前目录中文件和子目录的磁盘使用量按照磁盘使用量的大小进行排序
+```bash
+du -h --max-depth=1 | sort -h
+```
+复制文件
+```bash
+cp file1 file2
+```
+复制目录下所有文件
+```bash
+cp -r dir1 dir2
+```
+
+```bash
+nohup python3 main.py > output.log 2>&1 &
+vi...]]></description>
+    </item>
+    <item>
+      <title><![CDATA[使用rollup与storyboard开发一个React组件库]]></title>
+      <link>https://yourdomain.com/post/frontend-rollup-md-2024-04-24</link>
+      <guid>https://yourdomain.com/post/frontend-rollup-md-2024-04-24</guid>
+      <pubDate>Wed, 24 Apr 2024 14:48:15 GMT</pubDate>
+      <description><![CDATA[
+### rollup配置说明
+```javascript
+import resolve from "@rollup/plugin-node-resolve";
+import commonjs from "@rollup/plugin-commonjs";
+import terser from "@rollup/plugin-terser";
+import typescript from "@ro...]]></description>
+    </item>
+    <item>
+      <title><![CDATA[2024]]></title>
+      <link>https://yourdomain.com/post/summary-2024-md-2024-03-13</link>
+      <guid>https://yourdomain.com/post/summary-2024-md-2024-03-13</guid>
+      <pubDate>Wed, 13 Mar 2024 11:52:01 GMT</pubDate>
+      <description><![CDATA[
+2023年结束了一段时间，是时候稍微回顾一下2023年发生的一些事情。
+
+#### 生活上
+
+- 带娃娃去东山岛玩了一下，还顺便见了朋友，很开心
+- 大娃娃上了一年级，小娃娃升了中班，一切都在稳步的进行中
+
+#### 学习上
+
+今年看了一些计算机相关书籍，也充实了下自己，不再只想着工作的内容，也和朋友做了点项目，虽然没赚钱，但也接触了一些其他的东西
+
+#### 列一下今年看的书籍
+- 编码 -隐...]]></description>
+    </item>
+    <item>
+      <title><![CDATA[nextjs tailwindcss 配置主题]]></title>
+      <link>https://yourdomain.com/post/frontend-tailwindcss-md-2024-01-13</link>
+      <guid>https://yourdomain.com/post/frontend-tailwindcss-md-2024-01-13</guid>
+      <pubDate>Sat, 13 Jan 2024 12:34:01 GMT</pubDate>
+      <description><![CDATA[
+#### 1. tailwindcss项目主题设置搭配
+- 如果使用第三方(例如[shadcn-ui](https://ui.shadcn.com/),[mui](https://mui.com/material-ui/customization/dark-mode/))框架,可以参考Theme部分配置
+
+#### 2. 使用主题
+
+```javascript
+//theme.js
+
+const...]]></description>
+    </item>
+    <item>
+      <title><![CDATA[add git pre-commit hook with husky]]></title>
+      <link>https://yourdomain.com/post/git-hooks-md-2023-12-27</link>
+      <guid>https://yourdomain.com/post/git-hooks-md-2023-12-27</guid>
+      <pubDate>Wed, 27 Dec 2023 10:39:01 GMT</pubDate>
+      <description><![CDATA[
+### 安装方式分为两种
+
+1. 初始化
+
+```javascript
+npx husky-init && npm install
+```
+
+```javascript
+npm install lint-staged --save-dev
+```
+
+2. 配置package.json
+
+```json
+{
+  "lint-staged": {
+    "*.{js,jsx,css,md}": [...]]></description>
+    </item>
+    <item>
+      <title><![CDATA[云建管低代码整合注意事项]]></title>
+      <link>https://yourdomain.com/post/frontend-lowcode-md-2023-11-27</link>
+      <guid>https://yourdomain.com/post/frontend-lowcode-md-2023-11-27</guid>
+      <pubDate>Mon, 27 Nov 2023 10:44:01 GMT</pubDate>
+      <description><![CDATA[### 注意事项
+1. 低代码应该嵌入现有项目中，不应该在低代码中嵌入业务系统代码
+2. 低代码渲染的component formCode应该是从父组件传入，不从component formCode内部通过routeProps获取(避免在不同route渲染component时，formCode的值不同)
+
+### lowCode与流程审批是两个功能，不应该有业务关联
+1. 各个系统的edit la...]]></description>
+    </item>
+    <item>
+      <title><![CDATA[centOS7安装python3.11以及部署项目问题]]></title>
+      <link>https://yourdomain.com/post/python-centos-md-2023-11-22</link>
+      <guid>https://yourdomain.com/post/python-centos-md-2023-11-22</guid>
+      <pubDate>Wed, 22 Nov 2023 09:13:01 GMT</pubDate>
+      <description><![CDATA[- centos7 默认安装的python版本是2.7
+- Python 3.6.8 is the latest version available in the CentOS 7 repos
+- 需要用源代码安装python3.11
+- 并且python3.10以上需要手动安装openssl，不然pip不能下载依赖包
+
+### 部署服务器以及目录
+- server:47.87.48.110
+- ...]]></description>
+    </item>
+    <item>
+      <title><![CDATA[Python tips]]></title>
+      <link>https://yourdomain.com/post/python-pythontips-md-2023-10-26</link>
+      <guid>https://yourdomain.com/post/python-pythontips-md-2023-10-26</guid>
+      <pubDate>Thu, 26 Oct 2023 13:44:01 GMT</pubDate>
+      <description><![CDATA[
+```python
+def get_db():
+  db = SessionLocal()
+  try:
+    yield db
+  finally:
+    db.close()
+
+```
+[利用yield创建数据库并返回，并利用垃圾回收机制调用finally子句关闭数据库连接](https://stackoverflow.com/questions/56062909/try-finally...]]></description>
+    </item>
+    <item>
+      <title><![CDATA[builders-collections.namedtuple,typing.NamedTuple,dataclasses.dataclass的区别]]></title>
+      <link>https://yourdomain.com/post/python-pythondatamodel-md-2023-10-20</link>
+      <guid>https://yourdomain.com/post/python-pythondatamodel-md-2023-10-20</guid>
+      <pubDate>Fri, 20 Oct 2023 13:51:01 GMT</pubDate>
+      <description><![CDATA[
+### 当前普通Class的局限
+1. __str__不清晰
+2. .__eq__对比不准确
+3. 实例的参数序列化需要调用.__dict__
+4. 没设置默认值的类属性是不能访问的
+
+### 三种创建数据类型的方式
+#### collections.namedtuple
+1. 可以指定默认值
+2. 不支持类型注解
+3. 返回值是tuple
+
+#### typing.NamedTuple
+1. ...]]></description>
+    </item>
+    <item>
+      <title><![CDATA[如何在fastapi中使用pymongo]]></title>
+      <link>https://yourdomain.com/post/python-pymongo-md-2023-09-28</link>
+      <guid>https://yourdomain.com/post/python-pymongo-md-2023-09-28</guid>
+      <pubDate>Thu, 28 Sep 2023 11:07:01 GMT</pubDate>
+      <description><![CDATA[
+### 在 python 中使用 mongodb 中返回的 ObjectId 中不能被 json 序列化的问题
+
+#### 1.自定义 basemodel 实现"\_id"与"id"的转换
+
+#### 2.自定义 model 的 json_encoders 实现 uuid 以及 objectid 的序列化
+
+#### 3.统一数据类型，利用 uuid 将 model 中的 id 类型设置为 uu...]]></description>
+    </item>
+    <item>
+      <title><![CDATA[SQL基础教程]]></title>
+      <link>https://yourdomain.com/post/database-sql-md-2023-08-29</link>
+      <guid>https://yourdomain.com/post/database-sql-md-2023-08-29</guid>
+      <pubDate>Tue, 29 Aug 2023 10:30:40 GMT</pubDate>
+      <description><![CDATA[
+### SQL 语句可以分为以下三类
+
+1. DDL(Data Definition language) 数据定义语言
+   1. CREATE
+   2. DROP
+   3. ALTER
+2. DML(Data Manipulation language) 数据操纵语言
+   1. SELECT
+   2. INSERT
+   3. UPDATE
+   4. DELETE
+3. DCL (D...]]></description>
+    </item>
+  </channel>
+</rss>
