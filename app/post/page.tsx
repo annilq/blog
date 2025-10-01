@@ -3,7 +3,7 @@ import DateLabel from "./components/Date";
 import { Tag } from "@/components/Tag";
 import Layout from "@/components/layout";
 import SearchInput from "./components/SearchInput";
-import { getAllStaticPosts, getAllTags } from "@/lib/static-posts";
+import { getAllStaticPostsMeta, getAllTags } from "@/lib/static-posts";
 
 export default async function Post({
   searchParams,
@@ -15,8 +15,8 @@ export default async function Post({
 }) {
   const query = (await searchParams)?.query || "";
 
-  // 获取所有静态文章数据
-  const allPosts = await getAllStaticPosts();
+  // 获取所有静态文章元数据（不解析内容，提升性能）
+  const allPosts = await getAllStaticPostsMeta();
   // 根据查询条件过滤文章
   const data = query 
     ? allPosts.filter(post => post.tags === query)

@@ -48,7 +48,35 @@ function generatePostId(dir: string, fileName: string, date: Date): string {
   return `${pathHash}-${dateStr}`;
 }
 
-// 获取所有静态文章数据
+// 获取所有静态文章元数据（不解析内容，用于列表页面）
+export async function getAllStaticPostsMeta(): Promise<StaticPostMeta[]> {
+  const fileNames = getPostsFromDir(postsDirectory);
+  const posts: StaticPostMeta[] = [];
+
+  for (const { dir, fileName } of fileNames) {
+    try {
+      const matterResult = parseMDContent(dir, fileName);
+      const id = generatePostId(dir, fileName, matterResult.data.date);
+      
+      const post: StaticPostMeta = {
+        id,
+        title: String(matterResult.data.title),
+        date: matterResult.data.date,
+        tags: matterResult.data.tags,
+        published: true,
+      };
+      
+      posts.push(post);
+    } catch (error) {
+      console.error(`Error processing post ${fileName}:`, error);
+    }
+  }
+
+  // 按日期排序
+  return posts.sort((a, b) => new Date(b.date).valueOf() - new Date(a.date).valueOf());
+}
+
+// 获取所有静态文章数据（包含完整内容，用于需要内容的场景）
 export async function getAllStaticPosts(): Promise<StaticPost[]> {
   const fileNames = getPostsFromDir(postsDirectory);
   const posts: StaticPost[] = [];
@@ -80,6 +108,7 @@ export async function getAllStaticPosts(): Promise<StaticPost[]> {
 
 // 缓存所有文章数据，避免重复读取文件
 let postsCache: StaticPost[] | null = null;
+let postsMetaCache: StaticPostMeta[] | null = null;
 
 // 根据ID获取单个文章
 export async function getStaticPostById(id: string): Promise<StaticPost | null> {
@@ -92,6 +121,7 @@ export async function getStaticPostById(id: string): Promise<StaticPost | null> 
 // 清除缓存（用于开发环境）
 export function clearPostsCache() {
   postsCache = null;
+  postsMetaCache = null;
 }
 
 // 根据标签获取文章
@@ -102,14 +132,14 @@ export async function getStaticPostsByTag(tag: string): Promise<StaticPost[]> {
   return postsCache.filter(post => post.tags === tag);
 }
 
-// 获取所有标签
+// 获取所有标签（使用元数据缓存，避免解析内容）
 export async function getAllTags(): Promise<string[]> {
-  if (!postsCache) {
-    postsCache = await getAllStaticPosts();
+  if (!postsMetaCache) {
+    postsMetaCache = await getAllStaticPostsMeta();
   }
   const tags = new Set<string>();
   
-  postsCache.forEach(post => {
+  postsMetaCache.forEach(post => {
     if (post.tags) {
       tags.add(post.tags);
     }

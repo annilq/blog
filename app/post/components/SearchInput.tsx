@@ -1,7 +1,7 @@
 "use client"
 
 import { Button, Input, List, ListItem, ListItemContent, Modal, ModalClose, ModalDialog, ModalOverflow, Typography } from '@mui/joy';
-import { StaticPost } from '@/lib/static-posts';
+import { StaticPost, StaticPostMeta } from '@/lib/static-posts';
 import Fuse, { FuseResult, RangeTuple } from 'fuse.js'
 import { Search, } from 'lucide-react';
 import Link from 'next/link';
@@ -9,19 +9,15 @@ import { useEffect, useRef, useState } from 'react';
 import FuseHighlight from './hightlight';
 
 const options = {
-  // only filter by content,so we can print match value
+  // 只搜索标题和标签，避免需要内容字段
   keys: [
     {
       name: 'title',
-      weight: 0.3
-    },
-    // {
-    //   name: 'categorys',
-    //   weight: 0.2
-    // },
-    {
-      name: 'content',
       weight: 0.7
+    },
+    {
+      name: 'tags',
+      weight: 0.3
     }
   ],
   threshold: 0.1,
@@ -32,17 +28,17 @@ const options = {
 export default function SearchInput({
   data,
 }: {
-  data: StaticPost[];
+  data: StaticPostMeta[];
 }) {
 
-  const fuseRef = useRef<Fuse<StaticPost>>()
+  const fuseRef = useRef<Fuse<StaticPostMeta>>()
   const [open, setOpen] = useState<boolean>(false);
   const [value, setValue] = useState<string>("");
-  const [matchPost, setMatchPost] = useState<FuseResult<StaticPost>[]>([]);
+  const [matchPost, setMatchPost] = useState<FuseResult<StaticPostMeta>[]>([]);
 
   useEffect(
     () => {
-      fuseRef.current = new Fuse<StaticPost>(data, options);
+      fuseRef.current = new Fuse<StaticPostMeta>(data, options);
       return () => {
         setMatchPost([])
         setValue("")
@@ -119,11 +115,9 @@ export default function SearchInput({
                           />
                         </Typography>
                         <Typography level="body-sm" noWrap>
-                          <FuseHighlight
-                            matches={matches}
-                            value={item.content!}
-                            name="content"
-                          />
+                          {item.tags && (
+                            <span className="text-blue-500">#{item.tags}</span>
+                          )}
                         </Typography>
                       </ListItemContent>
                     </ListItem>
