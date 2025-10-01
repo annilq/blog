@@ -17,11 +17,11 @@ export default async function Post({
 
   // 获取所有静态文章数据
   const allPosts = await getAllStaticPosts();
-  
   // 根据查询条件过滤文章
   const data = query 
     ? allPosts.filter(post => post.tags === query)
     : allPosts;
+    console.log(query);
 
   // 获取标签信息
   let category = null;
@@ -65,14 +65,5 @@ export default async function Post({
     </Layout>
   );
 }
-// 静态生成配置
-export const dynamic = 'force-static';
-export const revalidate = false;
-
-// 生成静态参数（为标签查询预生成页面）
-export async function generateStaticParams() {
-  const tags = await getAllTags();
-  return tags.map(tag => ({
-    query: tag,
-  }));
-}
+// 动态渲染配置，支持查询参数
+export const dynamic = 'force-dynamic';
