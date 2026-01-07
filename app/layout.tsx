@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import React, { PropsWithChildren } from "react";
+import React from "react";
 import ClientContext from "@/components/ClientContext";
 import "./globals.css";
 
@@ -8,7 +8,12 @@ export const metadata: Metadata = {
   description: "write something...",
 };
 
-const RootLayout: React.ComponentType<PropsWithChildren> = ({ children }) => (
+interface RootLayoutProps {
+  children: React.ReactNode;
+  params: Promise<{ locale?: string }>;
+}
+
+const RootLayout: React.FC<RootLayoutProps> = ({ children, params }) => (
   <html lang="zh-cn">
     <body className="h-full text-foreground bg-background transition-all text-sm markdown-body">
       <ClientContext>
