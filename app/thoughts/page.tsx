@@ -1,5 +1,6 @@
 import { Suspense } from "react";
 import { format } from "date-fns";
+import type { Session } from "next-auth";
 
 import Layout from "@/components/layout";
 import { Card } from "@mui/joy";
@@ -27,7 +28,7 @@ export default async function Thoughts() {
   );
 }
 
-async function ThoughtsList({ session }: { session: Awaited<ReturnType<typeof auth>> }) {
+async function ThoughtsList({ session }: { session: Session | null }) {
   const thoughts = await getThoughts();
 
   return (
