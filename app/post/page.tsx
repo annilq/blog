@@ -1,69 +1,24 @@
-import Link from "next/link";
-import DateLabel from "./components/Date";
-import { Tag } from "@/components/Tag";
+import { Suspense } from "react";
 import Layout from "@/components/layout";
 import SearchInput from "./components/SearchInput";
+import PostList from "./components/PostList";
 import { getAllStaticPostsMeta, getAllTags } from "@/lib/static-posts";
 
-export default async function Post({
-  searchParams,
-}: {
-  searchParams: Promise<{
-    query?: string;
-    page?: string;
-  }>;
-}) {
-  const query = (await searchParams)?.query || "";
-
-  // 获取所有静态文章元数据（不解析内容，提升性能）
+export default async function Post() {
+  // 获取所有静态文章元数据（不解析内容，提升性能，已带进程内缓存）
   const allPosts = await getAllStaticPostsMeta();
-  // 根据查询条件过滤文章
-  const data = query 
-    ? allPosts.filter(post => post.tags === query)
-    : allPosts;
-    console.log(query);
-
-  // 获取标签信息
-  let category = null;
-  if (query) {
-    const tags = await getAllTags();
-    if (tags.includes(query)) {
-      category = { id: query, name: query };
-    }
-  }
+  // 获取标签信息，用于客户端校验 tag 深链
+  const tags = await getAllTags();
 
   return (
     <Layout>
       <div className="w-full h-auto flex flex-col justify-start items-start">
-        {data && <SearchInput data={data} />}
-        {category && <Tag tag={category} canClear />}
-        <div
-          className={`group relative flex flex-col justify-start items-start w-full gap-4`}
-        >
-            {data?.map(({ id, date, title, tags }) => (
-              <div key={id}>
-                <Link
-                  href={`/post/${id}`}
-                  className="block text-xl font-semibold text-foreground hover:text-link"
-                >
-                  {title}
-                </Link>
-                <div className="flex items-center gap-2">
-                  {date && (
-                    <small className="text-sm text-gray-500">
-                      <DateLabel date={date} />
-                    </small>
-                  )}
-                  {tags && (
-                    <Tag key={tags} tag={{ id: tags, name: tags }} />
-                  )}
-                </div>
-              </div>
-            ))}
-        </div>
+        <SearchInput data={allPosts} />
+        {/* 列表与 tag 深链过滤下沉到客户端，使整页可静态预取 */}
+        <Suspense>
+          <PostList posts={allPosts} allTags={tags} />
+        </Suspense>
       </div>
     </Layout>
   );
 }
-// 动态渲染配置，支持查询参数
-export const dynamic = 'force-dynamic';

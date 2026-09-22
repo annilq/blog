@@ -50,6 +50,9 @@ function generatePostId(dir: string, fileName: string, date: Date): string {
 
 // 获取所有静态文章元数据（不解析内容，用于列表页面）
 export async function getAllStaticPostsMeta(): Promise<StaticPostMeta[]> {
+  if (postsMetaCache) {
+    return postsMetaCache;
+  }
   const fileNames = getPostsFromDir(postsDirectory);
   const posts: StaticPostMeta[] = [];
 
@@ -73,7 +76,9 @@ export async function getAllStaticPostsMeta(): Promise<StaticPostMeta[]> {
   }
 
   // 按日期排序
-  return posts.sort((a, b) => new Date(b.date).valueOf() - new Date(a.date).valueOf());
+  const sorted = posts.sort((a, b) => new Date(b.date).valueOf() - new Date(a.date).valueOf());
+  postsMetaCache = sorted;
+  return sorted;
 }
 
 // 获取所有静态文章数据（包含完整内容，用于需要内容的场景）
