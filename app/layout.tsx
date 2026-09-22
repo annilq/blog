@@ -10,10 +10,9 @@ export const metadata: Metadata = {
 
 interface RootLayoutProps {
   children: React.ReactNode;
-  params: Promise<{ locale?: string }>;
 }
 
-const RootLayout: React.FC<RootLayoutProps> = ({ children, params }) => (
+const RootLayout: React.FC<RootLayoutProps> = ({ children }) => (
   <html lang="zh-cn">
     <body className="h-full text-foreground bg-background transition-all text-sm markdown-body">
       <ClientContext>

@@ -20,6 +20,9 @@ export async function addThought(formData: FormData) {
   const content = formData.get("content") as string
   const session = await auth()
 
+  if (!session?.user?.name) {
+    return { error: "Unauthorized" }
+  }
   if (!content || content.trim() === "") {
     return { error: "Thought content cannot be empty" }
   }
@@ -28,7 +31,7 @@ export async function addThought(formData: FormData) {
     await prisma.thought.create({
       data: {
         content: content.trim(),
-        name: session?.user?.name!
+        name: session.user.name
       },
     })
 
@@ -40,17 +43,19 @@ export async function addThought(formData: FormData) {
 }
 
 export async function deleteThought(id: string) {
+  const session = await auth()
+  if (!session?.user?.name) {
+    throw new Error("Unauthorized")
+  }
+
+  const thought = await prisma.thought.findUnique({ where: { id } })
+  if (!thought || thought.name !== session.user.name) {
+    throw new Error("Not found")
+  }
 
   await prisma.thought.delete({
     where: { id },
   })
-
-  revalidatePath("/thoughts")
-  return { success: true }
-}
-
-export async function clearAllThoughts() {
-  await prisma.thought.deleteMany({})
 
   revalidatePath("/thoughts")
   return { success: true }
