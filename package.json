@@ -32,7 +32,6 @@
     "lucide-react": "^0.363.0",
     "next": "^15.1.5",
     "next-auth": "^5.0.0-beta.25",
-    "next-mdx-remote": "^4.4.1",
     "next-themes": "^0.3.0",
     "prisma": "^6.4.0",
     "react": "^18",
