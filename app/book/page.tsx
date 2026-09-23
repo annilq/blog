@@ -31,4 +31,6 @@ export default async function Page() {
   );
 }
 
-export const revalidate = 60;
+// weread.qq.com 是腾讯国内站点，Vercel 海外构建节点访问会超时，
+// 因此不能在 build 阶段预渲染；改为运行时渲染（fetch 结果由 util 内 next.revalidate 缓存）。
+export const dynamic = "force-dynamic";

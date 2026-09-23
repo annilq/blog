@@ -29,27 +29,45 @@ export const BOOKS: BookShort[] = [
 export const bookBaseUrl = "https://weread.qq.com/web/bookDetail";
 
 
-export async function getBookInfoById(book: BookShort) {
+export async function getBookInfoById(book: BookShort): Promise<Book> {
+  const bookHref = `${bookBaseUrl}/${book.id}`;
 
-  const bookHref = `${bookBaseUrl}/${book.id}`
-  const body = await fetch(bookHref).then(res => res.text())
+  try {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 10000);
+    const body = await fetch(bookHref, {
+      signal: controller.signal,
+      // 运行时缓存一天，避免每个请求都打 9 次 weread
+      next: { revalidate: 86400 },
+    }).then((res) => res.text());
+    clearTimeout(timeout);
 
-  const dom = new JSDOM(body);
+    const dom = new JSDOM(body);
 
-  const bookInfoSelector = dom.window.document.querySelector(".readerBookInfo");
+    const bookInfoSelector = dom.window.document.querySelector(".readerBookInfo");
 
-  const title = bookInfoSelector?.querySelector(".bookInfo_right_header_title_text")?.textContent!;
-  const author = bookInfoSelector?.querySelector(".bookInfo_author_container")?.textContent!;
-  const description = bookInfoSelector?.querySelector(".bookInfo_intro")?.textContent!;
-  const url = bookInfoSelector?.querySelector(".wr_bookCover_img")?.getAttribute("src")!;
-  // console.log(dom.window.document);
-  const bookInfo: Book = {
-    id: book.id,
-    title,
-    author,
-    description,
-    href: bookHref,
-    url
+    const title = bookInfoSelector?.querySelector(".bookInfo_right_header_title_text")?.textContent!;
+    const author = bookInfoSelector?.querySelector(".bookInfo_author_container")?.textContent!;
+    const description = bookInfoSelector?.querySelector(".bookInfo_intro")?.textContent!;
+    const url = bookInfoSelector?.querySelector(".wr_bookCover_img")?.getAttribute("src")!;
+
+    return {
+      id: book.id,
+      title,
+      author,
+      description,
+      href: bookHref,
+      url,
+    };
+  } catch {
+    // 单本拉取失败（超时/网络受限）不影响其余书籍；返回兜底数据，页面不 500
+    return {
+      id: book.id,
+      title: book.title,
+      author: "",
+      description: "",
+      href: bookHref,
+      url: "",
+    };
   }
-  return bookInfo
 }
