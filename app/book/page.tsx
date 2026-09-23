@@ -1,5 +1,5 @@
 import booksData from "../../public/books.json";
-import type { Book } from "@/app/api/book/util";
+import type { Book as BookData } from "@/app/api/book/util";
 import Layout from "@/components/layout";
 import Book from "./components/book";
 import Intro from "./intro.mdx";
@@ -14,7 +14,7 @@ export default function Page() {
   // 书籍数据来自构建期固化的 public/books.json（见 scripts/fetch-books.ts）。
   // weread.qq.com 是腾讯国内站点，Vercel 海外节点访问会 ETIMEDOUT，不能在运行时/构建期动态拉取，
   // 因此改为「本地抓一次、提交静态 JSON、页面直接 import」——整页纯静态，零运行时 I/O。
-  const bookJson = booksData as Book[];
+  const bookJson = booksData as BookData[];
 
   return (
     <Layout containerClassName="bg-surface-muted dark:bg-background">
