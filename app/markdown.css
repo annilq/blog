@@ -1,36 +1,22 @@
-
-@media (prefers-color-scheme: dark) {
-  .markdown-body, [data-theme="dark"] {
-    /* dark */
-    color-scheme: dark;
-    --bgColor-muted: #151b23;
-    --borderColor-default: #3d444d;
-    --borderColor-muted: #3d444db3;
-    --borderColor-neutral-muted: #3d444db3;
-    --borderColor-accent-emphasis: #1f6feb;
-    --borderColor-success-emphasis: #238636;
-    --borderColor-attention-emphasis: #9e6a03;
-    --borderColor-danger-emphasis: #da3633;
-    --borderColor-done-emphasis: #8957e5;
-   
-  }
+/*
+ * 表格配色不再自带一套。
+ * 原来这里抄的是 GitHub 的调色板并用 `prefers-color-scheme` 判定深浅，而 next-themes 写的是
+ * `data-joy-color-scheme` —— 两者互不相识。后果可复现：系统浅色 + 手动切深色时，表格仍取浅色值，
+ * 黑底上留着 `#f6f8fa` 斑马纹与 `#d1d9e0` 边框，文字基本不可读。
+ *
+ * 现在：① 判定交给 `data-joy-color-scheme`（顺带删掉那两段 media query）；
+ * ② 色值全部从 globals.css 的语义 token 派生，全站只剩一套调色板；
+ * ③ 补上 `--bgColor-default` —— 它此前被 :66 引用却从未定义，奇数行背景一直解析成空值，
+ *    斑马纹是碰巧由 `:nth-child(2n)` 单独实现的。
+ * 顺带删掉从未被任何规则消费的 `--bgColor-neutral-muted` 与五个 `--borderColor-*-emphasis`
+ * （GitHub admonition 的遗留物，本项目的 markdown 管线不产出对应的 class）。
+ */
+.markdown-body {
+  --bgColor-default: rgb(var(--background));
+  --bgColor-muted: rgb(var(--surface-muted));
+  --borderColor-default: rgb(var(--rule) / 0.18);
+  --borderColor-muted: rgb(var(--rule) / 0.12);
 }
-@media (prefers-color-scheme: light) {
-  .markdown-body, [data-theme="light"] {
-    /* light */
-    color-scheme: light;
-    --bgColor-muted: #f6f8fa;
-    --borderColor-default: #d1d9e0;
-    --borderColor-muted: #d1d9e0b3;
-    --borderColor-neutral-muted: #d1d9e0b3;
-    --borderColor-accent-emphasis: #0969da;
-    --borderColor-success-emphasis: #1a7f37;
-    --borderColor-attention-emphasis: #9a6700;
-    --borderColor-danger-emphasis: #cf222e;
-    --borderColor-done-emphasis: #8250df;
-  }
-}
-
 
 .markdown-body table {
   border-spacing: 0;
@@ -47,9 +33,8 @@
   padding: 0;
 }
 
-
 .markdown-body table th {
-  font-weight: var(--base-text-weight-semibold, 600);
+  font-weight: 600;
 }
 
 .markdown-body table th,
@@ -58,7 +43,7 @@
   border: 1px solid var(--borderColor-default);
 }
 
-.markdown-body table td>:last-child {
+.markdown-body table td > :last-child {
   margin-bottom: 0;
 }
 

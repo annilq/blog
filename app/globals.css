@@ -3,84 +3,278 @@
 @tailwind utilities;
 @import "./markdown.css";
 
+/*
+ * 字体栈只在这里定义一次。
+ * 中文没有可接受的 webfont 方案（单个字重 2–8MB，比整站 JS 还大），所以正文交给系统字体：
+ * macOS/iOS → PingFang SC、Windows → Microsoft YaHei、Android → Noto Sans CJK。
+ * 拉丁也走系统 UI 字体，保证中英混排时两者的光学尺寸一致 —— 混一家 Latin webfont 反而会
+ * 在每行里制造一次字号跳变。
+ */
+/*
+ * 语义色板。每个值都是「空格分隔的 RGB 三元组」—— 逗号语法不允许 `rgb(... / .06)` 这种写法，
+ * 用逗号会让所有带透明度的规则变成非法 CSS。
+ *
+ * 色值全部取自 @mui/joy@5.0.0-beta.51 自带的 grey / blue 色阶，没有另造一套。
+ * 原因：Joy 用同一批 grey 渲染 Card / Input / Modal / Textarea，如果这边再写一套独立中性色，
+ * 同一屏上会出现两种灰（卡片里一个、正文旁边一个）。对齐之后 Tailwind 与 Joy 是同一套颜色。
+ * 注意 Joy 的灰阶本身偏蓝，所以全站的中性色是冷灰而不是纯灰 —— 这是有意的，不是误差。
+ */
 :root {
-  --background: 255, 255, 255;
-  --foreground: 0, 0, 0;
-  --link: theme("colors.blue.500");
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+    "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", "Source Han Sans SC",
+    ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol";
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
+    "Liberation Mono", "Courier New", monospace;
+
+  /* 表面：画布 → 抬升（卡片）→ 填充（表格条纹、引用块底）。 */
+  --background: 255 255 255;      /* #FFFFFF  joy background.body */
+  --surface: 251 252 254;         /* #FBFCFE  joy background.surface */
+  --surface-muted: 240 244 248;   /* #F0F4F8  joy level1 */
+
+  /* 骨架屏专用。不能复用 --surface-muted：那个值相对画布的对比度只有 1.11:1（浅色）
+   * 和 1.20:1（深色），骨架条会直接糊进背景 —— 深色下比改动前的 gray-700（2.06:1）还难认。
+   * 这里取一组在两种主题下都稳定 1.24:1 / 1.95:1 的中性灰：够看出「这里有内容待加载」，
+   * 又不至于被误读成真实内容。装饰性元素，不追求 3:1。 */
+  --skeleton: 229 231 235;        /* #E5E7EB */
+
+  /* 文字 */
+  --foreground: 23 26 28;         /* #171A1C  joy text.primary —— 17.5:1 on white */
+  --muted: 85 94 104;             /* #555E68  joy text.tertiary —— 6.6:1 on white */
+
+  /* 线与强调 */
+  --rule: 99 107 116;             /* #636B74  joy neutral-500，统一配 alpha 使用 */
+  --link: 11 107 203;             /* #0B6BCB  joy primary-500（也是 Joy 的 focusVisible）—— 5.3:1 */
+
+  /* 交给 UA 决定滚动条、表单控件、光标的明暗，浏览器自带的界面也归主题管。 */
+  color-scheme: light;
 }
 
 [data-joy-color-scheme="dark"] {
-  --background: 0, 0, 0;
-  --foreground: 255, 255, 255;
-  --link: theme("colors.white");
-}
-
-a {
-  color: var(--link);
-}
-
-article a::after {
-  content: attr(data-count number, 0) ". ";
+  --background: 0 0 0;            /* #000000  joy background.body */
+  --surface: 23 26 28;            /* #171A1C  joy level1 */
+  --surface-muted: 23 26 28;      /* 深色下「抬升」与「填充」收敛到同一级，再分一层看不出来 */
+  --skeleton: 58 62 66;           /* #3A3E42 —— 深色下骨架必须比画布亮，见 :root 的说明 */
+  --foreground: 240 244 248;      /* #F0F4F8  joy text.primary —— 19:1 on black */
+  --muted: 159 166 173;           /* #9FA6AD  joy text.icon —— 8.5:1 */
+  --rule: 99 107 116;
+  --link: 151 195 240;            /* #97C3F0  joy primary-300 —— 11.4:1
+                                   * 此前这里是 pure white：链接与正文同色，等于链接消失，
+                                   * 而且 PostList 的 hover 也因此成为空操作。 */
+  color-scheme: dark;
 }
 
 @layer base {
+  html {
+    font-family: var(--font-sans);
+    -webkit-text-size-adjust: 100%;
+    /* 中文标点、西文与数字的默认间距在系统字体下已经不差，不做额外 kerning 干预。 */
+  }
+
+  /* 正文字号与行高来自 tailwind.config.ts 的 `body` 角色，不在 body 上再挂 text-sm 覆盖它。 */
+  body {
+    @apply bg-background text-foreground text-body;
+  }
+
+  a {
+    color: rgb(var(--link));
+    text-underline-offset: 0.25em;
+    text-decoration-thickness: 1px;
+  }
+
+  a:hover {
+    text-decoration-thickness: 2px;
+  }
+
+  /* 焦点环全站缺失，这里给一个 —— 键盘用户唯一的位置反馈。 */
+  :focus-visible {
+    outline: 2px solid rgb(var(--link));
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  /*
+   * 划选保持中性（前景色淡化），刻意不用强调色：正文里的链接本身就是蓝的，
+   * 蓝底再压蓝字会糊成一片。蓝只留给真正需要被找到的东西（mark / 链接 / 焦点）。
+   */
+  ::selection {
+    background-color: rgb(var(--foreground) / 0.16);
+  }
+
+  /*
+   * 搜索命中的 <mark> 此前没有任何样式，吃 UA 默认的黄底 (255,255,0) —— 在深色模态里是一块刺眼亮斑。
+   * 文字色不跟着变，所以正文对比度仍由 --foreground 保证（浅 10.4:1 / 深 9.0:1）。
+   * 0.18 太淡（浅色下几乎看不出是命中），0.35 让高亮块对画布达到 1.68:1（浅）/ 2.11:1（深）——
+   * 够看出"这里命中"，又不至于盖过正文。
+   */
+  mark {
+    background-color: rgb(var(--link) / 0.35);
+    color: inherit;
+  }
+
+  /* 表单控件与文本光标默认是浏览器自己的蓝，跟主题蓝不是一个蓝。 */
+  input,
+  textarea,
+  select {
+    accent-color: rgb(var(--link));
+    caret-color: rgb(var(--link));
+  }
+
+  /* 深色下浅色文字会显得更细，补一点字距把可读性拉回来。 */
+  [data-joy-color-scheme="dark"] body {
+    letter-spacing: 0.012em;
+  }
+
   h1,
   h2,
   h3,
-  h4 {
-    @apply font-bold my-2;
+  h4,
+  h5,
+  h6 {
+    @apply font-semibold;
+    /* 标题上方留白必须大于下方，标题才归属它下面那一段而不是上面那段。 */
+    margin-block: 1.75em 0.6em;
+    text-wrap: balance;
   }
 
   h1 {
-    @apply text-3xl;
+    @apply text-title-1;
   }
 
   h2 {
-    @apply text-2xl;
+    @apply text-title-2;
   }
 
   h3 {
-    @apply text-xl;
+    @apply text-title-3;
   }
 
   h4 {
-    @apply text-sm;
+    @apply text-title-4;
   }
 
+  h5,
+  h6 {
+    @apply text-body;
+  }
+
+  h1:first-child,
+  h2:first-child,
+  h3:first-child,
+  h4:first-child {
+    margin-block-start: 0;
+  }
+
+  /*
+   * 段距只加在下边，不加上下 —— 相邻 margin 会折叠，标注上下两边等于凭空多出一倍空白。
+   * 1.25em × 17px = 21px，加上行距后段间基线距离约 52px，明显大于段内 30.6px，
+   * 段落边界才读得出来。
+   */
   p,
-  ol,
   ul,
-  li,
-  pre,
-  blockquote,
-  code {
-    @apply my-2;
+  ol,
+  dl,
+  figure,
+  table {
+    margin-block: 0 1.25em;
   }
 
+  p {
+    /* 避免段末单字成行。 */
+    text-wrap: pretty;
+  }
+
+  /* Tailwind preflight 把 ul 圆点抹掉了，这里补回来；没有它，首页的 bullet 列表是一段无标记的散文。 */
+  ul,
   ol {
-    @apply px-4;
+    padding-inline-start: 1.5em;
+  }
+
+  ul > li {
+    list-style: disc;
   }
 
   ol > li {
-    @apply list-decimal;
+    list-style: decimal;
   }
 
+  ul ul > li,
+  ul ol ul > li {
+    list-style: circle;
+  }
+
+  li {
+    margin-block: 0.35em;
+  }
+
+  li > ul,
+  li > ol {
+    margin-block: 0.35em 0;
+  }
+
+  blockquote {
+    margin-inline: 0;
+    padding-inline-start: 1em;
+    border-inline-start: 2px solid rgb(var(--rule) / 0.2);
+    color: rgb(var(--muted));
+  }
+
+  blockquote > :last-child {
+    margin-block-end: 0;
+  }
+
+  hr {
+    border: 0;
+    border-block-start: 1px solid rgb(var(--rule) / 0.12);
+    margin-block: 2.5em;
+  }
+
+  /* 行内代码：轻微底色 + 等宽即可。中文行间每多一条边框就是一次视觉噪音。 */
+  :not(pre) > code {
+    font-family: var(--font-mono);
+    font-size: 0.92em;
+    padding: 0.15em 0.4em;
+    border-radius: 4px;
+    background-color: rgb(var(--foreground) / 0.06);
+  }
+
+  /*
+   * 代码块：rehype-pretty-code 会把 shiki 的主题底色写成 pre 的行内样式（默认 github-dark-dimmed），
+   * 所以这里只管内边距、圆角、字号与行高，不碰 background。
+   * 之前靠 `code > span { mx-4 }` 伪造左右内边距，会让每行高亮底色一起内缩 —— 已删除。
+   */
   pre {
-    @apply overflow-auto;
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    line-height: 1.7;
+    padding: 1rem 1.25rem;
+    border-radius: 6px;
+    overflow-x: auto;
+    margin-block: 1.75em;
   }
 
-  code > span {
-    @apply mx-4;
+  pre code {
+    background: none;
+    padding: 0;
+    font-size: inherit;
   }
-}
 
-html,
-body {
-  font-family: Inter var, ui-sans-serif, system-ui, sans-serif,
-    Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
-}
+  figure[data-rehype-pretty-code-figure] {
+    margin-block: 1.75em;
+  }
 
-body::-webkit-scrollbar {
-  /* background: aquamarine; */
-  display: none;
+  figure[data-rehype-pretty-code-figure] pre {
+    margin-block: 0;
+  }
+
+  .markdown-body img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 6px;
+  }
+
+  .markdown-body table {
+    font-size: 0.9375rem;
+    margin-block: 1.75em;
+  }
 }

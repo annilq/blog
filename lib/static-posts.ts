@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
-import { parseContent } from "./util";
+import { extractExcerpt, parseContent } from "./util";
 
 const FILE_EXT = "md";
 const postsDirectory = path.join(process.cwd(), "public", "posts");
@@ -12,6 +12,12 @@ export interface StaticPostMeta {
   date: Date;
   tags?: string;
   published: boolean;
+  /*
+   * 列表页的摘要，同时也是搜索索引的一部分（搜"记得正文里那个词"靠它）。
+   * 这里是**空串也是合法值**：只有标题和代码的文章没有被 extractExcerpt 认下的可读首段，
+   * 由调用方决定要不要渲染这一行，不要在读取层编一句假的。
+   */
+  excerpt: string;
 }
 
 export interface StaticPost extends StaticPostMeta {
@@ -67,6 +73,7 @@ export async function getAllStaticPostsMeta(): Promise<StaticPostMeta[]> {
         date: matterResult.data.date,
         tags: matterResult.data.tags,
         published: true,
+        excerpt: extractExcerpt(matterResult.content),
       };
       
       posts.push(post);
@@ -99,6 +106,7 @@ export async function getAllStaticPosts(): Promise<StaticPost[]> {
         date: matterResult.data.date,
         tags: matterResult.data.tags,
         published: true,
+        excerpt: extractExcerpt(matterResult.content),
       };
       
       posts.push(post);
@@ -137,18 +145,35 @@ export async function getStaticPostsByTag(tag: string): Promise<StaticPost[]> {
   return postsCache.filter(post => post.tags === tag);
 }
 
-// 获取所有标签（使用元数据缓存，避免解析内容）
-export async function getAllTags(): Promise<string[]> {
+// 标签 + 该标签下的文章数
+export interface TagCount {
+  name: string;
+  count: number;
+}
+
+/*
+ * 标签索引：名字与篇数一起返回。算在这里而不是调用方 —— 代价已经付过了（postsMetaCache 在内存里），
+ * 而且「每个标签有几篇」只有这一处知道答案。
+ * 排序：篇数多的在前，同数按名字；标签列表天然按热度读。
+ */
+export async function getTagIndex(): Promise<TagCount[]> {
   if (!postsMetaCache) {
     postsMetaCache = await getAllStaticPostsMeta();
   }
-  const tags = new Set<string>();
-  
+  const counts = new Map<string, number>();
+
   postsMetaCache.forEach(post => {
     if (post.tags) {
-      tags.add(post.tags);
+      counts.set(post.tags, (counts.get(post.tags) ?? 0) + 1);
     }
   });
-  
-  return Array.from(tags);
+
+  return Array.from(counts, ([name, count]) => ({ name, count })).sort(
+    (a, b) => b.count - a.count || a.name.localeCompare(b.name),
+  );
+}
+
+// 只要名字的场景（构建脚本打印、tag 深链校验）。委托给 getTagIndex，避免两处各算一遍。
+export async function getAllTags(): Promise<string[]> {
+  return (await getTagIndex()).map(tag => tag.name);
 }

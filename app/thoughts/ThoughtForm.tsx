@@ -1,16 +1,38 @@
 'use client'
 
+import { useRef, useState } from "react"
 import { PlusCircle } from "lucide-react"
 import { Button, Textarea } from "@mui/joy"
-import { useRef } from "react"
+import useSnackbar from "@/store/useSnackbar"
 
 export default function ThoughtForm({ addThought }: { addThought: (formData: FormData) => Promise<any> }) {
   const formRef = useRef<HTMLFormElement>(null)
+  const [submitting, setSubmitting] = useState(false)
+  const { setOpenSnackbar } = useSnackbar()
 
+  /*
+   * 原来失败时唯一的后果是「textarea 没被清空」—— 一个需要用户自己推断的信号。
+   * 而 action 返回的 error 文案（"Thought content cannot be empty" 等）从写出来那天起
+   * 没有任何一处读过它。
+   *
+   * 两件事一起补：失败要说出来（Snackbar 组件在 ClientContext 里挂了很久，全仓零处调用，
+   * 这才是它真正该被用的地方）；提交中要有状态 —— 这是一次网络往返，按钮上毫无动静
+   * 会让人以为没点上而重复提交。
+   */
   async function handleSubmit(formData: FormData) {
-    const result = await addThought(formData)
-    if (result.success) {
-      formRef.current?.reset()
+    setSubmitting(true)
+    try {
+      const result = await addThought(formData)
+      if (result?.success) {
+        formRef.current?.reset()
+        setOpenSnackbar(true, "已记录")
+      } else {
+        setOpenSnackbar(true, result?.error ?? "发布失败，请重试")
+      }
+    } catch {
+      setOpenSnackbar(true, "发布失败，请重试")
+    } finally {
+      setSubmitting(false)
     }
   }
 
@@ -22,8 +44,8 @@ export default function ThoughtForm({ addThought }: { addThought: (formData: For
         minRows={3}
         className="resize-none"
       />
-      <Button type="submit" className="self-end">
-        <PlusCircle className="mr-2 h-4 w-4" />
+      <Button type="submit" className="self-end" loading={submitting}>
+        <PlusCircle className="mr-2 h-4 w-4" aria-hidden="true" />
         确定
       </Button>
     </form>
