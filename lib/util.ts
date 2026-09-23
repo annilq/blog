@@ -87,7 +87,10 @@ function excerptCandidate(node: any): string {
 }
 
 export function extractExcerpt(markdown: string, maxLength = 120): string {
-  const tree = unified().use(remarkParse as any).use(remarkGfm).parse(markdown);
+  const tree = unified()
+    .use(remarkParse as any)
+    .use(remarkGfm)
+    .parse(markdown) as unknown as { children: any[] };
 
   const candidates = (tree.children ?? [])
     .map(excerptCandidate)
