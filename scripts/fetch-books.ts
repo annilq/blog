@@ -4,7 +4,7 @@
 // 无法在 build 或运行时动态拉取。本脚本在能访问 weread 的网络下（通常是本机）跑一次，
 // 把结果写成静态 JSON 并提交，书籍页即可纯静态渲染、书籍永远有数据。
 //
-// 用法：npm run fetch-books   （需要能访问 weread 的网络；跑完把 public/books.json 提交）
+// 用法：yarn fetch-books   （需要能访问 weread 的网络；跑完把 public/books.json 提交）
 
 import { BOOKS, getBookInfoById } from "../app/api/book/util";
 import fs from "fs";
