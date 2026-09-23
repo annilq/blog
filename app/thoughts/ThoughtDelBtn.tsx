@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from "react"
+import { useSession } from "next-auth/react"
 import { Trash2 } from "lucide-react"
 import { Button, Modal, ModalClose, ModalDialog, Typography } from "@mui/joy"
 import { deleteThought } from "./actions"
@@ -20,9 +21,13 @@ import useSnackbar from "@/store/useSnackbar"
  * 按钮上那个转圈就是假的。React 19 才修好这点。
  */
 export default function ThoughtDelBtn({ id }: { id: string }) {
+  const { status } = useSession()
   const [open, setOpen] = useState(false)
   const [deleting, setDeleting] = useState(false)
   const { setOpenSnackbar } = useSnackbar()
+
+  // 未登录不显示删除入口：鉴权判定放客户端，避免服务端读 cookie 把整页逼成 dynamic。
+  if (status !== "authenticated") return null
 
   async function confirmDelete() {
     setDeleting(true)

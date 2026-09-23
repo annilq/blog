@@ -69,8 +69,10 @@ export default function PostList({
             <span className="text-meta font-normal text-muted tabular-nums">
               {group.posts.length} 篇
             </span>
-            {/* 装饰性分隔线，把年份之间分开；aria-hidden 免得被念成内容。 */}
+            {/* 装饰性分隔：线 + 末端强调色圆点（新孟菲斯式几何节点），把年份分组分开；
+                aria-hidden 免得被念成内容。 */}
             <span aria-hidden="true" className="h-px flex-1 self-center bg-rule/[0.12]" />
+            <span aria-hidden="true" className="h-2.5 w-2.5 shrink-0 self-center rounded-full bg-link" />
           </h2>
 
           {/* 全局 CSS 给 ul 补了圆点和 padding（正文里需要），这里是不成句的条目列表，取消掉。 */}

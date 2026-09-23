@@ -1,4 +1,5 @@
-import { BOOKS, getBookInfoById } from "../api/book/util";
+import booksData from "../../public/books.json";
+import type { Book } from "@/app/api/book/util";
 import Layout from "@/components/layout";
 import Book from "./components/book";
 import Intro from "./intro.mdx";
@@ -9,19 +10,25 @@ export const metadata: Metadata = {
   description: "在读和读过的书，以及从微信读书同步过来的划线笔记。",
 };
 
-export default async function Page() {
-  const bookJson = await Promise.all(BOOKS.map(getBookInfoById));
+export default function Page() {
+  // 书籍数据来自构建期固化的 public/books.json（见 scripts/fetch-books.ts）。
+  // weread.qq.com 是腾讯国内站点，Vercel 海外节点访问会 ETIMEDOUT，不能在运行时/构建期动态拉取，
+  // 因此改为「本地抓一次、提交静态 JSON、页面直接 import」——整页纯静态，零运行时 I/O。
+  const bookJson = booksData as Book[];
 
   return (
-    <Layout
-      containerClassName="bg-surface-muted dark:bg-background"
-      showDivider={false}
-    >
+    <Layout containerClassName="bg-surface-muted dark:bg-background">
+      <header className="mb-10">
+        <h1 className="m-0">书籍</h1>
+        <p className="m-0 mt-2 text-meta text-muted">
+          {bookJson.length} 本 · 在读与读完，以及从微信读书同步的划线笔记
+        </p>
+      </header>
       <div className="w-full">
-        <div className="rounded-sm bg-background px-4 overflow-auto">
+        <div className="rounded-xl bg-surface p-6">
           <Intro />
         </div>
-        <div className={"flex flex-wrap gap-4 mt-4"}>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
           {bookJson?.map((book) => (
             <Book data={book} key={book.id} />
           ))}
@@ -30,7 +37,3 @@ export default async function Page() {
     </Layout>
   );
 }
-
-// weread.qq.com 是腾讯国内站点，Vercel 海外构建节点访问会超时，
-// 因此不能在 build 阶段预渲染；改为运行时渲染（fetch 结果由 util 内 next.revalidate 缓存）。
-export const dynamic = "force-dynamic";

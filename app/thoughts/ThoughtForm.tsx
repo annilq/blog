@@ -1,14 +1,21 @@
 'use client'
 
 import { useRef, useState } from "react"
+import { useSession } from "next-auth/react"
 import { PlusCircle } from "lucide-react"
 import { Button, Textarea } from "@mui/joy"
 import useSnackbar from "@/store/useSnackbar"
+import { addThought } from "./actions"
 
-export default function ThoughtForm({ addThought }: { addThought: (formData: FormData) => Promise<any> }) {
+export default function ThoughtForm() {
+  const { status } = useSession()
   const formRef = useRef<HTMLFormElement>(null)
   const [submitting, setSubmitting] = useState(false)
   const { setOpenSnackbar } = useSnackbar()
+
+  // 未登录不渲染任何东西：发帖是仅所有者操作，鉴权判定放在客户端，
+  // 避免服务端读 cookie 把整页逼成 dynamic 渲染。
+  if (status !== "authenticated") return null
 
   /*
    * 原来失败时唯一的后果是「textarea 没被清空」—— 一个需要用户自己推断的信号。
