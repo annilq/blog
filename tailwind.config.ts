@@ -27,7 +27,7 @@ const config: Config = {
         mono: "var(--font-mono)",
       },
       maxWidth: {
-        // 正文测量宽度。44rem = 704px，扣掉 Layout 的 px-2 后可用 688px：
+        // 正文测量宽度。44rem = 704px，扣掉 Layout 的 px-4 后可用 672px：
         // 17px 正文下约 40 个汉字/行、等宽 14px 下约 82 列/行。
         content: "44rem",
       },

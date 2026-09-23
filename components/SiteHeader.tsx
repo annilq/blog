@@ -28,7 +28,7 @@ export default function SiteHeader() {
   return (
     <>
       {md && (
-        <div className={cn("mx-auto px-2 lg:px-2", containerClass)}>
+        <div className={cn("mx-auto px-4", containerClass)}>
           <Navigation variant="row" />
           <Divider />
         </div>

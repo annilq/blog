@@ -68,6 +68,8 @@
   html {
     font-family: var(--font-sans);
     -webkit-text-size-adjust: 100%;
+    /* 移动端横向溢出兜底：clip 只裁切不建滚动容器，不会破坏 sticky 头部。 */
+    overflow-x: clip;
     /* 中文标点、西文与数字的默认间距在系统字体下已经不差，不做额外 kerning 干预。 */
   }
 

@@ -32,6 +32,11 @@ const navLinks: NavLinkItem[] = [
     path: "/book",
     title: "书籍",
   },
+  {
+    id: "header-profile",
+    path: "/profile",
+    title: "关于",
+  },
 ];
 
 interface Props {

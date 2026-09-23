@@ -64,19 +64,13 @@ export default async function Page({ params }: Props) {
 
   return (
     <Layout>
-      <div className="w-full h-auto flex flex-col justify-start items-start">
-        <div
-          className={`group relative flex flex-col justify-start items-start w-full`}
-        >
-          <article className="w-full">
-            <h1>{post.title}</h1>
-            <div className="text-meta text-muted">
-              <DateLabel date={post.date} />
-            </div>
-            <div dangerouslySetInnerHTML={{ __html: post.contentHtml }}></div>
-          </article>
+      <article className="w-full">
+        <h1>{post.title}</h1>
+        <div className="text-meta text-muted">
+          <DateLabel date={post.date} />
         </div>
-      </div>
+        <div dangerouslySetInnerHTML={{ __html: post.contentHtml }}></div>
+      </article>
     </Layout>
   );
 }

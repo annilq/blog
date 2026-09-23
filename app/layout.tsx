@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import React from "react";
 import ClientContext from "@/components/ClientContext";
 import SiteHeader from "@/components/SiteHeader";
+import SiteFooter from "@/components/SiteFooter";
 import { OG_IMAGE, SITE_DESCRIPTION, SITE_NAME, SITE_TITLE, SITE_URL } from "@/lib/site";
 import "./globals.css";
 
@@ -50,6 +51,7 @@ const RootLayout: React.FC<RootLayoutProps> = ({ children }) => (
       <ClientContext>
         <SiteHeader />
         {children}
+        <SiteFooter />
       </ClientContext>
     </body>
   </html>

@@ -55,3 +55,34 @@
 | `app/thoughts/page.tsx` | 日期时区错：`format()` 按运行时时区渲染，`createdAt` 为 DB 的 UTC 真实时刻，Vercel 上显示成 UTC，比作者北京时间早 8 小时 | 弃用 `date-fns format()`，新增 `formatBeijingTime()`：用 UTC 部件手动 +8 偏移，任何环境显示恒等于作者当时北京时间；`dateTime` 仍用 `toISOString()` 给机器。与 `app/post/components/Date.tsx`「不依赖本地时区」纪律同源 |
 
 补完后全站页面均有一级标题：`/`（home）与 `/profile` 的 h1 由 `profile.mdx` 的 `# 刘强` 提供；`/post`、`/post/[id]` 上一轮已加；本轮补 `/thoughts`、`/book`。
+
+## Hallmark 重构：页面布局结构重 design（2026-09-23 第三轮）
+
+用 hallmark 技能审计「页面布局结构」并重新 design，约束：**保持既有轻快（light/breezy）风格，不套 catalog 主题、不新建调色板、不用 GSAP**。
+
+### 审计：结构层问题（按严重度）
+
+| 严重度 | 文件 | 问题 |
+| --- | --- | --- |
+| 高 | `components/SiteHeader.tsx:31` | 头部容器 `px-2 lg:px-2`（8px），正文 `Layout` 用 `px-4`（16px）——两者都 44rem 居中但导航文字比正文左偏 8px，全站每页都歪 |
+| 高 | `app/page.tsx` | 首页直接渲染 `profile.mdx`，无站点级 h1、无去处引导，访客落地只见一段 bio——最弱的一页 |
+| 中 | `app/layout.tsx` | 全站零 footer：无版权、无次级导航，结构不完整 |
+| 中 | `components/Navigation.tsx` | nav 只有 主页/碎碎念/文章/书籍，没有「关于」入口，而 `/profile` 真实存在 → `/profile` 成孤儿 |
+| 低 | `app/post/[id]/page.tsx:67-71` | 两层 `w-full h-auto flex flex-col justify-start items-start` 冗余包裹，无作用 |
+| 低 | `app/loading.tsx` / `app/post/loading.tsx` / `tailwind.config.ts` 注释 | 加载骨架与首页同款 `px-2 lg:px-2 p-4` 冲突内边距，会复现头部偏移；config 注释仍写 `px-2` |
+
+### 决策与修复
+
+- **头部与正文对齐**：`SiteHeader` 容器 `px-2 lg:px-2` → `px-4`，与 `Layout` 完全一致（导航不再左偏）。加载骨架同步改为 `px-4 py-4`；更新 `tailwind.config.ts` 注释为 `px-4`。
+- **首页导览式落地（Wayfinding Landing）**：`app/page.tsx` 改为站名作 h1 + 一句定位（`SITE_NAME` / `SITE_DESCRIPTION`），下面三块 wayfinding 卡片（文章 / 碎碎念 / 书籍），复用统一卡片原语。完整的自我介绍从首页移出，由 `/profile` 承载，避免首页出现两个 h1。
+- **全站 footer**：新增 `components/SiteFooter.tsx`（版权年 + 次级导航），接入 `app/layout.tsx`，结构闭环。
+- **导航补「关于」**：`Navigation.tsx` 追加 `关于` → `/profile`，`/profile` 不再是孤儿页。
+- **文章详情去嵌套**：`app/post/[id]/page.tsx` 移除双层冗余包裹，直接 `<Layout><article>...</article></Layout>`。
+- **移动端保险**：`app/globals.css` 加 `overflow-x: clip`，防止任何子元素溢出触发横向滚动条。
+
+### 后果
+
+- 头部 / 正文 / 加载态 / footer 四者内边距全部 `px-4`、宽度全部 `max-w-content`，全站左右基准线一致。
+- 首页从「bio 片段」升级为可导航的落地页；`/profile` 有了入口。
+- 全站具备 header + footer 完整结构；文章详情 DOM 更干净。
+- 取舍：首页不再展示自我介绍正文（移到 `/profile`）。若你希望首页也保留一段 bio，可在 wayfinding 卡片前加一段 `text-meta` 引文，不破坏当前结构。
